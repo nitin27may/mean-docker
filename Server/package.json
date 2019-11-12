@@ -1,0 +1,20 @@
+{
+    "name": "server-for-truck-india",
+    "version": "1.0.0",
+    "description": "Server for Truck India",
+    "dependencies": {
+        "bcryptjs": "^2.1.0",
+        "body-parser": "^1.13.2",
+        "cors": "^2.8.1",
+        "express": "^4.13.0",
+        "express-jwt": "^3.0.1",
+        "jsonwebtoken": "^5.0.2",
+        "lodash": "^4.17.10",
+        "mongodb": "^2.1.16",
+        "mongoskin": "^2.1.0",
+        "q": "^1.4.1",
+        "request": "^2.87.0",
+        "rootpath": "^0.1.2"
+    },
+    "license": "MIT"
+}

@@ -1,0 +1,12 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$link-hover-decoration: none;    // remove underline from button links
+
+$link-color: #3f51b5;            // set link color based on the used material theme
+$link-hover-color: currentColor;

@@ -1,0 +1,17 @@
+﻿<div class="col-md-12">
+  <h1>Hi {{currentUser.firstName}}!</h1>
+  <p>You're logged in with the MEAN Stack & Angular 6, Bootstrap 4 nodejs 8 + , MongoDb!!</p>
+  <h3>All registered users:</h3>
+  <table class="table">
+    <tr *ngFor="let user of users">
+      <td>{{user.username}}</td>
+      <td> ({{user.firstName}} {{user.lastName}})</td>
+      <td>
+        <a href="javascript:void(0)" (click)="deleteUser(user._id)">Delete</a>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <a [routerLink]="['/login']">Logout</a>
+  </p>
+</div>

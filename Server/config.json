@@ -1,0 +1,5 @@
+{
+  "connectionString": "mongodb://database/mean-docker",
+  "apiUrl": "http://localhost:4000",
+  "secret": "Thisismyscretkey"
+}
