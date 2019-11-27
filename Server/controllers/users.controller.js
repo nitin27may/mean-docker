@@ -1,84 +1,146 @@
-var config = require('config.json');
-var express = require('express');
-var router = express.Router();
-var userService = require('services/user.service');
-
-// routes
-router.post('/authenticate', authenticate);
-router.post('/register', register);
-router.get('/', getAll);
-router.get('/current', getCurrent);
-router.put('/:_id', update);
-router.delete('/:_id', _delete);
-
-module.exports = router;
-
-function authenticate(req, res) {
-    userService.authenticate(req.body.username, req.body.password)
-        .then(function (user) {
-            if (user) {
-                // authentication successful
-                res.send(user);
-            } else {
-                // authentication failed
-                res.status(400).send('Username or password is incorrect');
-            }
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
+// userController.js
+// Import user model
+User = require("../models/user.model");
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
+// Handle index actions
+exports.index = function(req, res) {
+  User.get(function(err, users) {
+    if (err) {
+      res.json({
+        status: "error",
+        message: err
+      });
+    }
+    res.json({
+      status: "success",
+      message: "Users retrieved successfully",
+      data: users
+    });
+  });
+};
+// Handle create user actions
+exports.new = function(req, res) {
+  User.find({ name: req.body.username.trim() }, function(err, users) {
+    console.log(users);
+    if (err) {
+      res.json({
+        status: "error",
+        message: err
+      });
+    }
+    if (users && users.length > 0) {
+      res.status(400).send({
+        status: "error",
+        message: req.body.username + " is already taken"
+      });
+    } else {
+      var user = new User();
+      user.username = req.body.username ? req.body.username : user.username;
+      if (req.body.password) {
+        user.password = bcrypt.hashSync(req.body.password, 10);
+      }
+      user.firstName = req.body.firstName;
+      user.lastName = req.body.lastName;
+      // save the user and check for errors
+      user.save(function(err) {
+        if (err) res.json(err);
+        res.json({
+          message: "New user created!",
+          data: user
         });
-}
+      });
+    }
+  });
+};
+// Handle view user info
+exports.view = function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+    if (err) res.send(err);
+    res.json({
+      message: "User details loading..",
+      data: user
+    });
+  });
+};
+// Handle update user info
+exports.update = function(req, res) {
+  User.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function(
+    err,
+    user
+  ) {
+    if (err) res.send(err);
 
-function register(req, res) {
-    userService.create(req.body)
-        .then(function () {
-            res.json('success');
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-}
+    res.json({
+      message: "User Info updated",
+      data: user
+    });
+  });
+};
+// Handle delete user
+exports.delete = function(req, res) {
+  User.remove(
+    {
+      _id: req.params.user_id
+    },
+    function(err, user) {
+      if (err) res.send(err);
+      res.json({
+        status: "success",
+        message: "User deleted"
+      });
+    }
+  );
+};
 
-function getAll(req, res) {
-    userService.getAll()
-        .then(function (users) {
-            res.send(users);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-}
+exports.authenticate = function(req, res) {
+  User.findOne({ username: req.body.username }, function(err, user) {
+    if (err) res.send(err);
 
-function getCurrent(req, res) {
-    userService.getById(req.user.sub)
-        .then(function (user) {
-            if (user) {
-                res.send(user);
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-}
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      // authentication successful
+      let newUser = {
+        token: jwt.sign({ sub: user._id }, "Thisismyscretkey"),
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
+      res.json({
+        status: "success",
+        message: "Users retrieved successfully",
+        data: newUser
+      });
+    } else {
+      // authentication failed
+      res.status(401).send({
+        status: "error",
+        message: "User name or password is invalid."
+      });
+    }
+  });
+};
 
-function update(req, res) {
-    userService.update(req.params._id, req.body)
-        .then(function () {
-            res.json('success');
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-}
+exports.changePassword = function(req, res) {
+  User.findById(req.params.user_id, function(err, user) {
+    if (err) res.send(err);
 
-function _delete(req, res) {
-    userService.delete(req.params._id)
-        .then(function () {
-            res.json('success');
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
+    if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      // authentication successful
+      if (req.body.password) {
+        user.password = bcrypt.hashSync(req.body.password, 10);
+      }
+      user.save(function(err) {
+        if (err) res.json(err);
+        res.status(202).send({
+          status: "success",
+          message: "Password Updated successfully"
         });
-}
+      });
+    } else {
+      // authentication failed
+      res.status(401).send({
+        status: "error",
+        message: "Old password is wrong."
+      });
+    }
+  });
+};
