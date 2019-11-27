@@ -12,7 +12,7 @@ services:
   express: #name of the second service
     build: Server # specify the directory of the Dockerfile
     ports:
-      - "4000:4000" #specify ports forewarding
+      - "4000:3000" #specify ports forewarding
     links:
       - database
 

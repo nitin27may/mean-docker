@@ -5,7 +5,7 @@ FROM node:12.8-alpine
 COPY package.json package-lock.json ./
 
 
-# disabling ssl for npm for Dev
+# disabling ssl for npm for Dev or if you are behind proxy
 RUN npm set strict-ssl false
 
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build

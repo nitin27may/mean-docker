@@ -4,14 +4,13 @@
   "description": "Packages for expressjs apis",
   "dependencies": {
     "bcryptjs": "^2.1.0",
-    "body-parser": "^1.13.2",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.1",
-    "express": "^4.13.0",
+    "express": "^4.17.1",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.10",
-    "mongodb": "^3.3.4",
-    "mongoskin": "^2.1.0",
+    "mongoose": "^5.7.10",
     "q": "^1.4.1",
     "request": "^2.87.0",
     "rootpath": "^0.1.2"
