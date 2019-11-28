@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { map } from 'rxjs/operators';
 import { appConfig } from '../../app.config';
 import { User } from '../models/index';
 
@@ -9,11 +9,19 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get<User[]>(appConfig.apiUrl + '/users');
+    return this.http.get<User[]>(appConfig.apiUrl + '/users').pipe(
+      map((users: any) => {
+        return users.data;
+      })
+    );
   }
 
   getById(_id: string) {
-    return this.http.get(appConfig.apiUrl + '/user/' + _id);
+    return this.http.get<User>(appConfig.apiUrl + '/user/' + _id).pipe(
+      map((user: any) => {
+        return user.data;
+      })
+    );
   }
 
   create(user: User) {
