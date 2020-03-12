@@ -1,0 +1,22 @@
+
+
+mongodb://nitin27may:Shakti09nks@ds056789.mlab.com:56789/nksmongo
+mongodb://navigator:wOuEakWNURNzKDbn89757K0bQhkBel51Dg8X3hqxJZjJEUoWW3bsEw7bSixkDxbnOJVLw7wZ2qEzPkIIzs8LEg==@navigator.documents.azure.com:10255/?ssl=true&replicaSet=globaldb
+
+
+mongodump --uri "mongodb://nitin27may:Shakti09nks@ds056789.mlab.com:56789/nksmongo" --out "C:\Data\Backup"
+
+
+mongorestore --uri="mongodb://navigator:wOuEakWNURNzKDbn89757K0bQhkBel51Dg8X3hqxJZjJEUoWW3bsEw7bSixkDxbnOJVLw7wZ2qEzPkIIzs8LEg==@navigator.documents.azure.com:10255/?ssl=true&replicaSet=globaldb" C:\data\Backup
+
+mongorestore --uri="mongodb://139.59.56.205/:27017" C:\data\Backup
+
+
+
+https://codinglatte.com/amp/posts/angular/sign-in-with-google-angular/
+
+https://developers.google.com/identity/sign-in/ios/backend-auth
+
+mongodb+srv://nitin27may:<password>@cluster0-gin8b.azure.mongodb.net/test?retryWrites=true&w=majority
+
+"connectionString": "mongodb://database/nksmongo",
