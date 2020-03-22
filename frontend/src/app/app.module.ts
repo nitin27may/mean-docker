@@ -1,30 +1,19 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { BootstrapModule } from "./bootstrap.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
-import { HomeComponent } from "./home/index";
-import { LoginComponent } from "./login/index";
-import { RegisterComponent } from "./register/index";
-import { routing } from "./app.routing";
-import { CoreModule } from "./core/core.module";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent
-  ],
+  declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BootstrapModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CoreModule.forRoot(),
-    routing
+    BrowserModule.withServerTransition({ appId: "serverApp" }),
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@ import { Subscription } from "rxjs";
 import { AlertService } from "./alert-messages.service";
 
 @Component({
-  selector: "mean-alert",
+  selector: "app-alert",
   templateUrl: "alert-messages.component.html"
 })
 export class AlertComponent implements OnDestroy {

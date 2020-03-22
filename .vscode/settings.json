@@ -4,7 +4,7 @@
     "editor.foldingStrategy": "auto",
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "files.autoSave": "off",
     "typescript.preferences.quoteStyle": "double",
     "javascript.preferences.quoteStyle": "double",

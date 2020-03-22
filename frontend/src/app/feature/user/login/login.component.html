@@ -1,0 +1,82 @@
+<div class="container ">
+  <div class="row">
+    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+      <div class="row">
+        <div class="col-lg-5 col-md-8 mx-auto">
+          <div class="card">
+            <article class="card-body">
+              <a
+                [routerLink]="['/register']"
+                class="float-right btn btn-outline-primary"
+                >Sign up</a
+              >
+              <h4 class="card-title mb-4 mt-1">Sign in</h4>
+              <form
+                (submit)="login(loginForm)"
+                novalidate
+                [formGroup]="loginForm"
+              >
+                <div class="form-group">
+                  <label>Your email</label>
+                  <input
+                    class="form-control"
+                    placeholder="Email"
+                    type="email"
+                    name="username"
+                    formControlName="userName"
+                  />
+                  <validation-messages
+                    style="text-align: left"
+                    [control]="loginForm.controls['userName']"
+                  ></validation-messages>
+                </div>
+                <!-- form-group// -->
+                <div class="form-group">
+                  <a class="float-right" href="#">Forgot?</a>
+                  <label>Your password</label>
+                  <input
+                    class="form-control"
+                    placeholder="******"
+                    type="password"
+                    name="password"
+                    formControlName="password"
+                  />
+                  <validation-messages
+                    style="text-align: left"
+                    [control]="loginForm.controls['password']"
+                  ></validation-messages>
+                </div>
+                <!-- form-group// -->
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="rememberMe"
+                        formControlName="rememberMe"
+                      />
+                      Remember me
+                    </label>
+                  </div>
+                  <!-- checkbox .// -->
+                </div>
+                <!-- form-group// -->
+                <div class="form-group">
+                  <button
+                    type="submit"
+                    [disabled]="loginForm.invalid"
+                    class="btn btn-primary btn-block"
+                  >
+                    Login
+                  </button>
+                </div>
+                <!-- form-group// -->
+              </form>
+            </article>
+          </div>
+          <!-- card.// -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

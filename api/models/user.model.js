@@ -18,6 +18,9 @@ var userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  token: String,
+  email: String,
+  mobile: String,
   create_date: {
     type: Date,
     default: Date.now

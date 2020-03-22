@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 @Injectable()
 export class ValidationService {
   constructor() {}
@@ -12,7 +13,8 @@ export class ValidationService {
       invalidPassword:
         "Invalid password. Password must be at least 6 characters long, and contain a number.",
       minlength: `Minimum length ${validatorValue.requiredLength}`,
-      maxlength: `Max length ${validatorValue.requiredLength}`
+      maxlength: `Max length ${validatorValue.requiredLength}`,
+      mustMatch: "Passwords must match"
     };
     return config[validatorName];
   }
@@ -38,5 +40,23 @@ export class ValidationService {
     } else {
       return { invalidMobile: true };
     }
+  }
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 }

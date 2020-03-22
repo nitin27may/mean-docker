@@ -21,9 +21,11 @@ Update the connection string, in api/server.js like below:
 We have uses NGINX loadbalancer in case if there is a requirement that frontend and api need to be exposed on same port. For configutration please check loadbalancer/nginx.conf
 
 if using mongo db image :
+
 `"connectionString":"mongodb://database/mean-docker"`
 
 If running mongodb remotely (Like hosted db on mlab) :
+
 `"connectionString": "mongodb://username:password@ds056789.mlab.com:56789/dbName"`
 
 ## How to run project

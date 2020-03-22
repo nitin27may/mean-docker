@@ -6,12 +6,15 @@ let expressJwt = require("express-jwt");
 // Import Mongoose
 let mongoose = require("mongoose");
 
+const config = require("./config.json");
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect("mongodb://database/mongodb", {
+// mongoose.connect("mongodb://database/mongodb", {
+mongoose.connect(config.connectionString, {
   useNewUrlParser: true
 });
 var db = mongoose.connection;
@@ -26,7 +29,7 @@ let apiRoutes = require("./api-routes");
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(
   expressJwt({
-    secret: "Thisismyscretkey",
+    secret: config.secret,
     getToken: function(req) {
       if (
         req.headers.authorization &&

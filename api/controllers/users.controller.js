@@ -4,6 +4,9 @@ User = require("../models/user.model");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 // Handle index actions
+
+const config = require("../config.json");
+
 exports.index = function(req, res) {
   User.get(function(err, users) {
     if (err) {
@@ -21,7 +24,7 @@ exports.index = function(req, res) {
 };
 // Handle create user actions
 exports.new = function(req, res) {
-  User.find({ name: req.body.username.trim() }, function(err, users) {
+  User.find({ username: req.body.username.trim() }, function(err, users) {
     console.log(users);
     if (err) {
       res.json({
@@ -99,15 +102,12 @@ exports.authenticate = function(req, res) {
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       // authentication successful
-      let newUser = {
-        token: jwt.sign({ sub: user._id }, "Thisismyscretkey"),
-        firstName: user.firstName,
-        lastName: user.lastName
-      };
+      user.token = jwt.sign({ sub: user._id }, config.secret);
+      delete user.password;
       res.json({
         status: "success",
         message: "Users retrieved successfully",
-        data: newUser
+        data: user
       });
     } else {
       // authentication failed

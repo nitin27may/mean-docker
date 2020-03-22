@@ -23,4 +23,4 @@ RUN npm run build:ssr
 # Expose the port the app runs in
 EXPOSE 4000
 # Serve the app
-CMD ["node", "dist/server"]
+CMD ["node", "dist/frontend/server/main.js"]

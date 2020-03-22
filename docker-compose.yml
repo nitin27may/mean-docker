@@ -4,6 +4,7 @@ version: "3" # specify docker-compose version
 services:
   angular: # name of the first service
     build: frontend # specify the directory of the Dockerfile
+    container_name: mean_angular
     ports:
       - "4000:4000" # specify port forewarding
     environment:
@@ -11,17 +12,26 @@ services:
 
   express: #name of the second service
     build: api # specify the directory of the Dockerfile
+    container_name: mean_express
     ports:
       - "3000:3000" #specify ports forewarding
+      # - "9229:9229" #for debugging
+    # command: #for debugging
+    #   - node
+    #   - "--inspect-brk=0.0.0.0"
+    #   - "."
     links:
       - database
 
   database: # name of the third service
     image: mongo # specify image to build container from
+    container_name: mean_mongo
     ports:
       - "27017:27017" # specify port forewarding
+
   nginx: #name of the second service
     build: loadbalancer # specify the directory of the Dockerfile
+    container_name: mean_nginx
     ports:
       - "80:8000" #specify ports forewarding
     links:
