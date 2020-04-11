@@ -26,7 +26,7 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
 ## How to run project
 
-###using Docker
+### using Docker
 
 1. Updated Connection String : "connectionString":"mongodb://database/mean-docker"
 
