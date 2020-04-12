@@ -9,7 +9,7 @@
       [routerLinkActive]="['router-link-active']"
       tooltip="con tact tet tootl tipd sadf sdfsdf "
       container="body"
-      style="z-index:1000; position:relative"
+      style="z-index: 1000; position: relative;"
       class="list-group-item"
     >
       <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
@@ -17,7 +17,7 @@
     </a>
     <div class="header-fields">
       <div class="nested-menu">
-        <a class="list-group-item " (click)="addExpandClass('profile')">
+        <a class="list-group-item" (click)="addExpandClass('profile')">
           <span><i class="fa fa-user"></i>&nbsp; {{ user?.firstName }} {{ user?.lastName }}</span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'profile'">
@@ -27,11 +27,7 @@
                 <span><i class="fa fa-fw fa-envelope"></i> Profile</span>
               </a>
             </li>
-            <li>
-              <a href="javascript:void(0)">
-                <span><i class="fa fa-fw fa-gear"></i> Settings</span>
-              </a>
-            </li>
+
             <li>
               <a [routerLink]="['/login']">
                 <span><i class="fa fa-fw fa-power-off"></i> Log Out</span>
