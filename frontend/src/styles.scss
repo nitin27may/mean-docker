@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'variables';
-@import '../node_modules/bootstrap/scss/bootstrap';
-@import '~ngx-toastr/toastr';
+@import "variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "~ngx-toastr/toastr";
+
+@import "~@swimlane/ngx-datatable/index.css";
+@import "~@swimlane/ngx-datatable/themes/material.scss";
+@import "~@swimlane/ngx-datatable/assets/icons.css";
 
 @media screen and (max-width: 992px) {
   .push-right {
