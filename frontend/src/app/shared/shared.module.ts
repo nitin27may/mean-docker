@@ -4,7 +4,6 @@ import { ModuleWithProviders, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BootstrapModule } from "./bootstrap.module";
-import { UserService } from "../feature/user/user.service";
 
 @NgModule({
   declarations: [],
@@ -15,7 +14,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [UserService]
+      providers: []
     };
   }
 }

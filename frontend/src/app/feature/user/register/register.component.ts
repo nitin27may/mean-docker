@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { UserService } from "../user.service";
+import { UserService } from "../../../core/services/user.service";
 import { ToastrService } from "ngx-toastr";
 import { ValidationService } from "src/app/core/components";
 
@@ -24,12 +24,12 @@ export class RegisterComponent implements OnInit {
   register() {
     this.loading = true;
     this.userService.create(this.registerForm.value).subscribe(
-      data => {
+      (data) => {
         this.toastrService.success("Registration successful");
         this.router.navigate(["/login"]);
         console.log(data);
       },
-      error => {
+      (error) => {
         this.toastrService.error(error);
         this.loading = false;
       }
@@ -46,10 +46,7 @@ export class RegisterComponent implements OnInit {
         confirmPassword: ["", Validators.required]
       },
       {
-        validator: this.validationService.MustMatch(
-          "password",
-          "confirmPassword"
-        )
+        validator: this.validationService.MustMatch("password", "confirmPassword")
       }
     );
   }

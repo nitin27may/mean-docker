@@ -4,7 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { AuthGuard } from "../../../app/core/guards";
-import { LayoutComponent } from "../../../app/layout/layout.component";
+import { LayoutComponent } from "../../../app/core/layout/layout.component";
 import { ProfileComponent } from "./profile/profile.component";
 
 const userRoutes: Routes = [

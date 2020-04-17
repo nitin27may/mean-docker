@@ -6,7 +6,7 @@ import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
-import { SharedModule } from "../shared/shared.module";
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, SidebarComponent],

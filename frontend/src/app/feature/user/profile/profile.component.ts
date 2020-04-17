@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "../user.service";
-import { User } from "../user.model";
+import { UserService } from "../../../core/services/user.service";
+import { User } from "../../../core/models/user.model";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { ValidationService } from "../../../core/components";
@@ -51,13 +51,13 @@ export class ProfileComponent implements OnInit {
   }
   updateProfile() {
     this.usreService.update(this.profileForm.value).subscribe(
-      data => {
+      (data) => {
         this.toastrService.success("Profile updated successful");
         const user = data;
         user.token = this.user.token;
         localStorage.setItem("currentUser", JSON.stringify(user));
       },
-      error => {}
+      (error) => {}
     );
   }
 
@@ -67,11 +67,11 @@ export class ProfileComponent implements OnInit {
   }
   updatePassword() {
     this.usreService.changePassword(this.user._id, this.passwordForm.get("password").value).subscribe(
-      data => {
+      (data) => {
         this.toastrService.success("Profile updated successful");
         this.router.navigate(["/login"]);
       },
-      error => {}
+      (error) => {}
     );
   }
 
