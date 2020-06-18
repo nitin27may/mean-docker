@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: "contacts",
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import("./feature/contact/contact.module").then((module) => module.ContactModule)
   }
 ];
