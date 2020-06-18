@@ -4,25 +4,26 @@ var mongoose = require("mongoose");
 var contactSchema = mongoose.Schema({
   firstName: {
     type: String,
-    required: true
+    required: true,
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
   },
   mobile: {
     type: Number,
-    required: true
+    required: true,
   },
-  workPhone: Number,
   email: String,
+  city: String,
+  postalCode: String,
   create_date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 // Export Contact model
 var Contact = (module.exports = mongoose.model("contact", contactSchema));
-module.exports.get = function(callback, limit) {
+module.exports.get = function (callback, limit) {
   Contact.find(callback).limit(limit);
 };
