@@ -7,11 +7,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { ContactRoutingModule } from "./contact-routing.module";
+import { ContactService } from "./contact.service";
 
 @NgModule({
   declarations: [ContactFormComponent, ContactListComponent, ContactDetailsComponent],
   imports: [ContactRoutingModule, NgxDatatableModule, ReactiveFormsModule, CoreModule.forRoot(), SharedModule.forRoot()],
-  providers: [],
+  providers: [ContactService],
   bootstrap: []
 })
 export class ContactModule {}

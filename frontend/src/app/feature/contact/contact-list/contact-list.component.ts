@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { SortType } from "@swimlane/ngx-datatable";
+import { ContactService } from "../contact.service";
 @Component({
   selector: "app-contact-list",
   templateUrl: "./contact-list.component.html",
@@ -7,30 +8,8 @@ import { SortType } from "@swimlane/ngx-datatable";
 })
 export class ContactListComponent implements OnInit {
   SortType = SortType;
-  rows = [
-    {
-      firstName: "Austin",
-      lastName: "Austin",
-      email: "nitin27may@gmail.com",
-      mobile: "9876543783",
-      city: "Swimlane",
-      postalCode: "M4D1G8"
-    },
-    { firstName: "Dany", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Dany", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" },
-    { firstName: "Molly", lastName: "Austin", email: "nitin27may@gmail.com", mobile: "9876543783", city: "Swimlane", postalCode: "M4D1G8" }
-  ];
+  contacts: any;
+
   columns = [
     { prop: "firstName", name: "First Name" },
     { prop: "lastName" },
@@ -39,7 +18,18 @@ export class ContactListComponent implements OnInit {
     { prop: "city" },
     { prop: "postalCode" }
   ];
-  constructor() {}
+  constructor(private contactService: ContactService) {}
+  getAll() {
+    this.contactService.getAll().subscribe(
+      (data) => {
+        console.log(data);
+        this.contacts = data;
+      },
 
-  ngOnInit(): void {}
+      (error) => {}
+    );
+  }
+  ngOnInit(): void {
+    this.getAll();
+  }
 }
