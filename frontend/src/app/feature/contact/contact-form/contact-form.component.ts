@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ValidationService } from "../../../core/components";
 import { ContactService } from "../contact.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-contact-form",
@@ -15,7 +16,9 @@ export class ContactFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private validationService: ValidationService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService
   ) {}
 
   createForm() {
@@ -24,7 +27,7 @@ export class ContactFormComponent implements OnInit {
       firstName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       lastName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       email: ["", [Validators.required, this.validationService.emailValidator]],
-      mobile: ["", [Validators.required, this.validationService.mobileValidator]],
+      mobile: ["", [Validators.required]],
       city: ["", [Validators.required]],
       postalCode: ["", [Validators.required]]
     });
@@ -46,7 +49,7 @@ export class ContactFormComponent implements OnInit {
   save(contact: any) {
     this.contactService.create(contact).subscribe(
       (data) => {
-        console.log(data);
+        this.toastrService.success("Contact created successfully", "Success");
         this.router.navigate(["/contacts"]);
       },
 
@@ -55,12 +58,19 @@ export class ContactFormComponent implements OnInit {
   }
   update(contact: any) {
     this.contactService.update(contact).subscribe(
-      (data) => {},
+      (data) => {
+        this.toastrService.success("Contact updated successfully", "Success");
+        this.router.navigate(["/contacts"]);
+      },
 
       (error) => {}
     );
   }
   ngOnInit() {
     this.createForm();
+    const contactDetails = this.activatedRoute.snapshot.data.contactDetails;
+    if (contactDetails) {
+      this.contactForm.patchValue(contactDetails);
+    }
   }
 }

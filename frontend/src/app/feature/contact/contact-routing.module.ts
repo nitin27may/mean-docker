@@ -5,6 +5,7 @@ import { LayoutComponent } from "../../../app/core/layout/layout.component";
 import { ContactListComponent } from "./contact-list/contact-list.component";
 import { ContactFormComponent } from "./contact-form/contact-form.component";
 import { ContactDetailsComponent } from "./contact-details/contact-details.component";
+import { ContactDetailsResolver } from "./contact.resolver";
 
 const contactRoutes: Routes = [
   {
@@ -19,14 +20,22 @@ const contactRoutes: Routes = [
         path: "create",
         component: ContactFormComponent
       },
+      // {
+      //   path: ":contactId",
+      //   component: ContactFormComponent,
+      //   children: [
       {
-        path: "edit/:id",
-        component: ContactFormComponent
+        path: "edit/:contactId",
+        component: ContactFormComponent,
+        resolve: { contactDetails: ContactDetailsResolver }
       },
       {
-        path: "details/:id",
-        component: ContactDetailsComponent
+        path: "details/:contactId",
+        component: ContactDetailsComponent,
+        resolve: { contactDetails: ContactDetailsResolver }
       }
+      //   ]
+      // }
     ]
   }
 ];

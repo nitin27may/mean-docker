@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { SortType } from "@swimlane/ngx-datatable";
+import { SortType, SelectionType } from "@swimlane/ngx-datatable";
 import { ContactService } from "../contact.service";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-contact-list",
   templateUrl: "./contact-list.component.html",
@@ -9,6 +10,8 @@ import { ContactService } from "../contact.service";
 export class ContactListComponent implements OnInit {
   SortType = SortType;
   contacts: any;
+  selected = [];
+  SelectionType = SelectionType;
 
   columns = [
     { prop: "firstName", name: "First Name" },
@@ -18,7 +21,7 @@ export class ContactListComponent implements OnInit {
     { prop: "city" },
     { prop: "postalCode" }
   ];
-  constructor(private contactService: ContactService) {}
+  constructor(private contactService: ContactService, private router: Router) {}
   getAll() {
     this.contactService.getAll().subscribe(
       (data) => {
@@ -28,6 +31,10 @@ export class ContactListComponent implements OnInit {
 
       (error) => {}
     );
+  }
+  onSelect(selected: any) {
+    console.log("Select Event", selected, this.selected);
+    this.router.navigate(["/contacts/details/" + this.selected[0]._id]);
   }
   ngOnInit(): void {
     this.getAll();
