@@ -19,6 +19,10 @@ const contactRoutes: Routes = [
         path: "create",
         component: ContactFormComponent
       },
+      // {
+      //   path: ":contactId",
+      //   component: ContactFormComponent,
+      //   children: [
       {
         path: "edit/:contactId",
         component: ContactFormComponent,
@@ -29,6 +33,8 @@ const contactRoutes: Routes = [
         component: ContactDetailsComponent,
         resolve: { contactDetails: ContactDetailsResolver }
       }
+      //   ]
+      // }
     ]
   }
 ];
