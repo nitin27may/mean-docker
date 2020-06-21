@@ -29,7 +29,7 @@ services:
     ports:
       - "27017:27017" # specify port forewarding
 
-  nginx: #name of the second service
+  nginx: #name of the fourth service
     build: loadbalancer # specify the directory of the Dockerfile
     container_name: mean_nginx
     ports:
