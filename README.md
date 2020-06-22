@@ -19,6 +19,38 @@ Also, It has sample code for Auth guard, services, http interceptors, resolver a
 
 For folder structure details refer this link: [Frontend Folder Structure](/docs/angular-frontend-structure.md)
 
+### Frontend (Angular) Dockerfile
+
+```dockerfile
+# Create image based off of the official Node 10 image
+FROM node:12.8-alpine
+
+# Copy dependency definitions
+COPY package.json package-lock.json ./
+
+
+# disabling ssl for npm for Dev or if you are behind proxy
+RUN npm set strict-ssl false
+
+## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN npm i && mkdir /app && mv ./node_modules ./app
+
+# Change directory so that our commands run inside this new directory
+WORKDIR /app
+
+# Get all the code needed to run the app
+COPY . /app/
+
+# Build server side bundles
+RUN npm run build:ssr
+
+# Expose the port the app runs in
+EXPOSE 4000
+# Serve the app
+CMD ["node", "dist/frontend/server/main.js"]
+
+```
+
 ## Expressjs (4.17.1)
 
 In MEAN stack, E stands for Expressjs, all rest services are developed using express js.
@@ -33,6 +65,35 @@ It constains sample for:
 
 For folder structure details refer this link: [API Folder Structure](/docs/expressjs-api-structure.md)
 
+### Backend (Expressjs) Dockerfile
+
+```dockerfile
+FROM node:12.8-alpine
+
+# Copy dependency definitions
+COPY package.json package-lock.json ./
+
+# disabling ssl for npm for Dev or if you are behind proxy
+RUN npm set strict-ssl false
+
+## installing and Storing node modules on a separate layer will 
+## prevent unnecessary npm installs at each build
+RUN npm i && mkdir /app && mv ./node_modules ./app
+
+# Change directory so that our commands run inside this new directory
+WORKDIR /app
+
+# Get all the code needed to run the app
+COPY . /app/
+
+# Expose the port the app runs in
+EXPOSE 3000
+
+# Serve the app
+CMD ["npm", "start"]
+
+```
+
 ## Mongo DB
 
 We are using Mongodb as database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
@@ -45,6 +106,60 @@ We are using Mongodb as database. MongoDB is a cross-platform document-oriented 
 
 We have uses NGINX loadbalancer in case if there is a requirement that frontend and api need to be exposed on same port.
  For configutration please check [nginx.conf](/loadbalancer/nginx.conf)
+
+### Loadbalancer (nginx) Dockerfile
+
+```dockerfile
+# Use the standard Nginx image from Docker Hub
+FROM nginx
+# Copy the configuration file from the current directory and paste
+# it inside the container to use it as Nginx's default config.
+COPY nginx.conf /etc/nginx/nginx.conf
+# Port 8080 of the container will be exposed and then mapped to port
+# 8080 of our host machine via Compose. This way we'll be able to
+# access the server via localhost:8080 on our host.
+EXPOSE 8000
+
+# Start Nginx when the container has provisioned.
+CMD ["nginx", "-g", "daemon off;"]
+
+```
+### NGINX config
+
+ ```
+events {
+    worker_connections 1024;
+  }
+http {
+  upstream frontend {
+    # These are references to our backend containers, facilitated by
+    # Compose, as defined in docker-compose.yml
+    server angular:4000;
+  } 
+  upstream backend {
+    # These are references to our backend containers, facilitated by
+    # Compose, as defined in docker-compose.yml
+    server express:3000;
+  }
+  
+
+server {
+    listen 8000;
+    server_name frontend;
+    server_name backend;
+
+    location / {
+       proxy_pass http://frontend;
+       proxy_set_header Host $host;
+    }
+    location /api {
+       proxy_pass http://backend;
+       proxy_set_header Host $host;
+    }
+  }
+}
+
+ ```
 
 ## Docker-compose file
 
@@ -66,7 +181,8 @@ services:
     container_name: mean_express
     ports:
       - "3000:3000" #specify ports forewarding
-      # Below database enviornment variable for api is helpful when you have to use database as managed service
+      # Below database enviornment variable for api is helpful when you have to use 
+      # database as managed service
     environment:
       - MONGO_DB_USERNAME=admin-user
       - MONGO_DB_PASSWORD=admin-password
