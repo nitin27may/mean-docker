@@ -46,6 +46,60 @@ We are using Mongodb as database. MongoDB is a cross-platform document-oriented 
 We have uses NGINX loadbalancer in case if there is a requirement that frontend and api need to be exposed on same port.
  For configutration please check [nginx.conf](/loadbalancer/nginx.conf)
 
+## Docker-compose file
+
+```dockerfile
+version: "3" # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    build: frontend # specify the directory of the Dockerfile
+    container_name: mean_angular
+    ports:
+      - "4000:4000" # specify port forewarding
+    environment:
+      - NODE_ENV=dev
+
+  express: #name of the second service
+    build: api # specify the directory of the Dockerfile
+    container_name: mean_express
+    ports:
+      - "3000:3000" #specify ports forewarding
+      # Below database enviornment variable for api is helpful when you have to use database as managed service
+    environment:
+      - MONGO_DB_USERNAME=admin-user
+      - MONGO_DB_PASSWORD=admin-password
+      - MONGO_DB_HOST=database
+      - MONGO_DB_PORT=
+      - MONGO_DB_PARAMETERS=
+      - MONGO_DB_DATABASE=mean-contacts
+    links:
+      - database
+
+  database: # name of the third service
+    image: mongo # specify image to build container from
+    container_name: mean_mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin-user
+      - MONGO_INITDB_ROOT_PASSWORD=admin-password
+      - MONGO_INITDB_DATABASE=mean-contacts
+    volumes:
+      - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+    ports:
+      - "27017:27017" # specify port forewarding
+
+  nginx: #name of the fourth service
+    build: loadbalancer # specify the directory of the Dockerfile
+    container_name: mean_nginx
+    ports:
+      - "80:8000" #specify ports forewarding
+    links:
+      - express
+      - angular
+
+```
+
 ## How to run project
 
 ### Using Docker
