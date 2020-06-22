@@ -217,7 +217,8 @@ services:
     container_name: mean_express
     ports:
       - "3000:3000" #specify ports forewarding
-      # Below database enviornment variable for api is helpful when you have to use database as managed service
+      # Below database enviornment variable for api is helpful when you have to use 
+      # database as managed service
     environment:
       - SECRET=Thisismysecret
       - MONGO_DB_USERNAME=admin-user
