@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "Packages for expressjs apis",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "bcryptjs": "^2.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.1",
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
+    "file-exists": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.10",
     "mongoose": "^5.9.19",
+    "node-env-file": "^0.1.8",
     "q": "^1.4.1",
     "request": "^2.88.2",
     "rootpath": "^0.1.2"

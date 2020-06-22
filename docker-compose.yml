@@ -15,17 +15,26 @@ services:
     container_name: mean_express
     ports:
       - "3000:3000" #specify ports forewarding
-      # - "9229:9229" #for debugging
-    # command: #for debugging
-    #   - node
-    #   - "--inspect-brk=0.0.0.0"
-    #   - "."
+      # Below database enviornment variable for api is helpful when you have to use database as managed service
+    environment:
+      - MONGO_DB_USERNAME=admin-user
+      - MONGO_DB_PASSWORD=admin-password
+      - MONGO_DB_HOST=database
+      - MONGO_DB_PORT=
+      - MONGO_DB_PARAMETERS=
+      - MONGO_DB_DATABASE=mean-contacts
     links:
       - database
 
   database: # name of the third service
     image: mongo # specify image to build container from
     container_name: mean_mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin-user
+      - MONGO_INITDB_ROOT_PASSWORD=admin-password
+      - MONGO_INITDB_DATABASE=mean-contacts
+    volumes:
+      - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
     ports:
       - "27017:27017" # specify port forewarding
 

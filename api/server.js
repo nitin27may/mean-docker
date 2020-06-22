@@ -1,5 +1,8 @@
+// .env file configuration
+const env = require("./config/env");
 let express = require("express");
 let app = express();
+const database = require("./config/database");
 let cors = require("cors");
 let bodyParser = require("body-parser");
 let expressJwt = require("express-jwt");
@@ -13,15 +16,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-// mongoose.connect("mongodb://database/mongodb", {
-mongoose.connect(config.connectionString, {
-  useNewUrlParser: true
+// MongoDB connection
+console.log("connection string", database.mongodb);
+mongoose.connect(database.mongodb.uri, {
+  useUnifiedTopology: true,
+  user: database.mongodb.username,
+  pass: database.mongodb.password,
 });
-var db = mongoose.connection;
+mongoose.Promise = global.Promise;
 
-// Added check for DB connection
-if (!db) console.log("Error connecting db");
-else console.log("Db connected successfully");
+// On connection error
+mongoose.connection.on("error", (error) => {
+  console.log("Database error: " + error);
+});
+
+// On successful connection
+mongoose.connection.on("connected", () => {
+  console.log("Connected to database");
+});
 
 // Import routes
 let apiRoutes = require("./api-routes");
@@ -30,7 +42,7 @@ let apiRoutes = require("./api-routes");
 app.use(
   expressJwt({
     secret: config.secret,
-    getToken: function(req) {
+    getToken: function (req) {
       if (
         req.headers.authorization &&
         req.headers.authorization.split(" ")[0] === "Bearer"
@@ -40,7 +52,7 @@ app.use(
         return req.query.token;
       }
       return null;
-    }
+    },
   }).unless({ path: ["/api/user/authenticate", "/api/users"] })
 );
 
@@ -48,7 +60,8 @@ app.use(
 app.use("/api", apiRoutes);
 
 // start server
-let port = process.env.NODE_ENV ? process.env.NODE_ENV : 3000;
-app.listen(port, function() {
-  console.log("Server listening on port " + port);
+// Launch app to listen to specified port
+const server = app.listen(process.env.PORT || 3000, () => {
+  const port = server.address().port;
+  console.log("app running on port", port);
 });
