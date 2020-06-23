@@ -19,7 +19,7 @@ Also, It has sample code for Auth guard, services, http interceptors, resolver a
 
 For folder structure details refer this link: [Frontend Folder Structure](/docs/angular-frontend-structure.md)
 
-### Frontend (Angular) Dockerfile
+### Frontend (Angular) [Dockerfile](/frontend/Dockerfile)
 
 ```dockerfile
 # Create image based off of the official Node 10 image
@@ -66,7 +66,7 @@ It constains sample for:
 
 For folder structure details refer this link: [API Folder Structure](/docs/expressjs-api-structure.md)
 
-### Backend (Expressjs) Dockerfile
+### Backend (Expressjs) [Dockerfile](/api/Dockerfile)
 
 ```dockerfile
 FROM node:12.8-alpine
@@ -176,7 +176,7 @@ EOF
 We have uses NGINX loadbalancer in case if there is a requirement that frontend and api need to be exposed on same port.
  For configutration please check [nginx.conf](/loadbalancer/nginx.conf)
 
-### Loadbalancer (nginx) Dockerfile
+### Loadbalancer (nginx) [Dockerfile](/api/loadbalancer)
 
 ```dockerfile
 # Use the standard Nginx image from Docker Hub
@@ -230,7 +230,7 @@ server {
 
  ```
 
-## Docker-compose file
+## Docker-compose [file](/docker-compose.yml)
 
 ```dockerfile
 version: "3" # specify docker-compose version
