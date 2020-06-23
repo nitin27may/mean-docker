@@ -23,13 +23,13 @@ db.users.insertMany([
 
 db.contacts.drop();
 db.contacts.insertMany([
-  {
+   {
     _id: 1,
     firstName: "Nitin",
     lastName: "Singh",
-    mobile: "9876543243",
-    email: "nitin27may@gmail.com",
-    city: "Mumbai",
+    mobile: "9876500000",
+    email: "nitin27may@mydomain.com",
+    city: "Toronto",
     postalCode: "421201",
     create_date: Date(),
   },
@@ -38,7 +38,7 @@ db.contacts.insertMany([
     firstName: "Sachin",
     lastName: "Singh",
     mobile: "9876540000",
-    email: "saching@gmail.com",
+    email: "saching@mydomain.com",
     city: "Pune",
     postalCode: "421201",
     create_date: Date(),
@@ -48,8 +48,8 @@ db.contacts.insertMany([
     firstName: "Vikram",
     lastName: "Singh",
     mobile: "9876540000",
-    email: "saching@gmail.com",
-    city: "Pune",
+    email: "vikram.singh@mydomain.com",
+    city: "Mumbai",
     postalCode: "421201",
     create_date: Date(),
   }
