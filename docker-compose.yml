@@ -21,13 +21,13 @@ services:
       - MONGO_DB_PASSWORD=admin-password
       - MONGO_DB_HOST=database
       - MONGO_DB_PORT=
-      - MONGO_DB_PARAMETERS=
+      - MONGO_DB_PARAMETERS=?authSource=admin
       - MONGO_DB_DATABASE=mean-contacts
     links:
       - database
 
   database: # name of the third service
-    image: mongo # specify image to build container from
+    image: mongo:latest # specify image to build container from
     container_name: mean_mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
@@ -35,6 +35,7 @@ services:
       - MONGO_INITDB_DATABASE=mean-contacts
     volumes:
       - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./data/db:/data/db
     ports:
       - "27017:27017" # specify port forewarding
 

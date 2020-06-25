@@ -7,9 +7,9 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Attach by Process ID",
-      "processId": "${command:PickProcess}",
-      "skipFiles": ["<node_internals>/**"]
+      "name": "Docker: Attach to Node",
+      "remoteRoot": "/usr/src/app",
+      "port": 9229 // Optional; otherwise inferred from the docker-compose.debug.yml.
     },
     {
       "type": "node",
@@ -19,13 +19,17 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
+      "name": "Docker Node.js Launch and Attach",
       "type": "docker",
       "request": "launch",
-      "name": "Docker Node.js Launch and Attach",
       "preLaunchTask": "docker-run: debug",
       "platform": "node",
       "node": {
-        "remoteRoot": "/api"
+        "localRoot": "${workspaceFolder}/api",
+        "remoteRoot": "/usr/src/app"
+      },
+      "dockerServerReadyAction": {
+        "pattern": "Application has started on port (\\d+)"
       }
     }
   ],

@@ -20,14 +20,13 @@ app.use(bodyParser.json());
 console.log("connection string", database.mongodb);
 mongoose.connect(database.mongodb.uri, {
   useUnifiedTopology: true,
-  user: database.mongodb.username,
-  pass: database.mongodb.password,
+  useNewUrlParser: true,
 });
 mongoose.Promise = global.Promise;
 
 // On connection error
 mongoose.connection.on("error", (error) => {
-  console.log("Database error: " + error);
+  console.log("Database error: ", error);
 });
 
 // On successful connection
