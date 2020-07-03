@@ -15,7 +15,7 @@ import { SharedModule } from "../../shared/shared.module";
   providers: []
 })
 export class LayoutModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<LayoutModule> {
     return {
       ngModule: LayoutModule,
       providers: []

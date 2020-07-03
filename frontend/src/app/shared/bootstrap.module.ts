@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ButtonsModule, TimepickerModule } from "ngx-bootstrap";
+import { ButtonsModule } from "ngx-bootstrap/buttons";
+import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { AlertModule } from "ngx-bootstrap/alert";
 import { CollapseModule } from "ngx-bootstrap/collapse";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
