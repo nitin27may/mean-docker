@@ -4,7 +4,7 @@ MEAN (full) stack application which comprises of MongoDB, ExpressJS, Angular and
 
 Docker Compose can be used to create separate containers (and host them) for each of the stacks in a MEAN stack application. MEAN is the acronym for MongoDB Express Angular & NodeJs
 
-## Angular (9.0.6)
+## Angular (10.0.2)
 
 In MEAN stack A stands for Angular, fronend of this project is developed in Angular.
 
