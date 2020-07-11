@@ -2,14 +2,12 @@
 const env = require("./config/env");
 let express = require("express");
 let app = express();
-const database = require("./config/database");
+const environment = require("./config/environment");
 let cors = require("cors");
 let bodyParser = require("body-parser");
 let expressJwt = require("express-jwt");
 // Import Mongoose
 let mongoose = require("mongoose");
-
-const config = require("./config.json");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,8 +15,9 @@ app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
 // MongoDB connection
-console.log("connection string", database.mongodb);
-mongoose.connect(database.mongodb.uri, {
+console.log("connection string", environment.mongodb.uri);
+console.log("secret", environment.secret);
+mongoose.connect(environment.mongodb.uri, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
@@ -40,7 +39,7 @@ let apiRoutes = require("./api-routes");
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(
   expressJwt({
-    secret: config.secret,
+    secret: environment.secret,
     getToken: function (req) {
       if (
         req.headers.authorization &&
@@ -60,7 +59,7 @@ app.use("/api", apiRoutes);
 
 // start server
 // Launch app to listen to specified port
-const server = app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(process.env.EXPRESS_PORT || 3000, () => {
   const port = server.address().port;
   console.log("app running on port", port);
 });

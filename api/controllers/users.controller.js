@@ -5,37 +5,37 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 // Handle index actions
 
-const config = require("../config.json");
+const environment = require("../config/environment");
 
-exports.index = function(req, res) {
-  User.get(function(err, users) {
+exports.index = function (req, res) {
+  User.get(function (err, users) {
     if (err) {
       res.json({
         status: "error",
-        message: err
+        message: err,
       });
     }
     res.json({
       status: "success",
       message: "Users retrieved successfully",
-      data: users
+      data: users,
     });
   });
 };
 // Handle create user actions
-exports.new = function(req, res) {
-  User.find({ username: req.body.username.trim() }, function(err, users) {
+exports.new = function (req, res) {
+  User.find({ username: req.body.username.trim() }, function (err, users) {
     console.log(users);
     if (err) {
       res.json({
         status: "error",
-        message: err
+        message: err,
       });
     }
     if (users && users.length > 0) {
       res.status(400).send({
         status: "error",
-        message: req.body.username + " is already taken"
+        message: req.body.username + " is already taken",
       });
     } else {
       var user = new User();
@@ -46,29 +46,29 @@ exports.new = function(req, res) {
       user.firstName = req.body.firstName;
       user.lastName = req.body.lastName;
       // save the user and check for errors
-      user.save(function(err) {
+      user.save(function (err) {
         if (err) res.json(err);
         res.json({
           message: "New user created!",
-          data: user
+          data: user,
         });
       });
     }
   });
 };
 // Handle view user info
-exports.view = function(req, res) {
-  User.findById(req.params.user_id, function(err, user) {
+exports.view = function (req, res) {
+  User.findById(req.params.user_id, function (err, user) {
     if (err) res.send(err);
     res.json({
       message: "User details loading..",
-      data: user
+      data: user,
     });
   });
 };
 // Handle update user info
-exports.update = function(req, res) {
-  User.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function(
+exports.update = function (req, res) {
+  User.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function (
     err,
     user
   ) {
@@ -76,51 +76,51 @@ exports.update = function(req, res) {
 
     res.json({
       message: "User Info updated",
-      data: user
+      data: user,
     });
   });
 };
 // Handle delete user
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   User.remove(
     {
-      _id: req.params.user_id
+      _id: req.params.user_id,
     },
-    function(err, user) {
+    function (err, user) {
       if (err) res.send(err);
       res.json({
         status: "success",
-        message: "User deleted"
+        message: "User deleted",
       });
     }
   );
 };
 
-exports.authenticate = function(req, res) {
-  User.findOne({ username: req.body.username }, function(err, user) {
+exports.authenticate = function (req, res) {
+  User.findOne({ username: req.body.username }, function (err, user) {
     if (err) res.send(err);
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       // authentication successful
-      user.token = jwt.sign({ sub: user._id }, config.secret);
+      user.token = jwt.sign({ sub: user._id }, environment.secret);
       delete user.password;
       res.json({
         status: "success",
         message: "Users retrieved successfully",
-        data: user
+        data: user,
       });
     } else {
       // authentication failed
       res.status(401).send({
         status: "error",
-        message: "User name or password is invalid."
+        message: "User name or password is invalid.",
       });
     }
   });
 };
 
-exports.changePassword = function(req, res) {
-  User.findById(req.params.user_id, function(err, user) {
+exports.changePassword = function (req, res) {
+  User.findById(req.params.user_id, function (err, user) {
     if (err) res.send(err);
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -128,18 +128,18 @@ exports.changePassword = function(req, res) {
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
-      user.save(function(err) {
+      user.save(function (err) {
         if (err) res.json(err);
         res.status(202).send({
           status: "success",
-          message: "Password Updated successfully"
+          message: "Password Updated successfully",
         });
       });
     } else {
       // authentication failed
       res.status(401).send({
         status: "error",
-        message: "Old password is wrong."
+        message: "Old password is wrong.",
       });
     }
   });

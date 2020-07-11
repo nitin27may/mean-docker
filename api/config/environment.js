@@ -16,4 +16,5 @@ module.exports = {
       process.env.MONGO_DB_DATABASE +
       process.env.MONGO_DB_PARAMETERS,
   },
+  secret: process.env.SECRET,
 };
