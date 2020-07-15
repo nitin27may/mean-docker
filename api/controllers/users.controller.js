@@ -12,13 +12,13 @@ exports.index = function (req, res) {
     if (err) {
       res.json({
         status: "error",
-        message: err,
+        message: err
       });
     }
     res.json({
       status: "success",
       message: "Users retrieved successfully",
-      data: users,
+      data: users
     });
   });
 };
@@ -29,13 +29,13 @@ exports.new = function (req, res) {
     if (err) {
       res.json({
         status: "error",
-        message: err,
+        message: err
       });
     }
     if (users && users.length > 0) {
       res.status(400).send({
         status: "error",
-        message: req.body.username + " is already taken",
+        message: req.body.username + " is already taken"
       });
     } else {
       var user = new User();
@@ -50,7 +50,7 @@ exports.new = function (req, res) {
         if (err) res.json(err);
         res.json({
           message: "New user created!",
-          data: user,
+          data: user
         });
       });
     }
@@ -62,7 +62,7 @@ exports.view = function (req, res) {
     if (err) res.send(err);
     res.json({
       message: "User details loading..",
-      data: user,
+      data: user
     });
   });
 };
@@ -76,7 +76,7 @@ exports.update = function (req, res) {
 
     res.json({
       message: "User Info updated",
-      data: user,
+      data: user
     });
   });
 };
@@ -84,13 +84,13 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   User.remove(
     {
-      _id: req.params.user_id,
+      _id: req.params.user_id
     },
     function (err, user) {
       if (err) res.send(err);
       res.json({
         status: "success",
-        message: "User deleted",
+        message: "User deleted"
       });
     }
   );
@@ -107,13 +107,13 @@ exports.authenticate = function (req, res) {
       res.json({
         status: "success",
         message: "Users retrieved successfully",
-        data: user,
+        data: user
       });
     } else {
       // authentication failed
       res.status(401).send({
         status: "error",
-        message: "User name or password is invalid.",
+        message: "User name or password is invalid."
       });
     }
   });
@@ -132,14 +132,14 @@ exports.changePassword = function (req, res) {
         if (err) res.json(err);
         res.status(202).send({
           status: "success",
-          message: "Password Updated successfully",
+          message: "Password Updated successfully"
         });
       });
     } else {
       // authentication failed
       res.status(401).send({
         status: "error",
-        message: "Old password is wrong.",
+        message: "Old password is wrong."
       });
     }
   });

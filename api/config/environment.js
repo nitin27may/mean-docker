@@ -1,6 +1,3 @@
-const env = require("./env");
-
-env.get();
 module.exports = {
   mongodb: {
     uri:

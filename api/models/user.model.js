@@ -28,6 +28,6 @@ var userSchema = mongoose.Schema({
 });
 // Export User model
 var User = (module.exports = mongoose.model("user", userSchema));
-module.exports.get = function(callback, limit) {
+module.exports.get = function (callback, limit) {
   User.find(callback).limit(limit);
 };

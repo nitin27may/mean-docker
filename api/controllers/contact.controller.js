@@ -2,8 +2,8 @@
 // Import contact model
 Contact = require("../models/contact.model");
 
-exports.index = function(req, res) {
-  Contact.get(function(err, contacts) {
+exports.index = function (req, res) {
+  Contact.get(function (err, contacts) {
     if (err) {
       res.json({
         status: "error",
@@ -19,8 +19,8 @@ exports.index = function(req, res) {
 };
 
 // Handle create user actions
-exports.new = function(req, res) {
-  Contact.find({ mobile: req.body.mobile.trim() }, function(err, contacts) {
+exports.new = function (req, res) {
+  Contact.find({ mobile: req.body.mobile.trim() }, function (err, contacts) {
     console.log(contacts);
     if (err) {
       res.json({
@@ -41,7 +41,7 @@ exports.new = function(req, res) {
       });
 
       // save the contact and check for errors
-      contact.save(function(err) {
+      contact.save(function (err) {
         if (err) res.json(err);
         res.json({
           message: "New contact created!",
@@ -52,8 +52,8 @@ exports.new = function(req, res) {
   });
 
   // Handle view contact info
-  exports.view = function(req, res) {
-    Contact.findById(req.params.contact_id, function(err, contact) {
+  exports.view = function (req, res) {
+    Contact.findById(req.params.contact_id, function (err, contact) {
       if (err) res.send(err);
       res.json({
         message: "Contact details loading..",
@@ -62,16 +62,16 @@ exports.new = function(req, res) {
     });
   };
   // Handle update contact info
-  exports.update = function(req, res) {
+  exports.update = function (req, res) {
     Contact.findByIdAndUpdate(
       req.params.contact_id,
       req.body,
       { new: true },
-      function(err, contact) {
+      function (err, contact) {
         if (err) res.send(err);
 
         // save the contact and check for errors
-        contact.save(function(err) {
+        contact.save(function (err) {
           if (err) res.json(err);
           res.json({
             message: "Contact Info updated",
@@ -82,12 +82,12 @@ exports.new = function(req, res) {
     );
   };
   // Handle delete state
-  exports.delete = function(req, res) {
+  exports.delete = function (req, res) {
     Contact.remove(
       {
         _id: req.params.contact_id
       },
-      function(err, state) {
+      function (err, state) {
         if (err) res.send(err);
         res.json({
           status: "success",
@@ -98,8 +98,8 @@ exports.new = function(req, res) {
   };
 };
 // Handle view state info
-exports.view = function(req, res) {
-  Contact.findById(req.params.contact_id, function(err, contact) {
+exports.view = function (req, res) {
+  Contact.findById(req.params.contact_id, function (err, contact) {
     if (err) res.send(err);
     res.json({
       message: "contact details loading..",
@@ -108,16 +108,16 @@ exports.view = function(req, res) {
   });
 };
 // Handle update state info
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   Contact.findByIdAndUpdate(
     req.params.contact_id,
     req.body,
     { new: true },
-    function(err, contact) {
+    function (err, contact) {
       if (err) res.send(err);
 
       // save the contact and check for errors
-      contact.save(function(err) {
+      contact.save(function (err) {
         if (err) res.json(err);
         res.json({
           message: "contact Info updated",
@@ -128,12 +128,12 @@ exports.update = function(req, res) {
   );
 };
 // Handle delete state
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   Contact.remove(
     {
       _id: req.params.contact_id
     },
-    function(err, contact) {
+    function (err, contact) {
       if (err) res.send(err);
       res.json({
         status: "success",

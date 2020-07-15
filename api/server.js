@@ -1,5 +1,4 @@
-// .env file configuration
-const env = require("./config/env");
+require("dotenv").config();
 let express = require("express");
 let app = express();
 const environment = require("./config/environment");
@@ -19,7 +18,7 @@ console.log("connection string", environment.mongodb.uri);
 console.log("secret", environment.secret);
 mongoose.connect(environment.mongodb.uri, {
   useUnifiedTopology: true,
-  useNewUrlParser: true,
+  useNewUrlParser: true
 });
 mongoose.Promise = global.Promise;
 
@@ -50,7 +49,7 @@ app.use(
         return req.query.token;
       }
       return null;
-    },
+    }
   }).unless({ path: ["/api/user/authenticate", "/api/users"] })
 );
 
