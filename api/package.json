@@ -14,7 +14,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "mongoose": "^5.9.21",
     "q": "^1.4.1",
     "request": "^2.88.2",
