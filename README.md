@@ -320,4 +320,4 @@ Password: Password
    RUN `npm i`
 3. Navigate to forndend folder and install all dependencies.
    RUN `npm i`
-4. From same folder (frontend) RUN `npm start` it will run both API and frontend
+4. From same folder (frontend) RUN `npm run dev-server` it will run both API and frontend

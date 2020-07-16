@@ -1,9 +1,9 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "ng": "ng",
-    "serve": "ng serve --proxy-config proxy.conf.json -o",
+    "start": "ng serve --proxy-config proxy.conf.json -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,7 +12,7 @@
     "serve:ssr": "node dist/frontend/server/main.js",
     "build:ssr": "ng build --prod && ng run frontend:server:production",
     "prerender": "ng run frontend:prerender",
-    "start": "concurrently \"nodemon ../api/server.js --watch server\" \"npm run serve\""
+    "dev-server": "concurrently \"nodemon ../api/server.js --watch server\" \"npm run serve\""
   },
   "private": true,
   "dependencies": {
