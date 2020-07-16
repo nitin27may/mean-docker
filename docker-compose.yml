@@ -41,7 +41,7 @@ services:
     build: loadbalancer # specify the directory of the Dockerfile
     container_name: mean_nginx
     ports:
-      - "80:8000" #specify ports forewarding
+      - "80:80" #specify ports forewarding
     links:
       - express
       - angular
