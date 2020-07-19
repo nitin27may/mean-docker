@@ -3,6 +3,7 @@ let express = require("express");
 let app = express();
 const environment = require("./config/environment");
 let cors = require("cors");
+let path = require("path");
 let bodyParser = require("body-parser");
 let expressJwt = require("express-jwt");
 // Import Mongoose
@@ -32,6 +33,28 @@ mongoose.connection.on("connected", () => {
   console.log("Connected to database");
 });
 
+// addtional configuration when serving Angular SPA (static reource and Anugalr routing)
+const allowedExt = [
+  ".js",
+  ".ico",
+  ".css",
+  ".png",
+  ".jpg",
+  ".woff2",
+  ".woff",
+  ".ttf",
+  ".svg",
+  ".webmanifest"
+];
+// app.get("*", (req, res) => {
+//   if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
+//     res.sendFile(path.resolve(`public/${req.url}`));
+//   } else {
+//     res.sendFile(path.resolve("public/index.html"));
+//   }
+//
+// });
+
 // Import routes
 let apiRoutes = require("./api-routes");
 
@@ -50,7 +73,7 @@ app.use(
       }
       return null;
     }
-  }).unless({ path: ["/api/user/authenticate", "/api/users"] })
+  }).unless({ path: ["/api/user/authenticate", "/api/users", "/index.html"] })
 );
 
 // Use Api routes in the App
