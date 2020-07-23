@@ -2,8 +2,8 @@
 FROM node:12.8-alpine
 
 # disabling ssl for npm for Dev or if you are behind proxy
-RUN npm set strict-ssl false
-RUN echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+#RUN npm set strict-ssl false
+#RUN echo "nameserver 8.8.8.8" |  tee /etc/resolv.conf > /dev/null
 
 ## installing angular cli globally
 RUN npm install -g @angular/cli

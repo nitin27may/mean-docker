@@ -2,7 +2,7 @@
 FROM node:12.8-alpine
 
 # disabling ssl for npm for Dev or if you are behind proxy
-RUN echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+#RUN echo "nameserver 8.8.8.8" | tee /etc/resolv.conf > /dev/null
 
 ## installing nodemon globally
 RUN npm install -g nodemon
