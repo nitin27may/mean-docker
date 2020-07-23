@@ -28,6 +28,7 @@ services:
     # node --inspect=0.0.0.0:9229 ./bin/www
     # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
+      - SECRET=Thisismysecret
       - NODE_ENV=development
       - MONGO_DB_USERNAME=admin-user
       - MONGO_DB_PASSWORD=admin-password
