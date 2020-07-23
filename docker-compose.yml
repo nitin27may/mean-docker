@@ -34,9 +34,9 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password
       - MONGO_INITDB_DATABASE=mean-contacts
-    volumes:
-      - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
-      - ./data/db:/data/db
+    # volumes:
+    #   - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+    #   - ./data/db:/data/db
     ports:
       - "27017:27017" # specify port forewarding
 
