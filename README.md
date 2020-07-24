@@ -4,7 +4,7 @@
 
 The main focus of this project to show case the possible way to run a real application (Mean stack) using docker.
 
-we have taken 2 scenarios:
+we have considered 3 scenarios:
 
 1. **Using 2 containers** ([docker compose file](/docker-compose.yml)) 
 
@@ -46,34 +46,27 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_INITDB_DATABASE=mean-contacts
-    # volumes:
-    #   - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
-    #   - ./data/db:/data/db
+      - MONGO_DB_USERNAME=admin-user1
+      - MONGO_DB_PASSWORD=admin-password1
+      - MONGO_DB=mean-contacts
+    volumes:
+      - ./mongo:/home/mongodb
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
+      - ./mongo/db:/data/db
     ports:
       - "27017:27017" # specify port forewarding
-
-  nginx: #name of the fourth service
-    build: loadbalancer # specify the directory of the Dockerfile
-    container_name: mean_nginx
-    ports:
-      - "80:80" #specify ports forewarding
-    links:
-      - express
-
-
 ```
 
 2. **Using 4 containers** ([docker compose file](/docker-compose.nginx.yml))
    
-    * angular (Frontend): To host Frontend (Angular) 
-    * express: To host backend api (expressjs)
-    * database: To host MongoDB
-    * nginx: To host Nginx
+    * angular: Application's frontend (Angular) 
+    * express: Application's Rest services (expressjs)
+    * database: Application database: MongoDB
+    * nginx: As laod balancer, also expose UI and API on same ports
 
 ##### Note: If in above case we are using MongoDB as managed service  then we will require only one container.
 ```dockerfile
-version: "3" # specify docker-compose version
+version: "3.8" # specify docker-compose version
 
 # Define the services/containers to be run
 services:
@@ -108,10 +101,13 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_INITDB_DATABASE=mean-contacts
-    # volumes:
-    #   - ./mongo/init-db.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
-    #   - ./data/db:/data/db
+      - MONGO_DB_USERNAME=admin-user1
+      - MONGO_DB_PASSWORD=admin-password1
+      - MONGO_DB=mean-contacts
+    volumes:
+      - ./mongo:/home/mongodb
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
+      - ./mongo/db:/data/db
     ports:
       - "27017:27017" # specify port forewarding
 
@@ -123,8 +119,72 @@ services:
     links:
       - express
       - angular
-
 ```
+
+3. **Development Mode** ([docker compose file](/docker-compose.debug.yml))
+
+    It will run 3 containers which are required for development.
+
+  ```dockerfile
+  version: "3.8" # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    build: # specify the directory of the Dockerfile
+      context: ./frontend
+      dockerfile: debug.dockerfile
+    container_name: mean_angular
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports:
+      - "4200:4200" # specify port forewarding
+      - "49153:49153"
+    environment:
+      - NODE_ENV=dev
+
+  express: #name of the second service
+    build: # specify the directory of the Dockerfile
+      context: ./api
+      dockerfile: debug.dockerfile
+    container_name: mean_express
+    volumes:
+      - ./api:/api
+      - /api/node_modules
+    ports:
+      - "3000:3000" #specify ports forewarding
+    environment:
+      - SECRET=Thisismysecret
+      - NODE_ENV=development
+      - MONGO_DB_USERNAME=admin-user
+      - MONGO_DB_PASSWORD=admin-password
+      - MONGO_DB_HOST=database
+      - MONGO_DB_PORT=
+      - MONGO_DB_PARAMETERS=?authSource=admin
+      - MONGO_DB_DATABASE=mean-contacts
+    links:
+      - database
+
+  database: # name of the third service
+    image: mongo # specify image to build container from
+    container_name: mean_mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin-user
+      - MONGO_INITDB_ROOT_PASSWORD=admin-password
+      - MONGO_DB_USERNAME=admin-user1
+      - MONGO_DB_PASSWORD=admin-password1
+      - MONGO_DB=mean-contacts
+
+    volumes:
+      - ./mongo:/home/mongodb
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
+      - ./mongo/db:/data/db
+    ports:
+      - "27017:27017" # specify port forewarding
+
+  ```
+   
 
 ## About Application
 
@@ -147,8 +207,8 @@ Also, It has sample code for Auth guard, services, http interceptors, resolver a
 
 For folder structure details refer this link: [Frontend Folder Structure](/docs/angular-frontend-structure.md)
 
-#### Frontend (Angular) [Dockerfile](/frontend/Dockerfile)
-
+##### [Dockerfile for Production](/frontend/Dockerfile)
+##### [Dockerfile for Development](/frontend/debug.dockerfile)
 
 ## Expressjs (4.17.1)
 
@@ -164,8 +224,8 @@ It constains sample for:
 
 For folder structure details refer this link: [API Folder Structure](/docs/expressjs-api-structure.md)
 
-#### Backend (Expressjs) [Dockerfile](/api/Dockerfile)
-
+##### [Dockerfile for production](/api/Dockerfile)
+##### [Dockerfile for development](/api/debug.dockerfile)
 
 ## Mongo DB
 
@@ -182,21 +242,19 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 ### Loadbalancer (nginx) [Dockerfile](/api/loadbalancer)
 
 
-
-
+****
 ## How to run project
 
 ### Using Docker
 
-1. To run the project run command: `docker-compose up`
+1. To run the project run command: `docker-compose -f 'compose-file-name' up`
 
-2. Use `http://localhost` or `http://localhost:4000`
+     * docker-compose.yml -> To use 2 containers (explained above) 
+     * docker-compose.nginx.yml -> To use 4 containers (explained above)
+     * docker-compose.debug.yml -> To run Angular and Expressjs in Development mode (watch mode)
+2. Use `http://localhost` or `http://localhost:4000` , while debugging, use `http://localhost:4200` for frontend and `http://localhost:3000` for api.
 
-3. Use below default for login:
-
-UserName: john.doe@gmail.com
-Password: Password
-
+3. Sign up for new user and login
 
 <hr>
 
