@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev-server": "nodemon server.js"
+    "dev-server": "nodemon -L"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
