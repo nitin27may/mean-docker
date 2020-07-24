@@ -2,9 +2,10 @@
   "name": "api-expressjs",
   "version": "1.0.2",
   "description": "Packages for expressjs apis",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev-server": "nodemon server.js"
+    "dev-server": "nodemon -L"
   },
   "dependencies": {
     "bcryptjs": "^2.1.0",
