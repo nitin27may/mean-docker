@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "5895b74ca84c675de0d3338d",
+    "firstName": "Nitin",
+    "lastName": "Singh",
+    "mobile": "9876500000",
+    "email": "nitin27may@mydomain.com",
+    "city": "Toronto",
+    "postalCode": "421201"
+  },
+  {
+    "_id": "5895b74da84c675de0d3338e",
+    "firstName": "Sachin",
+    "lastName": "Singh",
+    "mobile": "9876540000",
+    "email": "saching@mydomain.com",
+    "city": "Pune",
+    "postalCode": "421201"
+  },
+  {
+    "_id": "5895b74da84c675de0d3338f",
+    "firstName": "Vikram",
+    "astName": "Singh",
+    "mobile": "9876540000",
+    "email": "vikram.singh@mydomain.com",
+    "city": "Mumbai",
+    "postalCode": "421201"
+  }
+]
