@@ -5,7 +5,7 @@
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The main focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
 
 ## About Project
-****
+
 
 MEAN (full) stack application which comprises of MongoDB, ExpressJS, Angular and NodeJS. MongoDB is database, NodeJS and ExpressJS are for rest apis, and Angular is for front end.
 
@@ -87,7 +87,7 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 ### Production mode
 
 For Production mode, there is 2 options: 
-  1. Using 2 containers (Express (frontend and api) and Mongo)
+  * Using 2 containers (Express (frontend and api) and Mongo)
 
 ```
   git clone https://github.com/nitin27may/mean-docker.git
@@ -98,7 +98,7 @@ For Production mode, there is 2 options:
   docker-compose  up
   ```
 It will run fronend and api on `http://localhost:3000` .you can also access mongodb on port 27017
-  2. Using 4 containers (Mongo,api, angular and nginx)
+   * Using 4 containers (Mongo,api, angular and nginx)
 ```
   git clone https://github.com/nitin27may/mean-docker.git
   cd mean-docker
