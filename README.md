@@ -1,7 +1,8 @@
 # MEAN Stack using Docker
 
-## About Docker Compose File
+### MongoDB - Express - Angular - NodeJS
 
+## About Docker Compose File
 The main focus of this project to show case the possible way to run a real application (Mean stack) using docker.
 
 we have considered 3 scenarios:
