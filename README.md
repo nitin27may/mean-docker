@@ -7,7 +7,7 @@ The main focus of this project to show case the possible way to run a real appli
 
 we have considered 3 scenarios:
 
-1. **Using 2 containers** ([docker compose file](/docker-compose.yml)) 
+1. **Using 2 containers** ([docker-compose.yml](/docker-compose.yml)) 
 
    
     * express : To host Frontend (Angular) and backend api (expressjs) together
@@ -58,7 +58,7 @@ services:
       - "27017:27017" # specify port forewarding
 ```
 
-2. **Using 4 containers** ([docker compose file](/docker-compose.nginx.yml))
+2. **Using 4 containers** ([docker-compose.nginx.yml](/docker-compose.nginx.yml))
    
     * angular: Application's frontend (Angular) 
     * express: Application's Rest services (expressjs)
@@ -122,7 +122,7 @@ services:
       - angular
 ```
 
-3. **Development Mode** ([docker compose file](/docker-compose.debug.yml))
+3. **Development Mode** ([docker-compose.debug.yml](/docker-compose.debug.yml))
 
     It will run 3 containers which are required for development.
 
@@ -232,6 +232,8 @@ For folder structure details refer this link: [API Folder Structure](/docs/expre
 
 We are using Mongodb as database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
 
+##### [Seed data script](/mongo/init-db.d/01.Seed.sh)
+##### [Database user creation script](/mongo/init-db.d/02.Users.sh)
 
 ## NGINX
 
