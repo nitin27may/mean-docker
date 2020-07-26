@@ -13,7 +13,6 @@ COPY package.json ./
 ## installing node modules
 RUN npm i
 
-
 COPY . .
 
 # Expose the port the app runs in

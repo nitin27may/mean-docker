@@ -6,12 +6,10 @@ MEAN stack is intended to provide a starting point for building full-stack web a
 
 ## About Project
 
+This is a simple web application. It has working user registration, login page and also there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
+Also, rest services are secure using JWT. 
 
-MEAN (full) stack application which comprises of MongoDB, ExpressJS, Angular and NodeJS. MongoDB is database, NodeJS and ExpressJS are for rest apis, and Angular is for front end.
-
-Docker Compose can be used to create separate containers (and host them) for each of the stacks in a MEAN stack application. MEAN is the acronym for MongoDB Express Angular & NodeJs.
-
-## Angular (10.0.2)
+## Angular (10.0.5)
 
 In MEAN stack A stands for Angular, fronend of this project is developed in Angular.
 
@@ -48,7 +46,7 @@ For folder structure details refer this link: [API Folder Structure](/docs/expre
 
 ## Mongo DB
 
-We are using Mongodb as database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+We are using Mongodb for database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
 
 ##### [Seed data script](/mongo/init-db.d/01.Seed.sh)
 ##### [Database user creation script](/mongo/init-db.d/02.Users.sh)
