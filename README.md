@@ -109,6 +109,8 @@ The project includes sample code for various functionalities, such as
 
 Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
 
+This is a simple web application. It has working user registration, login page and also there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
+Also, rest services are secure using JWT. 
 
 >>>>>>> 7e9a462 (Update README.md)
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
