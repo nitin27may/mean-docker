@@ -75,6 +75,10 @@ EXPOSE 4000
 CMD ["node", "server/main.js"]
 
 ```
+### Dockerfile Development mode
+```dockerfile
+# Create image based off of the official 12.8-alpine
+FROM node:14
 
 ## Further help
 
