@@ -141,7 +141,7 @@ Clone the project and run `npm install` in frontend and api folder.
 For passing enviornment variables (database details) in api, Navigate to api folder, __rename `.env.example` to `.env`__ and update your mongo db details there.
 
 
-  Also, you can run commant `npm run dev-server` from frontend folder to run frontend and api together.
+  Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
 
 It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
 

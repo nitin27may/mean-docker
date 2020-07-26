@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disable-host-check --poll 500",
+    "serve": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -13,7 +14,7 @@
     "build:ssr": "ng build --prod && ng run frontend:server:production",
     "build:output": "npm run build:ssr --output-path=dist",
     "prerender": "ng run frontend:prerender",
-    "dev-server": "concurrently \"nodemon ../api/server.js --watch server\" \"npm run serve\""
+    "dev-server": "concurrently \"nodemon ../api/server.js --watch api\" \"npm run serve\""
   },
   "private": true,
   "dependencies": {
