@@ -95,6 +95,7 @@ Additionally, there are samples of code for implementing an authentication guard
 This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
 
+>>>>>>> 1a4055a (Typo fix in read me)
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
 **[Dockerfile for Production](/frontend/Dockerfile)**
