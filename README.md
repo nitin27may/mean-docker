@@ -95,7 +95,8 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
 ## Getting started
 
-### Using Docker
+### Prerequisites
+#### Using Docker
 
 #### Prerequisite
 Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
