@@ -12,7 +12,7 @@ MEAN stack is intended to provide a starting point for building full-stack web a
         * [Development Mode](#development-mode)
         * [Production Mode](#production-mode)
     * [Without Docker](#without-docker)
-      * [Prerequisites](#prerequisite)
+      * [Prerequisites](#prerequisites)
 <!-- * [Usage](#usage) -->
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
@@ -84,7 +84,6 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 #### Using Docker
 
 ##### Prerequisite
-****
 Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 * **Development mode:**
@@ -128,7 +127,7 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 #### Without Docker
 
-##### Prerequisite
+##### Prerequisites
 
 1. Install latest [Node js ](https://nodejs.org/en/)
 2. Install Nodemon as global package (To run exprerssjs in development mode)
