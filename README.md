@@ -7,11 +7,12 @@ MEAN stack is intended to provide a starting point for building full-stack web a
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
     * [Using Docker](#using-docker)
-      * [Development Mode](#development-mode)
-      * [Production Mode](#production-mode)
+      * [Prerequisites](#prerequisite)
+        * [Development Mode](#development-mode)
+        * [Production Mode](#production-mode)
     * [Without Docker](#without-docker)
+      * [Prerequisites](#prerequisite)
 <!-- * [Usage](#usage) -->
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
@@ -80,9 +81,11 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 ## Getting started
 ****
 
-### Prerequisites
 #### Using Docker
 
+##### Prerequisite
+****
+Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 * **Development mode:**
   You can start the application in debug mode (database, api and frontend) using docker-compose:
@@ -125,7 +128,7 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
 #### Without Docker
 
-#### Prerequisite
+##### Prerequisite
 
 1. Install latest [Node js ](https://nodejs.org/en/)
 2. Install Nodemon as global package (To run exprerssjs in development mode)
@@ -374,7 +377,7 @@ Contributions are what make the open source community such an amazing place to b
 ## License
 [MIT](https://github.com/nitin27may/mean-docker/blob/master/LICENSE/)
   ## Contact
-  Your Name - [@nitin27may](https://twitter.com/nitin27may) 
+  Nitin Singh - [@nitin27may](https://twitter.com/nitin27may) 
 
 <!-- Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
    -->
