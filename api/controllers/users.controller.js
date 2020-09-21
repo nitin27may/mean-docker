@@ -39,7 +39,8 @@ exports.new = function (req, res) {
       });
     } else {
       var user = new User();
-      user.username = req.body.username ? req.body.username : user.username;
+      user.username = req.body.username;
+      user.email = req.body.username;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
@@ -102,7 +103,9 @@ exports.authenticate = function (req, res) {
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       // authentication successful
-      user.token = jwt.sign({ sub: user._id }, environment.secret);
+      user.token = jwt.sign({ sub: user._id }, environment.secret, {
+        algorithm: "HS256"
+      });
       delete user.password;
       res.json({
         status: "success",
