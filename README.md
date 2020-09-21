@@ -95,7 +95,6 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
 ## Getting started
 
-### Prerequisites
 #### Using Docker
 
 #### Prerequisite
