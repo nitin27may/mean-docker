@@ -1,4 +1,4 @@
 FROM mongo
 
 
-COPY init-mongo.sh /docker-entrypoint-initdb.d
+COPY init-db.d /docker-entrypoint-initdb.d
