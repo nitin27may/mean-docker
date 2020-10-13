@@ -62,6 +62,7 @@ let apiRoutes = require("./api-routes");
 app.use(
   expressJwt({
     secret: environment.secret,
+    algorithms: ["HS256"],
     getToken: function (req) {
       if (
         req.headers.authorization &&

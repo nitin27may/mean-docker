@@ -1,15 +1,32 @@
 # MEAN Stack using Docker
 
 ### MongoDB - Express - Angular - NodeJS
-
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The main focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
+## Table of Contents
 
-## About Project
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+    * [Using Docker](#using-docker)
+      * [Prerequisites](#prerequisite)
+        * [Development Mode](#development-mode)
+        * [Production Mode](#production-mode)
+    * [Without Docker](#without-docker)
+      * [Prerequisites](#prerequisites)
+<!-- * [Usage](#usage) -->
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
+<!-- * [Acknowledgements](#acknowledgements) -->
+
+### About Project
 
 This is a simple web application. It has working user registration, login page and also there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
 
-## Angular (10.0.5)
+### Built With
+#### Angular (10.0.5)
 
 In MEAN stack A stands for Angular, fronend of this project is developed in Angular.
 
@@ -27,7 +44,7 @@ For folder structure details refer this link: [Frontend Folder Structure](/docs/
 ##### [Dockerfile for Production](/frontend/Dockerfile)
 ##### [Dockerfile for Development](/frontend/debug.dockerfile)
 
-## Expressjs (4.17.1)
+#### Expressjs (4.17.1)
 
 In MEAN stack, E stands for Expressjs, all rest services are developed using express js.
 
@@ -44,14 +61,14 @@ For folder structure details refer this link: [API Folder Structure](/docs/expre
 ##### [Dockerfile for production](/api/Dockerfile)
 ##### [Dockerfile for development](/api/debug.dockerfile)
 
-## Mongo DB
+#### Mongo DB
 
 We are using Mongodb for database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
 
 ##### [Seed data script](/mongo/init-db.d/01.Seed.sh)
 ##### [Database user creation script](/mongo/init-db.d/02.Users.sh)
 
-## NGINX
+#### NGINX
 
 ###### Note: only if you are using docker.
 
@@ -62,12 +79,13 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
 
 ## Getting started
-****
 
-### Using Docker
+#### Using Docker
 
+##### Prerequisite
+Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-### Development mode:
+* **Development mode:**
   You can start the application in debug mode (database, api and frontend) using docker-compose:
 
 
@@ -82,33 +100,33 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
   Also, it will automatically refresh (hot reload) your UI for code changes. That is also true for expressjs file changes. 
      
-### Production mode
+* **Production mode:**
 
-For Production mode, there is 2 options: 
-  * Using 2 containers (Express (frontend and api) and Mongo)
+  For Production mode, there is 2 options: 
+    * Using 2 containers (Express (frontend and api) and Mongo)
 
-```
-  git clone https://github.com/nitin27may/mean-docker.git
-  cd mean-docker
-  
-  docker-compose -f 'docker-compose.yml' up
-  # or just run beow as docker consider default file name 'docker-compose.yml'
-  docker-compose  up
   ```
-It will run fronend and api on `http://localhost:3000` .you can also access mongodb on port 27017
-   * Using 4 containers (Mongo,api, angular and nginx)
-```
-  git clone https://github.com/nitin27may/mean-docker.git
-  cd mean-docker
-
-  docker-compose -f 'docker-compose.nginx.yml' up
+    git clone https://github.com/nitin27may/mean-docker.git
+    cd mean-docker
+    
+    docker-compose -f 'docker-compose.yml' up
+    # or just run beow as docker consider default file name 'docker-compose.yml'
+    docker-compose  up
+    ```
+  It will run fronend and api on `http://localhost:3000` .you can also access mongodb on port 27017
+    * Using 4 containers (Mongo,api, angular and nginx)
   ```
-It will run fronend and api on `http://localhost` . you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
+    git clone https://github.com/nitin27may/mean-docker.git
+    cd mean-docker
+
+    docker-compose -f 'docker-compose.nginx.yml' up
+    ```
+  It will run fronend and api on `http://localhost` . you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
 
 
-### Without Docker
+#### Without Docker
 
-#### Prerequisite
+##### Prerequisites
 
 1. Install latest [Node js ](https://nodejs.org/en/)
 2. Install Nodemon as global package (To run exprerssjs in development mode)
@@ -273,60 +291,96 @@ services:
   ```dockerfile
   version: "3.8" # specify docker-compose version
 
-# Define the services/containers to be run
-services:
-  angular: # name of the first service
-    build: # specify the directory of the Dockerfile
-      context: ./frontend
-      dockerfile: debug.dockerfile
-    container_name: mean_angular
-    volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
-    ports:
-      - "4200:4200" # specify port forewarding
-      - "49153:49153"
-    environment:
-      - NODE_ENV=dev
+  # Define the services/containers to be run
+  services:
+    angular: # name of the first service
+      build: # specify the directory of the Dockerfile
+        context: ./frontend
+        dockerfile: debug.dockerfile
+      container_name: mean_angular
+      volumes:
+        - ./frontend:/frontend
+        - /frontend/node_modules
+      ports:
+        - "4200:4200" # specify port forewarding
+        - "49153:49153"
+      environment:
+        - NODE_ENV=dev
 
-  express: #name of the second service
-    build: # specify the directory of the Dockerfile
-      context: ./api
-      dockerfile: debug.dockerfile
-    container_name: mean_express
-    volumes:
-      - ./api:/api
-      - /api/node_modules
-    ports:
-      - "3000:3000" #specify ports forewarding
-    environment:
-      - SECRET=Thisismysecret
-      - NODE_ENV=development
-      - MONGO_DB_USERNAME=admin-user
-      - MONGO_DB_PASSWORD=admin-password
-      - MONGO_DB_HOST=database
-      - MONGO_DB_PORT=
-      - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-contacts
-    links:
-      - database
+    express: #name of the second service
+      build: # specify the directory of the Dockerfile
+        context: ./api
+        dockerfile: debug.dockerfile
+      container_name: mean_express
+      volumes:
+        - ./api:/api
+        - /api/node_modules
+      ports:
+        - "3000:3000" #specify ports forewarding
+      environment:
+        - SECRET=Thisismysecret
+        - NODE_ENV=development
+        - MONGO_DB_USERNAME=admin-user
+        - MONGO_DB_PASSWORD=admin-password
+        - MONGO_DB_HOST=database
+        - MONGO_DB_PORT=
+        - MONGO_DB_PARAMETERS=?authSource=admin
+        - MONGO_DB_DATABASE=mean-contacts
+      links:
+        - database
 
-  database: # name of the third service
-    image: mongo # specify image to build container from
-    container_name: mean_mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin-user
-      - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_DB_USERNAME=admin-user1
-      - MONGO_DB_PASSWORD=admin-password1
-      - MONGO_DB=mean-contacts
+    database: # name of the third service
+      image: mongo # specify image to build container from
+      container_name: mean_mongo
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=admin-user
+        - MONGO_INITDB_ROOT_PASSWORD=admin-password
+        - MONGO_DB_USERNAME=admin-user1
+        - MONGO_DB_PASSWORD=admin-password1
+        - MONGO_DB=mean-contacts
 
-    volumes:
-      - ./mongo:/home/mongodb
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
-    ports:
-      - "27017:27017" # specify port forewarding
+      volumes:
+        - ./mongo:/home/mongodb
+        - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
+        - ./mongo/db:/data/db
+      ports:
+        - "27017:27017" # specify port forewarding
 
   ```
-  
+
+<!-- ## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+For more examples, please refer to the [Documentation](https://example.com) -->
+
+## Roadmap
+
+See the [open issues](https://github.com/nitin27may/mean-docker/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) for a list of proposed features (and known issues).
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are *greatly appreciated*.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+## License
+[MIT](https://github.com/nitin27may/mean-docker/blob/master/LICENSE/)
+  ## Contact
+  Nitin Singh - [@nitin27may](https://twitter.com/nitin27may) 
+
+<!-- Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+   -->
+  <!-- ## Acknowledgements
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Img Shields](https://shields.io)
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Pages](https://pages.github.com) -->
