@@ -14,15 +14,15 @@ export class ContactListComponent implements OnInit {
   SelectionType = SelectionType;
 
   columns = [
-    { prop: "firstName", name: "First Name" },
-    { prop: "lastName" },
-    { prop: "email" },
+    { prop: "firstName", name: "First Name",  width: 250 },
+    { prop: "lastName",  width: 250  },
+    { prop: "email",  width: 250  },
     { prop: "mobile" },
     { prop: "city" },
     { prop: "postalCode" }
   ];
   constructor(private contactService: ContactService, private router: Router) {}
-  getAll() {
+  getAll(): void {
     this.contactService.getAll().subscribe(
       (data) => {
         console.log(data);
@@ -32,7 +32,7 @@ export class ContactListComponent implements OnInit {
       (error) => {}
     );
   }
-  onSelect(selected: any) {
+  onSelect(selected: any): void {
     console.log("Select Event", selected, this.selected);
     this.router.navigate(["/contacts/details/" + this.selected[0]._id]);
   }

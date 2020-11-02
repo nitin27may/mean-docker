@@ -10,9 +10,9 @@ const environment = require("../config/environment");
 exports.index = function (req, res) {
   User.get(function (err, users) {
     if (err) {
-      res.json({
+      res.status(400).json({
         status: "error",
-        message: err
+        error: "Bad Request."
       });
     }
     res.json({
@@ -25,9 +25,8 @@ exports.index = function (req, res) {
 // Handle create user actions
 exports.new = function (req, res) {
   User.find({ username: req.body.username.trim() }, function (err, users) {
-    console.log(users);
     if (err) {
-      res.json({
+      res.status(400).json({
         status: "error",
         message: err
       });
@@ -48,7 +47,12 @@ exports.new = function (req, res) {
       user.lastName = req.body.lastName;
       // save the user and check for errors
       user.save(function (err) {
-        if (err) res.json(err);
+        if (err) {
+          res.status(400).json({
+            status: "error",
+            error: err
+          });
+        }
         res.json({
           message: "New user created!",
           data: user
@@ -60,7 +64,12 @@ exports.new = function (req, res) {
 // Handle view user info
 exports.view = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
-    if (err) res.send(err);
+    if (err) {
+      res.status(400).json({
+        status: "error",
+        error: err
+      });
+    }
     res.json({
       message: "User details loading..",
       data: user
@@ -73,7 +82,12 @@ exports.update = function (req, res) {
     err,
     user
   ) {
-    if (err) res.send(err);
+    if (err) {
+      res.status(400).json({
+        status: "error",
+        error: err
+      });
+    }
 
     res.json({
       message: "User Info updated",
@@ -88,7 +102,12 @@ exports.delete = function (req, res) {
       _id: req.params.user_id
     },
     function (err, user) {
-      if (err) res.send(err);
+      if (err) {
+        res.status(400).json({
+          status: "error",
+          error: err
+        });
+      }
       res.json({
         status: "success",
         message: "User deleted"
@@ -99,7 +118,12 @@ exports.delete = function (req, res) {
 
 exports.authenticate = function (req, res) {
   User.findOne({ username: req.body.username }, function (err, user) {
-    if (err) res.send(err);
+    if (err) {
+      res.status(400).json({
+        status: "error",
+        error: err
+      });
+    }
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       // authentication successful
@@ -124,7 +148,12 @@ exports.authenticate = function (req, res) {
 
 exports.changePassword = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
-    if (err) res.send(err);
+    if (err) {
+      res.status(400).json({
+        status: "error",
+        error: err
+      });
+    }
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       // authentication successful

@@ -21,7 +21,6 @@ exports.index = function (req, res) {
 // Handle create user actions
 exports.new = function (req, res) {
   Contact.find({ mobile: req.body.mobile.trim() }, function (err, contacts) {
-    console.log(contacts);
     if (err) {
       res.json({
         status: "error",
@@ -42,7 +41,12 @@ exports.new = function (req, res) {
 
       // save the contact and check for errors
       contact.save(function (err) {
-        if (err) res.json(err);
+        if (err) {
+          res.status(400).json({
+            status: "error",
+            error: err
+          });
+        }
         res.json({
           message: "New contact created!",
           data: contact
@@ -54,7 +58,12 @@ exports.new = function (req, res) {
   // Handle view contact info
   exports.view = function (req, res) {
     Contact.findById(req.params.contact_id, function (err, contact) {
-      if (err) res.send(err);
+      if (err) {
+        res.status(400).json({
+          status: "error",
+          error: err
+        });
+      }
       res.json({
         message: "Contact details loading..",
         data: contact
@@ -68,7 +77,12 @@ exports.new = function (req, res) {
       req.body,
       { new: true },
       function (err, contact) {
-        if (err) res.send(err);
+        if (err) {
+          res.status(400).json({
+            status: "error",
+            error: err
+          });
+        }
 
         // save the contact and check for errors
         contact.save(function (err) {
@@ -88,7 +102,12 @@ exports.new = function (req, res) {
         _id: req.params.contact_id
       },
       function (err, state) {
-        if (err) res.send(err);
+        if (err) {
+          res.status(400).json({
+            status: "error",
+            error: err
+          });
+        }
         res.json({
           status: "success",
           message: "Contact deleted"
@@ -100,7 +119,12 @@ exports.new = function (req, res) {
 // Handle view state info
 exports.view = function (req, res) {
   Contact.findById(req.params.contact_id, function (err, contact) {
-    if (err) res.send(err);
+    if (err) {
+      res.status(400).json({
+        status: "error",
+        error: err
+      });
+    }
     res.json({
       message: "contact details loading..",
       data: contact
@@ -114,7 +138,12 @@ exports.update = function (req, res) {
     req.body,
     { new: true },
     function (err, contact) {
-      if (err) res.send(err);
+      if (err) {
+        res.status(400).json({
+          status: "error",
+          error: err
+        });
+      }
 
       // save the contact and check for errors
       contact.save(function (err) {
@@ -134,7 +163,12 @@ exports.delete = function (req, res) {
       _id: req.params.contact_id
     },
     function (err, contact) {
-      if (err) res.send(err);
+      if (err) {
+        res.status(400).json({
+          status: "error",
+          error: err
+        });
+      }
       res.json({
         status: "success",
         message: "contact deleted"
