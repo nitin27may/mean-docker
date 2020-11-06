@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { Router, NavigationStart } from "@angular/router";
-import { Observable } from "rxjs";
-import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class AlertService {
@@ -25,12 +25,12 @@ export class AlertService {
 
   success(message: string, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({ type: "success", text: message });
+    this.subject.next({ type: 'success', text: message });
   }
 
   error(message: string, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({ type: "error", text: message });
+    this.subject.next({ type: 'error', text: message });
   }
 
   getMessage(): Observable<any> {

@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { UserService } from "../../../core/services/user.service";
-import { User } from "../../../core/models/user.interface";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
-import { ValidationService } from "../../../core/components";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../core/services/user.service';
+import { User } from '../../../core/models/user.interface';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ValidationService } from '../../../core/components';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.scss"]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   user: User;
@@ -25,22 +25,23 @@ export class ProfileComponent implements OnInit {
 
   createProfileForm() {
     this.profileForm = this.formBuilder.group({
-      _id: [""],
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      email: ["", Validators.required],
-      mobile: ["", [Validators.required, Validators.minLength(10)]]
+      _id: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
+      role: [0, [Validators.required, Validators.minLength(10)]]
     });
   }
   createPasswordForm() {
     this.passwordForm = this.formBuilder.group(
       {
-        username: ["", Validators.required],
-        password: ["", [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ["", Validators.required]
+        username: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required]
       },
       {
-        validator: this.validationService.MustMatch("password", "confirmPassword")
+        validator: this.validationService.MustMatch('password', 'confirmPassword')
       }
     );
   }
@@ -52,10 +53,10 @@ export class ProfileComponent implements OnInit {
   updateProfile() {
     this.usreService.update(this.profileForm.value).subscribe(
       (data) => {
-        this.toastrService.success("Profile updated successful");
+        this.toastrService.success('Profile updated successful');
         const user = data;
         user.token = this.user.token;
-        localStorage.setItem("currentUser", JSON.stringify(user));
+        localStorage.setItem('currentUser', JSON.stringify(user));
       },
       (error) => {}
     );
@@ -63,13 +64,13 @@ export class ProfileComponent implements OnInit {
 
   resetPasswordForm() {
     this.passwordForm.reset();
-    this.passwordForm.get("username").patchValue(this.user.username);
+    this.passwordForm.get('username').patchValue(this.user.username);
   }
   updatePassword() {
-    this.usreService.changePassword(this.user._id, this.passwordForm.get("password").value).subscribe(
+    this.usreService.changePassword(this.user._id, this.passwordForm.get('password').value).subscribe(
       (data) => {
-        this.toastrService.success("Profile updated successful");
-        this.router.navigate(["/login"]);
+        this.toastrService.success('Profile updated successful');
+        this.router.navigate(['/login']);
       },
       (error) => {}
     );
@@ -80,6 +81,6 @@ export class ProfileComponent implements OnInit {
     this.createPasswordForm();
     this.user = this.usreService.getCurrentUser();
     this.profileForm.patchValue(this.user);
-    this.passwordForm.get("username").patchValue(this.user.username);
+    this.passwordForm.get('username').patchValue(this.user.username);
   }
 }

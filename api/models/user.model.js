@@ -2,11 +2,11 @@
 var mongoose = require("mongoose");
 // Setup schema
 var userSchema = mongoose.Schema({
-  firstName: {
+  firstname: {
     type: String,
     required: true
   },
-  lastName: {
+  lastname: {
     type: String,
     required: true
   },
@@ -18,9 +18,13 @@ var userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  role: {
+    type: Number,
+    required: true
+  },
   token: String,
   email: String,
-  mobile: String,
+  phoneNumber: String,
   create_date: {
     type: Date,
     default: Date.now

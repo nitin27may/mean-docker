@@ -1,29 +1,32 @@
 [
   {
     "_id": "5895b74ca84c675de0d3338d",
-    "firstName": "Nitin",
-    "lastName": "Singh",
-    "mobile": "9876500000",
-    "email": "nitin27may@mydomain.com",
-    "city": "Toronto",
-    "postalCode": "421201"
+    "firstname": "andry",
+    "lastname": "randria",
+    "phoneNumber": "0122334455",
+    "email": "andryra@mydomain.com",
+    "role": 3,
+    "city": "Paris",
+    "postalCode": "75012"
   },
   {
     "_id": "5895b74da84c675de0d3338e",
-    "firstName": "Sachin",
-    "lastName": "Singh",
-    "mobile": "9876540000",
-    "email": "saching@mydomain.com",
-    "city": "Pune",
-    "postalCode": "421201"
+    "firstname": "User1",
+    "lastname": "Name1",
+    "phoneNumber": "0322114455",
+    "email": "user1@mydomain.com",
+    "role": 0,
+    "city": "Lille",
+    "postalCode": "59000"
   },
   {
     "_id": "5895b74da84c675de0d3338f",
-    "firstName": "Vikram",
-    "astName": "Singh",
-    "mobile": "9876540000",
-    "email": "vikram.singh@mydomain.com",
-    "city": "Mumbai",
-    "postalCode": "421201"
+    "firstname": "User2",
+    "lastname": "Name2",
+    "phoneNumber": "0688779944",
+    "email": "user2@mydomain.com",
+    "role": 1,
+    "city": "Nancy",
+    "postalCode": "54000"
   }
 ]

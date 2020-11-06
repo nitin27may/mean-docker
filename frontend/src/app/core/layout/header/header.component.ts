@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
-import { User } from "../../models/user.interface";
-import { UserService } from "../../services";
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { User } from '../../models/user.interface';
+import { UserService } from '../../services';
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   public pushRightClass: string;
@@ -21,20 +21,20 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pushRightClass = "push-right";
+    this.pushRightClass = 'push-right';
     this.user = this.userService.getCurrentUser();
   }
 
   isToggled(): boolean {
-    const dom: Element = document.querySelector("body");
+    const dom: Element = document.querySelector('body');
     return dom.classList.contains(this.pushRightClass);
   }
 
   toggleSidebar() {
-    const dom: any = document.querySelector("body");
+    const dom: any = document.querySelector('body');
     dom.classList.toggle(this.pushRightClass);
   }
   onLoggedout() {
-    localStorage.removeItem("isLoggedin");
+    localStorage.removeItem('isLoggedin');
   }
 }

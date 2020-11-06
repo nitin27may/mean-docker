@@ -1,36 +1,36 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "../../../app/core/guards";
-import { LayoutComponent } from "../../../app/core/layout/layout.component";
-import { ContactListComponent } from "./contact-list/contact-list.component";
-import { ContactFormComponent } from "./contact-form/contact-form.component";
-import { ContactDetailsComponent } from "./contact-details/contact-details.component";
-import { ContactDetailsResolver } from "./contact.resolver";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../../../app/core/guards';
+import { LayoutComponent } from '../../../app/core/layout/layout.component';
+import { ContactListComponent } from './contact-list/contact-list.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
+import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import { ContactDetailsResolver } from './contact.resolver';
 
 const contactRoutes: Routes = [
   {
-    path: "",
+    path: '',
     component: LayoutComponent,
     children: [
       {
-        path: "",
+        path: '',
         component: ContactListComponent
       },
       {
-        path: "create",
+        path: 'create',
         component: ContactFormComponent
       },
       // {
-      //   path: ":contactId",
+      //   path: ':contactId',
       //   component: ContactFormComponent,
       //   children: [
       {
-        path: "edit/:contactId",
+        path: 'edit/:contactId',
         component: ContactFormComponent,
         resolve: { contactDetails: ContactDetailsResolver }
       },
       {
-        path: "details/:contactId",
+        path: 'details/:contactId',
         component: ContactDetailsComponent,
         resolve: { contactDetails: ContactDetailsResolver }
       }

@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { LoginService } from "./login.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { LoginService } from './login.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   model: any = {};
@@ -28,14 +28,14 @@ export class LoginComponent implements OnInit {
     this.createForm();
     this.loginService.logout();
 
-    // get return url from route parameters or default to "/"
-    this.returnUrl = this.route.snapshot.queryParams[`returnUrl`] || "/";
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams[`returnUrl`] || '/';
   }
 
   createForm() {
     this.loginForm = this.formBuilder.group({
-      userName: ["", Validators.required],
-      password: ["", Validators.required],
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
       rememberMe: [false]
     });
   }
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
           }
         );
     } else {
-      this.toastrService.error("Please enter valid credentails");
+      this.toastrService.error('Please enter valid credentails');
     }
   }
 }

@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { UserService } from "../../../core/services/user.service";
-import { ToastrService } from "ngx-toastr";
-import { ValidationService } from "src/app/core/components";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../../../core/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { ValidationService } from 'src/app/core/components';
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   loading = false;
@@ -25,8 +25,8 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.userService.create(this.registerForm.value).subscribe(
       (data) => {
-        this.toastrService.success("Registration successful");
-        this.router.navigate(["/login"]);
+        this.toastrService.success('Registration successful');
+        this.router.navigate(['/login']);
         console.log(data);
       },
       (error) => {
@@ -39,14 +39,14 @@ export class RegisterComponent implements OnInit {
   createForm() {
     this.registerForm = this.formBuilder.group(
       {
-        firstName: ["", Validators.required],
-        lastName: ["", Validators.required],
-        username: ["", Validators.required],
-        password: ["", [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ["", Validators.required]
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        username: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required]
       },
       {
-        validator: this.validationService.MustMatch("password", "confirmPassword")
+        validator: this.validationService.MustMatch('password', 'confirmPassword')
       }
     );
   }
