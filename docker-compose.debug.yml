@@ -6,7 +6,7 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./frontend
       dockerfile: debug.dockerfile
-    container_name: mean_angular
+    container_name: asako_angular
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
@@ -20,7 +20,7 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./api
       dockerfile: debug.dockerfile
-    container_name: mean_express
+    container_name: asako_express
     volumes:
       - ./api:/api
       - /api/node_modules
@@ -34,19 +34,19 @@ services:
       - MONGO_DB_HOST=database
       - MONGO_DB_PORT=
       - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-contacts
+      - MONGO_DB_DATABASE=mean-db
     links:
       - database
 
   database: # name of the third service
     image: mongo # specify image to build container from
-    container_name: mean_mongo
+    container_name: asako_mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password
       - MONGO_DB_USERNAME=admin-user1
       - MONGO_DB_PASSWORD=admin-password1
-      - MONGO_DB=mean-contacts
+      - MONGO_DB=asako-db
 
     volumes:
       - ./mongo:/home/mongodb
