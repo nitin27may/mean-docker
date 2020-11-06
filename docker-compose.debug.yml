@@ -34,7 +34,7 @@ services:
       - MONGO_DB_HOST=database
       - MONGO_DB_PORT=
       - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-db
+      - MONGO_DB_DATABASE=asako-db
     links:
       - database
 
