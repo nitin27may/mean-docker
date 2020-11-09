@@ -39,7 +39,7 @@ const userSchema = new Schema({
   },
   notifications: {
     email: { type: Boolean, default: true },
-    notifyByEmailOnTransfer: { type: Boolean }
+    notifyByEmailOnTransfer: { type: Boolean, default: true }
   },
   profils: [{
     type: ObjectId,
