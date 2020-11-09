@@ -26,8 +26,8 @@ export class ProfileComponent implements OnInit {
   createProfileForm() {
     this.profileForm = this.formBuilder.group({
       _id: [''],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', Validators.required],
       phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
       role: [0, [Validators.required, Validators.minLength(10)]]

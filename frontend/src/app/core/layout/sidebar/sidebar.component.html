@@ -9,7 +9,7 @@
       [routerLinkActive]="['router-link-active']"
       tooltip="Contacts"
       container="body"
-      style="z-index: 1000; position: relative;"
+      style="z-index: 1000; position: relative"
       class="list-group-item"
     >
       <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
@@ -18,7 +18,7 @@
     <div class="header-fields">
       <div class="nested-menu">
         <a class="list-group-item" (click)="addExpandClass('profile')">
-          <span><i class="fa fa-user"></i>&nbsp; {{ user?.firstName }} {{ user?.lastName }}</span>
+          <span><i class="fa fa-user"></i>&nbsp; {{ user?.firstname }} {{ user?.lastname }}</span>
         </a>
         <li class="nested" [class.expand]="showMenu === 'profile'">
           <ul class="submenu">

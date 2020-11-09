@@ -14,8 +14,8 @@ export class ContactListComponent implements OnInit {
   SelectionType = SelectionType;
 
   columns = [
-    { prop: 'firstName', name: 'First Name',  width: 250 },
-    { prop: 'lastName',  width: 250  },
+    { prop: 'firstname', name: 'First Name',  width: 250 },
+    { prop: 'lastname',  width: 250  },
     { prop: 'email',  width: 250  },
     { prop: 'mobile' },
     { prop: 'city' },

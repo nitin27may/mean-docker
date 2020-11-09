@@ -24,8 +24,8 @@ export class ContactFormComponent implements OnInit {
   createForm() {
     this.contactForm = this.formBuilder.group({
       _id: ['', []],
-      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
-      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      firstname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
+      lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
       email: ['', [Validators.required, this.validationService.emailValidator]],
       mobile: ['', [Validators.required]],
       city: ['', [Validators.required]],

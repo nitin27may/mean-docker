@@ -10,13 +10,13 @@
               <form (submit)="register()" novalidate [formGroup]="registerForm">
                 <div class="form-group">
                   <label>First Name</label>
-                  <input class="form-control" placeholder="First Name" type="text" name="firstName" formControlName="firstName" />
-                  <validation-messages style="text-align: left" [control]="registerForm.controls.firstName"></validation-messages>
+                  <input class="form-control" placeholder="First Name" type="text" name="firstname" formControlName="firstname" />
+                  <validation-messages style="text-align: left" [control]="registerForm.controls.firstname"></validation-messages>
                 </div>
                 <div class="form-group">
                   <label>Last Name</label>
-                  <input name="lastName" class="form-control" placeholder="Last Name" type="text" formControlName="lastName" />
-                  <validation-messages style="text-align: left" [control]="registerForm.controls.firstName"></validation-messages>
+                  <input name="lastname" class="form-control" placeholder="Last Name" type="text" formControlName="lastname" />
+                  <validation-messages style="text-align: left" [control]="registerForm.controls.firstname"></validation-messages>
                 </div>
                 <div class="form-group">
                   <label>Your email</label>
@@ -39,9 +39,7 @@
 
                 <!-- form-group// -->
                 <div class="form-group">
-                  <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-block">
-                    Register
-                  </button>
+                  <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-block">Register</button>
                 </div>
                 <!-- form-group// -->
               </form>

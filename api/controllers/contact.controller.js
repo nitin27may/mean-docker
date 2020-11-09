@@ -30,7 +30,7 @@ exports.new = function (req, res) {
     if (contacts && contacts.length > 0) {
       res.status(400).send({
         status: "error",
-        message: req.body.firstName + " is already exist"
+        message: req.body.firstname + " is already exist"
       });
     } else {
       var contact = new Contact();

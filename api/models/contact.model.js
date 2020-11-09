@@ -2,11 +2,11 @@
 var mongoose = require("mongoose");
 // Setup schema
 var contactSchema = mongoose.Schema({
-    firstName: {
+    firstname: {
         type: String,
         required: true
     },
-    lastName: {
+    lastname: {
         type: String,
         required: true
     },

@@ -43,8 +43,8 @@ exports.new = function (req, res) {
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
-      user.firstName = req.body.firstName;
-      user.lastName = req.body.lastName;
+      user.firstname = req.body.firstname;
+      user.lastname = req.body.lastname;
       // save the user and check for errors
       user.save(function (err) {
         if (err) {
