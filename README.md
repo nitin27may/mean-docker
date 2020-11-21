@@ -3,12 +3,21 @@
 ### About (MongoDB - Express - Angular - NodeJS)
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The main focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
 
-## To Qucik RUN (Use powershell)
+## To Qucik Run
 If you want quick run this project, you can use already pushed ui, api images. Run below commnads in powershell, which will create a docker file and the run complete application.
+
+Windows (powershell) :
 ```
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nitin27may/mean-docker/master/docker-compose.hub.yml" -OutFile "D:\docker-compose.yml"
 
 cd d:\
+
+docker-compose up -d
+```
+Linux / Mac :
+```
+
+curl https://raw.githubusercontent.com/nitin27may/mean-docker/master/docker-compose.hub.yml -o docker-compose.yml
 
 docker-compose up -d
 ```
@@ -27,7 +36,7 @@ The apps written in the following JavaScript frameworks/libraries:
 ## Table of Contents
 - [MEAN (Stack) using Docker](#mean-stack-using-docker)
     - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
-  - [To Qucik RUN (Use powershell)](#to-qucik-run-use-powershell)
+  - [To Qucik Run](#to-qucik-run)
   - [Demo](#demo)
   - [Project Folders](#project-folders)
   - [Table of Contents](#table-of-contents)
