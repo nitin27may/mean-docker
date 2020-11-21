@@ -28,14 +28,13 @@
 <!-- * [Usage](#usage) -->
 <!-- * [Acknowledgements](#acknowledgements) -->
 
-
 ### About (MongoDB - Express - Angular - NodeJS)
-MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The main focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
+MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
 
 ## To Quick Run
-If you want quick run this project, you can use already pushed ui, api images. Run below commnads in powershell, which will create a docker file and the run complete application.
+To quick run this application without cloning the repo, you can use already pushed ui, api images. Run below commnads, which will create a dockerfile and then run complete application.
 
-Windows (powershell) :
+Windows (PowerShell):
 ```
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nitin27may/mean-docker/master/docker-compose.hub.yml" -OutFile "D:\docker-compose.yml"
 
@@ -43,7 +42,7 @@ cd d:\
 
 docker-compose up -d
 ```
-Linux / Mac :
+Linux / Mac:
 ```
 
 curl https://raw.githubusercontent.com/nitin27may/mean-docker/master/docker-compose.hub.yml -o docker-compose.yml
@@ -64,7 +63,7 @@ The apps written in the following JavaScript frameworks/libraries:
 
 ### About Project
 
-This is a simple web application. It has working user registration, login page and also there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
+This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
 
 ### Built With
@@ -79,9 +78,9 @@ It contains sample for below:
  3. Profile
  4. A complete CRUD example for Contact
 
-Also, It has sample code for Auth guard, services, http interceptors, resolver and JWT  imaplmenation
+Also, it has sample code for Auth guard, services, http interceptors, resolver and JWT implementation
 
-For folder structure details refer this link: [Frontend Folder Structure](/docs/angular-frontend-structure.md)
+For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
 **[Dockerfile for Production](/frontend/Dockerfile)**
 **[Dockerfile for Development](/frontend/debug.dockerfile)**
@@ -90,13 +89,13 @@ For folder structure details refer this link: [Frontend Folder Structure](/docs/
 
 In MEAN stack, E stands for Expressjs, all rest services are developed using express js.
 
-It constains sample for:
+It contains sample for:
 
-1. Mongodb connection and schema validation using Mongoose
+1. Mongo dB connection and schema validation using Mongoose
 2. JWT implementation for Authorization
 3. API routing
 4. User registration & login APIs
-5. Complete CRUD exmaple for Contact
+5. Complete CRUD example for Contact
 
 For folder structure details refer this link: [API Folder Structure](/docs/expressjs-api-structure.md)
 
@@ -112,13 +111,12 @@ We are using Mongodb for database. MongoDB is a cross-platform document-oriented
 
 #### NGINX
 
-_Note: only if you are using docker._
+_Note: only if you are using docker. _
 
 We have uses NGINX loadbalancer in case if there is a requirement that frontend and api need to be exposed on same port.
  For configutration please check [nginx.conf](/loadbalancer/nginx.conf)
 
-**Loadbalancer (nginx) [Dockerfile](/api/loadbalancer)**
-
+**Load balancer (nginx) [Dockerfile](/api/loadbalancer)**
 
 ## Getting started
 
@@ -130,7 +128,6 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 #### Development mode:
   You can start the application in debug mode (database, api and frontend) using docker-compose:
 
-
   ```
   git clone https://github.com/nitin27may/mean-docker.git
   cd mean-docker
@@ -138,7 +135,7 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
   docker-compose -f 'docker-compose.debug.yml' up
   ```
 
-  It will run fronend `http://localhost:4200`  and api on `http://localhost:3000` . you can also access mongodb on port 27017.
+  It will run fronend `http://localhost:4200` and api on `http://localhost:3000`. you can also access mongodb on port 27017.
 
   Also, it will automatically refresh (hot reload) your UI for code changes. That is also true for expressjs file changes. 
      
@@ -153,11 +150,11 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
     
     docker-compose -f 'docker-compose.yml' up
   ```
-  or just run beow as docker consider default file name  'docker-compose.yml'
+  or just run beow as docker consider default file name 'docker-compose.yml'
   ``` 
-    docker-compose  up
+    docker-compose up
   ```
-  It will run fronend and api on `http://localhost:3000` .you can also access mongodb on port 27017
+  It will run fronend and api on `http://localhost:3000`. you can also access mongodb on port 27017
  ##### Using 4 containers (Mongo,api, angular and nginx)
   ```
     git clone https://github.com/nitin27may/mean-docker.git
@@ -165,7 +162,7 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
     docker-compose -f 'docker-compose.nginx.yml' up
   ```
-  It will run fronend and api on `http://localhost` . you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
+  It will run fronend and api on `http://localhost`. you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
 #### About Docker Compose File
 The main focus of this project to show case the possible way to run a real application (Mean stack) using docker.
 
@@ -174,11 +171,10 @@ we have considered 3 scenarios:
 1. **Using 2 containers** ([docker-compose.yml](/docker-compose.yml)) 
 
    
-    * express : To host Frontend (Angular) and backend api (expressjs) together
+    * express: To host Frontend (Angular) and backend api (expressjs) together
     * database: To host MongoDB 
 
-  _Note: If in above case we are using MongoDB as managed service  then we will require only one container._
-
+  _Note: If in above case we are using MongoDB as managed service then we will require only one container._
 
 
 ```dockerfile
@@ -369,7 +365,7 @@ Clone the project and run `npm install` in frontend and api folder.
 ```
   git clone https://github.com/nitin27may/mean-docker.git
 
-  cd mean-docker/fronend
+  cd mean-docker/frontend
 
   npm i
 
@@ -384,11 +380,9 @@ Clone the project and run `npm install` in frontend and api folder.
 ```
 For passing enviornment variables (database details) in api, Navigate to api folder, __rename `.env.example` to `.env`__ and update your mongo db details there.
 
-
   Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
 
 It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
-
 
 
 
@@ -403,7 +397,6 @@ For more examples, please refer to the [Documentation](https://example.com) -->
 See the [open issues](https://github.com/nitin27may/mean-docker/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) for a list of proposed features (and known issues).
 
 
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -414,7 +407,6 @@ Contributions are what make the open source community such an amazing place to b
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
 
 ## License
 [MIT](https://github.com/nitin27may/mean-docker/blob/master/LICENSE/)
