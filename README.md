@@ -1,4 +1,33 @@
 # MEAN (Stack) using Docker
+- [MEAN (Stack) using Docker](#mean-stack-using-docker)
+    - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
+  - [To Qucik Run](#to-qucik-run)
+  - [Demo](#demo)
+  - [Project Folders](#project-folders)
+    - [About Project](#about-project)
+    - [Built With](#built-with)
+      - [Angular (10.0.5)](#angular-1005)
+      - [Expressjs (4.17.1)](#expressjs-4171)
+      - [Mongo DB](#mongo-db)
+      - [NGINX](#nginx)
+  - [Getting started](#getting-started)
+    - [Using Docker](#using-docker)
+      - [Prerequisite](#prerequisite)
+      - [Development mode:](#development-mode)
+      - [Production mode:](#production-mode)
+        - [Using 2 containers (Express (frontend and api) and Mongo)](#using-2-containers-express-frontend-and-api-and-mongo)
+        - [Using 4 containers (Mongo,api, angular and nginx)](#using-4-containers-mongoapi-angular-and-nginx)
+      - [About Docker Compose File](#about-docker-compose-file)
+    - [Without Docker](#without-docker)
+      - [Prerequisites](#prerequisites)
+      - [Running the Project](#running-the-project)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Contact](#contact)
+<!-- * [Usage](#usage) -->
+<!-- * [Acknowledgements](#acknowledgements) -->
+
 
 ### About (MongoDB - Express - Angular - NodeJS)
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The main focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
@@ -32,37 +61,6 @@ The apps written in the following JavaScript frameworks/libraries:
 | **api** | [api using **expressjs**](https://github.com/nitin27may/mean-docker/tree/master/api) |
 | **loadbalancer** | [load balancer using **nginx**](https://github.com/nitin27may/mean-docker/tree/master/loadbalancer) |
 | **mongo** | [mongo db image setup (wip)](https://github.com/nitin27may/mean-docker/tree/master/mongo) |
-
-## Table of Contents
-- [MEAN (Stack) using Docker](#mean-stack-using-docker)
-    - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
-  - [To Qucik Run](#to-qucik-run)
-  - [Demo](#demo)
-  - [Project Folders](#project-folders)
-  - [Table of Contents](#table-of-contents)
-    - [About Project](#about-project)
-    - [Built With](#built-with)
-      - [Angular (10.0.5)](#angular-1005)
-      - [Expressjs (4.17.1)](#expressjs-4171)
-      - [Mongo DB](#mongo-db)
-      - [NGINX](#nginx)
-  - [Getting started](#getting-started)
-    - [Using Docker](#using-docker)
-      - [Prerequisite](#prerequisite)
-      - [Development mode:](#development-mode)
-      - [Production mode:](#production-mode)
-        - [Using 2 containers (Express (frontend and api) and Mongo)](#using-2-containers-express-frontend-and-api-and-mongo)
-        - [Using 4 containers (Mongo,api, angular and nginx)](#using-4-containers-mongoapi-angular-and-nginx)
-      - [About Docker Compose File](#about-docker-compose-file)
-    - [Without Docker](#without-docker)
-      - [Prerequisites](#prerequisites)
-      - [Running the Project](#running-the-project)
-  - [Roadmap](#roadmap)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Contact](#contact)
-<!-- * [Usage](#usage) -->
-<!-- * [Acknowledgements](#acknowledgements) -->
 
 ### About Project
 
