@@ -95,7 +95,7 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 
 ## Getting started
 
-#### Using Docker
+### Using Docker
 
 #### Prerequisite
 Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
@@ -408,6 +408,48 @@ For passing enviornment variables (database details) in api, Navigate to api fol
   Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
 
 It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
+
+
+
+### Without Docker
+
+#### Prerequisites
+
+1. Install latest [Node js ](https://nodejs.org/en/)
+2. Install Nodemon as global package (To run exprerssjs in development mode)
+   `npm install -g nodemon`
+3. Optional (Install Angular CLI
+   `npm install -g @angular/cli`)
+4. Install Mongodb locally or [Signup](https://www.mongodb.com/atlas-signup-from-mlab?utm_source=mlab.com&utm_medium=referral&utm_campaign=mlab%20signup&utm_content=blue%20sign%20up%20button) for a free managed account
+5. Before running the project make sure that you are able to connect MongoDb , you can use [Robo 3T](https://robomongo.org/download) for it
+
+#### Running the Project
+
+Clone the project and run `npm install` in frontend and api folder.
+
+```
+  git clone https://github.com/nitin27may/mean-docker.git
+
+  cd mean-docker/fronend
+
+  npm i
+
+  npm start 
+
+  cd mean-docker/api
+
+  npm i
+
+  npm start 
+
+```
+For passing enviornment variables (database details) in api, Navigate to api folder, __rename `.env.example` to `.env`__ and update your mongo db details there.
+
+
+  Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
+
+It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
+
 
 
 
