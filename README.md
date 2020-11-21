@@ -1,7 +1,7 @@
 # MEAN (Stack) using Docker
 - [MEAN (Stack) using Docker](#mean-stack-using-docker)
     - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
-  - [To Qucik Run](#to-qucik-run)
+  - [To Quick Run](#to-quick-run)
   - [Demo](#demo)
   - [Project Folders](#project-folders)
     - [About Project](#about-project)
@@ -32,7 +32,7 @@
 ### About (MongoDB - Express - Angular - NodeJS)
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The main focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
 
-## To Qucik Run
+## To Quick Run
 If you want quick run this project, you can use already pushed ui, api images. Run below commnads in powershell, which will create a docker file and the run complete application.
 
 Windows (powershell) :
