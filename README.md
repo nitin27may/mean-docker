@@ -36,7 +36,6 @@
 <!-- * [Usage](#usage) -->
 <!-- * [Acknowledgements](#acknowledgements) -->
 
-
 ### About (MongoDB - Express - Angular - NodeJS)
 The **MEAN** stack - consisting of MongoDB, Express, Angular, and NodeJS - forms the foundation of a full-stack web application, and this project serves as an ideal starting point for creating one. The project also demonstrates a feasible approach to operating a live application on **Docker** in both development and production settings. Additionally, it features the use of **[Github actions](#pushing-image-to-registry-github-actions)** to construct and upload images to Docker Hub.
 
@@ -85,7 +84,7 @@ The project includes sample code for various functionalities, such as
 
 Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
 
-This is a simple web application. It has working user registration, login page and also there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
+This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
 
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
@@ -463,7 +462,7 @@ Clone the project and run `npm install` in frontend and api folder.
 ```
   git clone https://github.com/nitin27may/mean-docker.git
 
-  cd mean-docker/fronend
+  cd mean-docker/frontend
 
   npm i
 
@@ -478,11 +477,9 @@ Clone the project and run `npm install` in frontend and api folder.
 ```
 For passing enviornment variables (database details) in api, Navigate to api folder, __rename `.env.example` to `.env`__ and update your mongo db details there.
 
-
   Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
 
 It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
-
 
 
 
