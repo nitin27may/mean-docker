@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "../../../app/core/guards";
 import { LayoutComponent } from "../../../app/core/layout/layout.component";
 import { ContactListComponent } from "./contact-list/contact-list.component";
 import { ContactFormComponent } from "./contact-form/contact-form.component";
@@ -20,10 +19,6 @@ const contactRoutes: Routes = [
         path: "create",
         component: ContactFormComponent
       },
-      // {
-      //   path: ":contactId",
-      //   component: ContactFormComponent,
-      //   children: [
       {
         path: "edit/:contactId",
         component: ContactFormComponent,
@@ -34,8 +29,6 @@ const contactRoutes: Routes = [
         component: ContactDetailsComponent,
         resolve: { contactDetails: ContactDetailsResolver }
       }
-      //   ]
-      // }
     ]
   }
 ];

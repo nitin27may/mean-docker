@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     private toastrService: ToastrService
   ) {}
 
-  register() {
+  register(): void {
     this.loading = true;
     this.userService.create(this.registerForm.value).subscribe(
       (data) => {
@@ -30,13 +30,13 @@ export class RegisterComponent implements OnInit {
         console.log(data);
       },
       (error) => {
-        this.toastrService.error(error);
+        this.toastrService.error(error.message);
         this.loading = false;
       }
     );
   }
 
-  createForm() {
+  createForm(): void {
     this.registerForm = this.formBuilder.group(
       {
         firstName: ["", Validators.required],

@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HTTP_INTERCEPTORS
 } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 @Injectable()
@@ -17,8 +17,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // extract error message from http body if an error occurs
     return next.handle(request).pipe(
-      catchError(errorResponse => {
-        return Observable.throw(errorResponse.error);
+      catchError((errorResponse) => {
+        return throwError(errorResponse.error);
       })
     );
   }
