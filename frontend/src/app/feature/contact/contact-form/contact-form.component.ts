@@ -51,7 +51,7 @@ export class ContactFormComponent implements OnInit {
       this.save(contact);
     }
   }
-  submit() {
+  submit(): void {
     const contact = this.contactForm.value;
     if (contact._id) {
       this.update(contact);
