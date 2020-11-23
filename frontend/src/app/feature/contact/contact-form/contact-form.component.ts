@@ -21,7 +21,7 @@ export class ContactFormComponent implements OnInit {
     private toastrService: ToastrService
   ) {}
 
-  createForm() {
+  createForm(): void {
     this.contactForm = this.formBuilder.group({
       _id: ["", []],
       firstName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(35)]],
@@ -33,10 +33,10 @@ export class ContactFormComponent implements OnInit {
     });
   }
 
-  reset() {
+  reset(): void {
     this.createForm();
   }
-  submit() {
+  submit(): void {
     const contact = this.contactForm.value;
     if (contact._id) {
       this.update(contact);
@@ -46,7 +46,7 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
-  save(contact: any) {
+  save(contact: any): void {
     this.contactService.create(contact).subscribe(
       (data) => {
         this.toastrService.success("Contact created successfully", "Success");
@@ -56,7 +56,7 @@ export class ContactFormComponent implements OnInit {
       (error) => {}
     );
   }
-  update(contact: any) {
+  update(contact: any): void {
     this.contactService.update(contact).subscribe(
       (data) => {
         this.toastrService.success("Contact updated successfully", "Success");
@@ -66,7 +66,7 @@ export class ContactFormComponent implements OnInit {
       (error) => {}
     );
   }
-  ngOnInit() {
+  ngOnInit(): void {
     this.createForm();
     const contactDetails = this.activatedRoute.snapshot.data.contactDetails;
     if (contactDetails) {

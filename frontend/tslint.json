@@ -36,6 +36,7 @@
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
     "no-var-requires": false,
+    "no-unused-declaration": true,
     "object-literal-key-quotes": [true, "as-needed"],
     "quotemark": [true, "double"],
     "semicolon": {

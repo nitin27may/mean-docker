@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit {
         console.log(data);
       },
       (error) => {
-        this.toastrService.error(error.message);
         this.loading = false;
       }
     );

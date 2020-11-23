@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
 import { map } from "rxjs/operators";
 import { ContactService } from "./contact.service";
