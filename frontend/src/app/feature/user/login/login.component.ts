@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private toastrService: ToastrService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     // reset login status
     this.createForm();
     this.loginService.logout();
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams[`returnUrl`] || "/";
   }
 
-  createForm() {
+  createForm(): void {
     this.loginForm = this.formBuilder.group({
       userName: ["", Validators.required],
       password: ["", Validators.required],
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(loginForm: FormGroup) {
+  login(loginForm: FormGroup): void {
     if (loginForm.valid) {
       this.loading = true;
       this.loginService

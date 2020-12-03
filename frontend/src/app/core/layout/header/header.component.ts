@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
+import { LoginService } from "../../../feature/user/login/login.service";
 import { User } from "../../models/user.interface";
 import { UserService } from "../../services";
 
@@ -12,7 +13,10 @@ export class HeaderComponent implements OnInit {
   public pushRightClass: string;
   user: User;
 
-  constructor(public router: Router, private userService: UserService) {
+  constructor(
+    public router: Router,
+    private userService: UserService,
+    private loginService: LoginService) {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
         this.toggleSidebar();
@@ -20,7 +24,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.pushRightClass = "push-right";
     this.user = this.userService.getCurrentUser();
   }
@@ -30,11 +34,11 @@ export class HeaderComponent implements OnInit {
     return dom.classList.contains(this.pushRightClass);
   }
 
-  toggleSidebar() {
+  toggleSidebar(): void  {
     const dom: any = document.querySelector("body");
     dom.classList.toggle(this.pushRightClass);
   }
-  onLoggedout() {
-    localStorage.removeItem("isLoggedin");
+  onLoggedout(): void  {
+   this.loginService.logout();
   }
 }
