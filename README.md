@@ -2,7 +2,6 @@
 - [MEAN (Stack) using Docker](#mean-stack-using-docker)
     - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
   - [To Quick Run](#to-quick-run)
-  - [Demo](#demo)
   - [Project Folders](#project-folders)
     - [About Project](#about-project)
     - [Built With](#built-with)
@@ -32,25 +31,16 @@
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
 
 ## To Quick Run
-To quick run this application without cloning the repo, you can use already pushed ui, api images. Run below commnads, which will create a dockerfile and then run complete application.
+Clone repo, navigate to root folder and run `docker-compose up`
 
-Windows (PowerShell):
 ```
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nitin27may/mean-docker/master/docker-compose.hub.yml" -OutFile "D:\docker-compose.yml"
-
-cd d:\
-
-docker-compose up -d
-```
-Linux / Mac:
+  git clone https://github.com/nitin27may/mean-docker.git
+  cd mean-docker 
+  docker-compose up
 ```
 
-curl https://raw.githubusercontent.com/nitin27may/mean-docker/master/docker-compose.hub.yml -o docker-compose.yml
-
-docker-compose up -d
-```
-## [Demo](https://youtu.be/ixVxq9k6xVo)
-[![Watch the video](docs/screenshots/demo.gif)](https://youtu.be/ixVxq9k6xVo)
+<!-- ## [Demo](https://youtu.be/ixVxq9k6xVo)
+[![Watch the video](docs/screenshots/demo.gif)](https://youtu.be/ixVxq9k6xVo) -->
 ## Project Folders 
 The apps written in the following JavaScript frameworks/libraries:
 
