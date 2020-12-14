@@ -1,10 +1,10 @@
-name: Angular Build
+name: Expressjs Build
 
 on:
   push:
     branches: master
     paths: 
-    - 'frontend/**'
+    - 'api/**'
 
 jobs:
   main:
