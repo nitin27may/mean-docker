@@ -1,10 +1,10 @@
-name: Angular Build
+name: Nginx Build
 
 on:
   push:
     branches: master
     paths: 
-    - 'frontend/**'
+    - 'loadbalancer/**'
 
 jobs:
   main:
@@ -30,10 +30,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: /frontend/.
-          file: ./frontend/Dockerfile
+          context: /loadbalancer/.
+          file: ./loadbalancer/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-angular:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-nginx:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
       -
