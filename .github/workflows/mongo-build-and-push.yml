@@ -1,17 +1,10 @@
 name: Mongo Build
 
-# on:
-#   push:
-#     branches: master
-#     paths: 
-#     - 'mongo/**'
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
+  push:
+    branches: master
+    paths: 
+    - 'mongo/**'
 
 jobs:
   main:

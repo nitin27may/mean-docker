@@ -1,17 +1,10 @@
 name: Expressjs Build
 
-# on:
-#   push:
-#     branches: master
-#     paths: 
-#     - 'api/**'
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
+  push:
+    branches: master
+    paths: 
+    - 'api/**'
 
 jobs:
   main:
