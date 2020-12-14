@@ -1,10 +1,11 @@
-version: "3" # specify docker-compose version
+version: "3.8" # specify docker-compose version
 
 # Define the services/containers to be run
 services:
   angular: # name of the first service
     image: nitin27may/mean-angular:latest # specify image to build container from
     container_name: mean_angular
+    restart: always
     ports:
       - "4000:4000" # specify port forewarding
     environment:
@@ -13,6 +14,7 @@ services:
   express: #name of the second service
     image: nitin27may/mean-expressjs:latest # specify image to build container from
     container_name: mean_express
+    restart: always
     ports:
       - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
@@ -30,6 +32,7 @@ services:
   database: # name of the third service
     image: mongo:latest # specify image to build container from
     container_name: mean_mongo
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password
@@ -46,6 +49,7 @@ services:
   nginx: #name of the fourth service
     image: nitin27may/mean-nginx # specify image to build container from
     container_name: mean_nginx
+    restart: always
     ports:
       - "80:80" #specify ports forewarding
     links:
