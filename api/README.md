@@ -1,6 +1,6 @@
 # Api (Expressjs)
 
-This project contains the api using expressjs and MongoDB
+This project contains the api using expressjs
 
 ## Development server
 
