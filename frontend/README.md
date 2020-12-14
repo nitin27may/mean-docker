@@ -1,4 +1,4 @@
-# Frontend
+# Frontend (Angular)
 
 Frontend for application using Angular (updated to 11.0.4)
 

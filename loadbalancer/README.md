@@ -1,4 +1,4 @@
-# NGINX
+# NGINX - loadbalancer Image
 
 
 ## nginx Dockerfile
