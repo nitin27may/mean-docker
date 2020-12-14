@@ -1,10 +1,17 @@
 name: Nginx Build
 
+# on:
+#   push:
+#     branches: master
+#     paths: 
+#     - 'loadbalancer/**'
 on:
-  push:
-    branches: master
-    paths: 
-    - 'loadbalancer/**'
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
 
 jobs:
   main:
