@@ -62,6 +62,7 @@ app.get("*", (req, res) => {
   }
 });
 
+
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(
   expressjwt({
@@ -95,6 +96,14 @@ app.use(
 
 const HOST = "0.0.0.0";
 const port = Number(process.env.EXPRESS_PORT) || 3000;
+
+app.get("*", (req, res) => {
+  if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
+    res.sendFile(path.resolve(`public/${req.url}`));
+  } else {
+    res.sendFile(path.resolve("public/index.html"));
+  }
+});
 
 const HOST = "0.0.0.0";
 // start server
