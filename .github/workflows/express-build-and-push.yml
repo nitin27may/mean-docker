@@ -1,10 +1,10 @@
-name: Nginx Build
+name: Expressjs Build
 
 # on:
 #   push:
 #     branches: master
 #     paths: 
-#     - 'loadbalancer/**'
+#     - 'api/**'
 on:
   workflow_dispatch:
     inputs:
@@ -37,10 +37,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: loadbalancer/.
-          file: loadbalancer/Dockerfile
+          context: api/.
+          file: api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-nginx:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-expressjs:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
       -

@@ -1,4 +1,10 @@
-name: Angular Build
+name: Mongo Build
+
+# on:
+#   push:
+#     branches: master
+#     paths: 
+#     - 'mongo/**'
 on:
   workflow_dispatch:
     inputs:
@@ -6,7 +12,6 @@ on:
         description: 'Log level'     
         required: true
         default: 'warning'
-
 
 jobs:
   main:
@@ -32,10 +37,10 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: frontend/.
-          file: frontend/Dockerfile
+          context: mongo/.
+          file: mongo/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-angular:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-mongo:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
       -
