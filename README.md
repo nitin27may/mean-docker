@@ -1,3 +1,7 @@
+![Mongo Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)
+![Expressjs Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)
+![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
+![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
 # MEAN (Stack) using Docker
 - [MEAN (Stack) using Docker](#mean-stack-using-docker)
     - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
