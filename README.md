@@ -443,6 +443,54 @@ It will run Api on `http://localhost:3000` and frontend on `http://localhost:420
 
 
 
+Earlier, we were using docker hub autobuild triggers to build images and push to registry (Docker Hub), now it is using github action, we can take an example of frontend image: 
+File : 
+[angular-build-and-push.yml](/.github/workflows/angular-build-and-push.yml)
+```
+name: Angular Build
+on:
+  push:
+    branches: master
+    paths: 
+    - 'frontend/**'
+
+jobs:
+  main:
+    runs-on: Ubuntu-20.04
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: frontend/.
+          file: frontend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-angular:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+```
+
+here, DOCKERHUB_USERNAME is your docker hub username and DOCKERHUB_TOKEN,  we can generate from account settings (account settings > Security > New Access Token) section from your docker hub accounts and add under your github repo > settings > secrets 
 ### Without Docker
 
 #### Prerequisites
