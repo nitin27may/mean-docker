@@ -7,7 +7,7 @@
     - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
   - [To Quick Run](#to-quick-run)
   - [Project Folders](#project-folders)
-    - [About Project](#about-project)
+  - [About Project](#about-project)
     - [Built With](#built-with)
       - [Angular (11.0.2)](#angular-1102)
       - [Expressjs (4.17.1)](#expressjs-4171)
@@ -21,6 +21,7 @@
         - [Using 2 containers (Express (frontend and api) and Mongo)](#using-2-containers-express-frontend-and-api-and-mongo)
         - [Using 4 containers (Mongo,api, angular and nginx)](#using-4-containers-mongoapi-angular-and-nginx)
       - [About Docker Compose File](#about-docker-compose-file)
+      - [Pushing Image to Registry (Github Actions)](#pushing-image-to-registry-github-actions)
     - [Without Docker](#without-docker)
       - [Prerequisites](#prerequisites)
       - [Running the Project](#running-the-project)
@@ -55,7 +56,7 @@ The apps written in the following JavaScript frameworks/libraries:
 | **loadbalancer** | [load balancer using **nginx**](https://github.com/nitin27may/mean-docker/tree/master/loadbalancer) |
 | **mongo** | [mongo db image setup](https://github.com/nitin27may/mean-docker/tree/master/mongo) |
 
-### About Project
+## About Project
 
 This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
@@ -339,7 +340,56 @@ services:
         - "27017:27017" # specify port forewarding
 
   ```
+#### Pushing Image to Registry (Github Actions)
 
+Earlier, we were using docker hub autobuild triggers to build images and push to registry (Docker Hub), now it is using github action, we can take an example of frontend image: 
+File : 
+[angular-build-and-push.yml](/.github/workflows/angular-build-and-push.yml)
+```
+name: Angular Build
+on:
+  push:
+    branches: master
+    paths: 
+    - 'frontend/**'
+
+jobs:
+  main:
+    runs-on: Ubuntu-20.04
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: frontend/.
+          file: frontend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-angular:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+```
+
+here, DOCKERHUB_USERNAME is your docker hub username and DOCKERHUB_TOKEN,  we can generate from account settings (account settings > Security > New Access Token) section from your docker hub accounts and add under your github repo > settings > secrets 
 ### Without Docker
 
 #### Prerequisites
