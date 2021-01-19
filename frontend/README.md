@@ -17,18 +17,16 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ```dockerfile
 # Create image based off of the official Node 10 image
-FROM node:12.8-alpine
+FROM node:14.5-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
 
-
 # disabling ssl for npm for Dev or if you are behind proxy
 RUN npm set strict-ssl false
 
-## installing and Storing node modules on a separate layer will 
-## prevent unnecessary npm installs at each build
-RUN npm i && mkdir /app && mv ./node_modules ./app
+## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN npm ci && mkdir /app && mv ./node_modules ./app
 
 # Change directory so that our commands run inside this new directory
 WORKDIR /app
@@ -39,33 +37,15 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
+FROM node:14.5-alpine
+## From 'builder' copy published folder
+COPY --from=builder /app/dist/frontend /app
+
+WORKDIR /app
 # Expose the port the app runs in
 EXPOSE 4000
-# Serve the app
-CMD ["node", "dist/frontend/server/main.js"]
 
-```
-### Dockerfile Development mode
-```dockerfile
-# Create image based off of the official 12.8-alpine
-FROM node:14
-
-# disabling ssl for npm for Dev or if you are behind proxy
-RUN npm set strict-ssl false
-
-WORKDIR /frontend
-
-# Copy dependency definitions
-COPY package.json ./
-
-## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i
-
-COPY . .
-
-EXPOSE 4200 49153
-
-CMD ["npm", "start"]
+CMD ["node", "server/main.js"]
 
 ```
 

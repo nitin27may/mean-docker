@@ -1,5 +1,5 @@
 # Create image based off of the official Node 10 image
-FROM node:12.8-alpine as builder
+FROM node:14.5-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
@@ -19,11 +19,12 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
+FROM node:14.5-alpine
+## From 'builder' copy published folder
+COPY --from=builder /app/dist/frontend /app
 
-FROM node:12.8-alpine
-## From 'builder' copy website to default nginx public folder
-COPY --from=builder /app/dist/frontend /app/dist/frontend
 WORKDIR /app
 # Expose the port the app runs in
 EXPOSE 4000
-CMD ["node", "dist/frontend/server/main.js"]
+
+CMD ["node", "server/main.js"]
