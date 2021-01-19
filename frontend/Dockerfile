@@ -1,5 +1,5 @@
 # Create image based off of the official Node 10 image
-FROM node:12.8-alpine
+FROM node:12.8-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
@@ -8,7 +8,7 @@ COPY package.json package-lock.json ./
 RUN npm set strict-ssl false
 
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i && mkdir /app && mv ./node_modules ./app
+RUN npm ci && mkdir /app && mv ./node_modules ./app
 
 # Change directory so that our commands run inside this new directory
 WORKDIR /app
@@ -19,7 +19,11 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
+
+FROM node:12.8-alpine
+## From 'builder' copy website to default nginx public folder
+COPY --from=builder /app/dist/frontend /app/dist/frontend
+WORKDIR /app
 # Expose the port the app runs in
 EXPOSE 4000
-# Serve the app
 CMD ["node", "dist/frontend/server/main.js"]
