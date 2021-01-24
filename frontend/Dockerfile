@@ -21,10 +21,10 @@ RUN npm run build:ssr
 
 FROM node:14.5-alpine
 ## From 'builder' copy published folder
-COPY --from=builder /app/dist/frontend /app
+COPY --from=builder /app /app
 
 WORKDIR /app
 # Expose the port the app runs in
 EXPOSE 4000
 
-CMD ["node", "server/main.js"]
+CMD ["node", "dist/frontend/server/main.js"]
