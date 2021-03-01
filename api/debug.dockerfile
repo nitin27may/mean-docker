@@ -12,12 +12,11 @@ RUN npm ci && mkdir /api && mv ./node_modules ./api
 RUN npm install -g nodemon
 
 # Copy dependency definitions
-COPY package.json ./
+COPY package.json package-lock.json ./
 
-## installing node modules
-RUN npm i
+RUN npm ci
 
-COPY . .
+COPY . /api/
 
 WORKDIR /api
 
