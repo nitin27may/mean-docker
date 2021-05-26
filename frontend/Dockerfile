@@ -1,5 +1,5 @@
 # Create image based off of the official Node 10 image
-FROM node:14.5-alpine as builder
+FROM node:16-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
