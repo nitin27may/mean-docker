@@ -15,7 +15,7 @@ COPY /frontend .
 RUN npm run build:prod
 
 ### STAGE 2: Setup ###
-FROM node:14.5-alpine
+FROM node:14.15-alpine
 
 ## channge directory
 WORKDIR /app
