@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 # We label our stage as ‘builder’
-FROM node:14.5-alpine as builder
+FROM node:14.15-alpine as builder
 
 COPY frontend/package.json frontend/package-lock.json ./
 
