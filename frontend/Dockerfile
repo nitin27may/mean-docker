@@ -19,7 +19,7 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
-FROM node:14.5-alpine
+FROM node:16-alpine
 ## From 'builder' copy published folder
 COPY --from=builder /app /app
 
