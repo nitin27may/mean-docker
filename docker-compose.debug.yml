@@ -8,8 +8,7 @@ services:
       dockerfile: debug.dockerfile
     container_name: mean_angular
     volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
+      - ./frontend:/app
     ports:
       - "4200:4200" # specify port forewarding
       - "49153:49153"
@@ -23,7 +22,6 @@ services:
     container_name: mean_express
     volumes:
       - ./api:/api
-      - /api/node_modules
     ports:
       - "3000:3000" #specify ports forewarding
     environment:
