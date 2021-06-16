@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { UserService } from "../../../core/services/user.service";
+import { UserService } from "@core/services/user.service";
 import { ToastrService } from "ngx-toastr";
-import { ValidationService } from "src/app/core/components";
+import { ValidationService } from "@core/components";
 
 @Component({
   selector: "app-register",
