@@ -1,5 +1,5 @@
 # Create image based off of the official 12.8-alpine
-FROM node:14
+FROM node:16-alpine
 
 
 # Change directory so that our commands run inside this new directory

@@ -52,6 +52,10 @@ const allowedExt = [
 
 // Import routes
 let apiRoutes = require("./api-routes");
+// Use Api routes in the App
+app.use("/api", apiRoutes);
+
+
 app.get("*", (req, res) => {
   if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
     res.sendFile(path.resolve(`public/${req.url}`));
@@ -86,10 +90,6 @@ app.use(
     ]
   })
 );
-
-// Use Api routes in the App
-app.use("/api", apiRoutes);
-
 
 
 
