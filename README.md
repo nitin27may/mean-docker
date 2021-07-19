@@ -9,7 +9,7 @@
   - [Project Folders](#project-folders)
   - [About Project](#about-project)
     - [Built With](#built-with)
-      - [Angular (12.1.2)](#angular-1202)
+      - [Angular (12.1.2)](#angular-1212)
       - [Expressjs (4.17.1)](#expressjs-4171)
       - [Mongo DB](#mongo-db)
       - [NGINX](#nginx)
@@ -34,14 +34,15 @@
 
 ### About (MongoDB - Express - Angular - NodeJS)
 MEAN stack is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The focus of this project to show case the possible way to run a real application (Mean stack) using docker for development enviornment and produciton mode.
+<br>Also, it has implementation of <b>[github actions](#pushing-image-to-registry-github-actions)</b> to build and push images on Docker Hub.
 
 ## To Quick Run
-Clone repo, navigate to root folder and run `docker-compose up`
+Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
 
 ```
   git clone https://github.com/nitin27may/mean-docker.git
   cd mean-docker 
-  docker-compose up
+  docker-compose -f 'docker-compose.nginx.yml' up
 ```
 
 <!-- ## [Demo](https://youtu.be/ixVxq9k6xVo)
