@@ -10,6 +10,8 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
+RUN npm install -g nodemon
+
 COPY . /api/
 
 # Expose the port the app runs in
