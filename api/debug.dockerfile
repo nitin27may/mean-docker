@@ -38,6 +38,8 @@ RUN npm ci && mkdir /api && mv ./node_modules ./api
 
 RUN npm install -g nodemon
 
+RUN npm install -g nodemon
+
 COPY . /api/
 
 
