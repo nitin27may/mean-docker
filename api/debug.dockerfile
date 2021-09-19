@@ -16,6 +16,8 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
+RUN npm install -g nodemon
+
 COPY . /api/
 
 WORKDIR /api
