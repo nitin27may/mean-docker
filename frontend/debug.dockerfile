@@ -10,6 +10,8 @@ COPY package.json package-lock.json ./
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
 RUN npm ci
 
+RUN npm install -g @angular/cli
+
 COPY . /app/
 
 EXPOSE 4200 49153
