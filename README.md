@@ -44,6 +44,11 @@ Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.
   cd mean-docker 
   docker-compose -f 'docker-compose.nginx.yml' up
 ```
+## Demo
+
+
+https://user-images.githubusercontent.com/8065536/138562565-f601586c-ef38-43b6-8db7-67a4bdefbb96.mp4
+
 
 <!-- ## [Demo](https://youtu.be/ixVxq9k6xVo)
 [![Watch the video](docs/screenshots/demo.gif)](https://youtu.be/ixVxq9k6xVo) -->
