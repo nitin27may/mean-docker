@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
       <div class="row">
-        <div class="col-lg-5 col-md-8 mx-auto">
+        <div class="col-lg-4 col-md-8 mx-auto">
           <div class="card">
             <article class="card-body">
               <a
@@ -17,8 +17,8 @@
                 autocomplete="off"
                 [formGroup]="loginForm"
               >
-                <div class="form-group">
-                  <label>Your email</label>
+
+                  <label>User Name</label>
                   <input
                     class="form-control"
                     placeholder="Email"
@@ -27,11 +27,8 @@
                     formControlName="userName"
                   />
 
-                </div>
-                <!-- form-group// -->
-                <div class="form-group">
-                  <a class="float-right" href="#">Forgot?</a>
-                  <label>Your password</label>
+
+                  <label>Password</label>
                   <input
                     class="form-control"
                     placeholder="******"
@@ -40,9 +37,9 @@
                     formControlName="password"
                   />
 
-                </div>
+
                 <!-- form-group// -->
-                <div class="form-group">
+
                   <div class="checkbox">
                     <label>
                       <input
@@ -54,7 +51,7 @@
                     </label>
                   </div>
                   <!-- checkbox .// -->
-                </div>
+
                 <!-- form-group// -->
                 <div class="form-group">
                   <button
