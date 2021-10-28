@@ -58,3 +58,14 @@ a:hover {
 // .cover-container {
 //   max-width: 65em;
 // }
+.control-error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.on-submit.form-submitted .ng-touched.ng-invalid, form:not(.on-submit) .ng-touched.ng-invalid {
+  border-color: #dc3545;
+  padding-right: calc(1.5em + 0.75rem);
+}

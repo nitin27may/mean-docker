@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ValidationService } from "@core/components";
 import { ContactService } from "../contact.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { ValidationService } from "@core/components/validation-errors/validation-messages.service";
 
 @Component({
   selector: "app-contact-form",

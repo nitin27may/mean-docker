@@ -3,8 +3,8 @@ import { UserService } from "@core/services/user.service";
 import { User } from "@core/models/user.interface";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { ValidationService } from "@core/components";
 import { Router } from "@angular/router";
+import { ValidationService } from "@core/components/validation-errors/validation-messages.service";
 
 @Component({
   selector: "app-profile",
