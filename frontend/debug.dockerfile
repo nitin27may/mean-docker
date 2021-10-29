@@ -16,7 +16,4 @@ COPY . /app/
 
 EXPOSE 4200 49153
 
-#CMD ["npm", "start"]
-# ENTRYPOINT ["/bin/bash", "-c", "if [ \"$ENABLE_POLLING\" = \"enabled\" ]; \
-#   then npm run start:docker:poll; else npm run start:docker; fi"]
-#CMD [ "npm", "run", "start" ]
+
