@@ -6,9 +6,11 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./frontend
       dockerfile: debug.dockerfile
+    command: ["npm", "run", "start"]
     container_name: mean_angular
     volumes:
-      - ./frontend:/app
+      - ./frontend/src:/app/src
+      # - ./frontend/src:/app/src:delegated
     ports:
       - "4200:4200" # specify port forewarding
       - "49153:49153"
