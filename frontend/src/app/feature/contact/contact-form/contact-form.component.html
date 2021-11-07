@@ -14,44 +14,44 @@
       <div class="my-5"></div>
       <h3>Contact Details </h3>
       <!-- form complex example -->
-      <form [formGroup]="contactForm">
-        <div class="form-row mt-4">
-          <div class="col-sm-6 pb-3">
-            <label for="exampleFirst">First Name</label>
+      <form [formGroup]="contactForm" class="row g-3">
+        <!-- <div class="form-row mt-4" > -->
+          <div class="col-sm-6 col-md-6 ">
+            <label for="exampleFirst" class="form-label">First Name</label>
             <input type="text" class="form-control" formControlName="firstName">
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleLast">Last Name</label>
+          <div class="col-sm-6 col-md-6 ">
+            <label for="exampleLast" class="form-label">Last Name</label>
             <input type="text" class="form-control" formControlName="lastName">
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleAccount">Email </label>
+          <div class="col-sm-6 col-md-6 ">
+            <label for="exampleAccount" class="form-label">Email </label>
             <input type="text" class="form-control" formControlName="email">
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleCtrl">Mobile #</label>
+          <div class="col-sm-6 col-md-6 ">
+            <label for="exampleCtrl" class="form-label">Mobile #</label>
             <input type="text" class="form-control" formControlName="mobile">
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleZip">City</label>
+          <div class="col-sm-6 col-md-6 ">
+            <label for="exampleZip" class="form-label">City</label>
             <input type="text" class="form-control" formControlName="city">
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleZip">Postal Code</label>
+          <div class="col-sm-6 col-md-6 ">
+            <label for="exampleZip" class="form-label">Postal Code</label>
             <input type="text" class="form-control" formControlName="postalCode">
           </div>
-          <div class="col-sm-6 pb-3">
+          <div class="col-sm-6 col-md-6">
             <a href="javascript:void(0);" [routerLink]="['/contacts']" class="btn btn-primary">
               <i class="fa fa-chevron-left"></i> Back</a>
           </div>
-          <div class="col-sm-6 pb-3">
-            <div class="btn-group pull-right">
-              <span></span>
-              <button class="btn btn-primary " [disabled]="contactForm.invalid" (click)="submit()">Save</button>
-              <button class="btn btn-secondary " (click)="reset()">Cancel</button>
+          <div class="col-sm-6 col-md-6">
+            <div class="btn-group float-end">
+
+              <button class="btn btn-primary" [disabled]="contactForm.invalid" (click)="submit()">Save</button>
+              <button class="btn btn-secondary" (click)="reset()">Reset</button>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
       </form>
     </div>
     <!-- </main> -->

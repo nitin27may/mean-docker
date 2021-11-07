@@ -34,7 +34,13 @@ export class ContactFormComponent implements OnInit {
   }
 
   reset(): void {
-    this.createForm();
+    const contact = this.contactForm.value;
+    if (contact._id) {
+      this.getContactDetails();
+    } else {
+      this.contactForm.reset();
+    }
+
   }
   submit(): void {
     const contact = this.contactForm.value;
@@ -68,6 +74,10 @@ export class ContactFormComponent implements OnInit {
   }
   ngOnInit(): void {
     this.createForm();
+    this.getContactDetails();
+  }
+
+  private getContactDetails() {
     const contactDetails = this.activatedRoute.snapshot.data.contactDetails;
     if (contactDetails) {
       this.contactForm.patchValue(contactDetails);
