@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ValidationService } from "@core/components/validation-errors/validation-messages.service";
 import { UserService } from "@core/services/user.service";
 import { ToastrService } from "ngx-toastr";
-import { ValidationService } from "@core/components";
+
 
 @Component({
   selector: "app-register",
@@ -35,14 +36,13 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  createForm(): void {
-    this.registerForm = this.formBuilder.group(
-      {
-        firstName: ["", Validators.required],
-        lastName: ["", Validators.required],
-        username: ["", Validators.required],
-        password: ["", [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ["", Validators.required]
+  createForm(): FormGroup {
+   return this.formBuilder.group({
+        firstName: [ null,{ validators: [ Validators.required]}],
+        lastName: [null,{ validators: [ Validators.required]}],
+        username: [null, { validators: [Validators.required, this.validationService.emailValidator ]}],
+        password: [null,{ validators: [Validators.required, Validators.minLength(6)]}],
+        confirmPassword: [null,{ validators: [ Validators.required]}]
       },
       {
         validator: this.validationService.MustMatch("password", "confirmPassword")
@@ -50,6 +50,6 @@ export class RegisterComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    this.createForm();
+    this.registerForm =  this.createForm();
   }
 }

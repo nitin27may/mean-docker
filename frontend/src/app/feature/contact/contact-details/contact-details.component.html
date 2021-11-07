@@ -12,37 +12,37 @@
       <h3>Details </h3>
       <!-- form complex example -->
       <form>
-        <div class="form-row mt-4">
-          <div class="col-sm-6 pb-3">
-            <label for="exampleFirst">First Name:</label>
+        <div class="row g-3">
+           <div class="col-sm-6 col-md-6">
+            <label for="exampleFirst" class="form-label" >First Name:</label>
             <span>{{contact.firstName}}</span>
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleLast">Last Name:</label>
+           <div class="col-sm-6 col-md-6">
+            <label for="exampleLast" class="form-label">Last Name:</label>
             <span>{{contact.lastName}}</span>
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleAccount">Email:</label>
+           <div class="col-sm-6 col-md-6">
+            <label for="exampleAccount" class="form-label">Email:</label>
             <span>{{contact.email}}</span>
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleCtrl">Mobile:</label>
+           <div class="col-sm-6 col-md-6">
+            <label for="exampleCtrl" class="form-label">Mobile:</label>
             <span>{{contact.mobile}}</span>
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleZip">City:</label>
+           <div class="col-sm-6 col-md-6">
+            <label for="exampleZip" class="form-label">City:</label>
             <span>{{contact.city}}</span>
           </div>
-          <div class="col-sm-6 pb-3">
-            <label for="exampleZip">Postal Code:</label>
+           <div class="col-sm-6 col-md-6">
+            <label for="exampleZip" class="form-label">Postal Code:</label>
             <span>{{contact.postalCode}}</span>
           </div>
-          <div class="col-sm-6 pb-3">
+          <div class="col-sm-6 col-md-6">
             <a href="javascript:void(0);" [routerLink]="['/contacts']" class="btn btn-primary">
               <i class="fa fa-chevron-left"></i> Back</a>
           </div>
-          <div class="col-sm-6 pb-3">
-            <div class="btn-group pull-right">
+          <div class="col-sm-6 col-md-6">
+            <div class="btn-group float-end">
               <span></span>
               <button class="btn btn-primary " (click)="edit()">Edit</button>
             </div>
