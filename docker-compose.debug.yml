@@ -15,6 +15,8 @@ services:
       - "49153:49153"
     environment:
       - NODE_ENV=dev
+    links: 
+      - express 
 
   express: #name of the second service
     build: # specify the directory of the Dockerfile

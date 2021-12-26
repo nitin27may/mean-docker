@@ -1,8 +1,7 @@
 {
-  "/api/*": {
-    "target": "http://express:3000/",
+  "/api": {
+    "target": "http://express:3000",
     "secure": false,
-    "changeOrigin": true,
     "logLevel": "debug"
   }
 }
