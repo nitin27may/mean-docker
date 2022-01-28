@@ -10,6 +10,8 @@ services:
       - "4000:4000" # specify port forewarding
     environment:
       - NODE_ENV=dev
+    links: 
+      - express 
 
   express: #name of the second service
     image: nitin27may/mean-expressjs:latest # specify image to build container from

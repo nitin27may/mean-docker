@@ -1,6 +1,6 @@
 # Frontend (Angular)
 
-Frontend for application using Angular (updated to 12.1.2)
+Frontend for application using Angular (updated to 13.1.1)
 
 ## Development server
 
@@ -17,7 +17,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ```dockerfile
 # Create image based off of the official Node 10 image
-FROM node:14.5-alpine as builder
+FROM node:16-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
