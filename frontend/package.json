@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve - -proxy-config proxy.conf.json --host 0.0.0.0 --watch --poll 2000",
+    "start": "ng serve --proxy-config proxy.conf.json --host 0.0.0.0 --watch --poll 2000",
     "serve": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --configuration production",
     "test": "ng test",
