@@ -96,9 +96,10 @@ app.use(
 
 
 const HOST = "0.0.0.0";
+const port = Number(process.env.EXPRESS_PORT) || 3000;
+
 // start server
 // Launch app to listen to specified port
-const server = app.listen(process.env.EXPRESS_PORT || 3000, HOST, () => {
-  const PORT = server.address().port;
-  console.log(`Running  on http://${HOST}:${PORT}`);
+app.listen(port, () => {
+  console.log(`Running  on http://${HOST}:${port}`);
 });
