@@ -1,6 +1,6 @@
 # Frontend (Angular)
 
-Frontend for application using Angular (updated to 13.1.1)
+Frontend for application using Angular (updated to 13.3.10)
 
 ## Development server
 
