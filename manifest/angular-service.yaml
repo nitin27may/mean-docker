@@ -2,9 +2,6 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: mean
-  annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose.hub.yml
-    kompose.version: 1.26.1 (a9d05d509)
   creationTimestamp: null
   labels:
     io.kompose.service: angular
