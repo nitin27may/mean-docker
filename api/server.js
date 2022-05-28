@@ -5,7 +5,7 @@ const environment = require("./config/environment");
 let cors = require("cors");
 let path = require("path");
 let bodyParser = require("body-parser");
-let expressJwt = require("express-jwt");
+const { expressjwt: expressjwt } = require("express-jwt");
 // Import Mongoose
 let mongoose = require("mongoose");
 
@@ -49,12 +49,10 @@ const allowedExt = [
   ".txt"
 ];
 
-
 // Import routes
 let apiRoutes = require("./api-routes");
 // Use Api routes in the App
 app.use("/api", apiRoutes);
-
 
 app.get("*", (req, res) => {
   if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
@@ -66,7 +64,7 @@ app.get("*", (req, res) => {
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(
-  expressJwt({
+  expressjwt({
     secret: environment.secret,
     algorithms: ["HS256"],
     getToken: function (req) {
@@ -96,9 +94,10 @@ app.use(
 
 
 const HOST = "0.0.0.0";
+const port = Number(process.env.EXPRESS_PORT) || 3000;
+
 // start server
 // Launch app to listen to specified port
-const server = app.listen(process.env.EXPRESS_PORT || 3000, HOST, () => {
-  const PORT = server.address().port;
-  console.log(`Running  on http://${HOST}:${PORT}`);
+app.listen(port, () => {
+  console.log(`Running  on http://${HOST}:${port}`);
 });

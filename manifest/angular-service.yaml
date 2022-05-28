@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: mean
+  creationTimestamp: null
+  labels:
+    io.kompose.service: angular
+  name: angular
+spec:
+  ports:
+    - name: "4000"
+      port: 4000
+      targetPort: 4000
+  selector:
+    io.kompose.service: angular
+status:
+  loadBalancer: {}

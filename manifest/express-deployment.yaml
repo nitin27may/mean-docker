@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mean
+  creationTimestamp: null
+  labels:
+    io.kompose.service: express
+  name: express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: express
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: express
+    spec:
+      containers:
+        - env:
+            - name: MONGO_DB_DATABASE
+              value: mean-contacts
+            - name: MONGO_DB_HOST
+              value: database
+            - name: MONGO_DB_PARAMETERS
+              value: ?authSource=admin
+            - name: MONGO_DB_PASSWORD
+              value: admin-password
+            - name: MONGO_DB_PORT
+            - name: MONGO_DB_USERNAME
+              value: admin-user
+            - name: SECRET
+              value: Thisismysecret
+          image: mean-docker_express:latest
+          imagePullPolicy: IfNotPresent
+          name: mean-express
+          ports:
+            - containerPort: 4100
+          resources: {}
+      restartPolicy: Always
+status: {}

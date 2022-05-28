@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mean
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nginx
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nginx
+    spec:
+      containers:
+        - image: mean-docker_nginx
+          imagePullPolicy: IfNotPresent
+          name: mean-nginx
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}
