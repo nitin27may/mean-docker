@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "@core/services/user.service";
 import { User } from "@core/models/user.interface";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { ValidationService } from "@core/components/validation-errors/validation-messages.service";
@@ -13,11 +13,11 @@ import { ValidationService } from "@core/components/validation-errors/validation
 })
 export class ProfileComponent implements OnInit {
   user: User;
-  profileForm: FormGroup;
-  passwordForm: FormGroup;
+  profileForm: UntypedFormGroup;
+  passwordForm: UntypedFormGroup;
   constructor(
     private usreService: UserService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private validationService: ValidationService,
     private toastrService: ToastrService,
     private router: Router

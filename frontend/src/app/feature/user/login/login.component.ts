@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { LoginService } from "./login.service";
@@ -13,10 +13,10 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private loginService: LoginService,
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(loginForm: FormGroup): void {
+  login(loginForm: UntypedFormGroup): void {
     if (loginForm.valid) {
       this.loading = true;
       this.loginService
