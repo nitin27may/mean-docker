@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 @Injectable({providedIn:'root'})
 export class ValidationService {
     constructor() {
@@ -39,7 +39,7 @@ export class ValidationService {
       }
     }
     MustMatch(controlName: string, matchingControlName: string) {
-      return (formGroup: FormGroup) => {
+      return (formGroup: UntypedFormGroup) => {
           const control = formGroup.get(controlName);
           const matchingControl = formGroup.get(matchingControlName);
 

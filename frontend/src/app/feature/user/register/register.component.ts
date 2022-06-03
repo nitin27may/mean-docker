@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ValidationService } from "@core/components/validation-errors/validation-messages.service";
 import { UserService } from "@core/services/user.service";
@@ -13,9 +13,9 @@ import { ToastrService } from "ngx-toastr";
 })
 export class RegisterComponent implements OnInit {
   loading = false;
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private userService: UserService,
     private validationService: ValidationService,
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  createForm(): FormGroup {
+  createForm(): UntypedFormGroup {
    return this.formBuilder.group({
         firstName: [ null,{ validators: [ Validators.required]}],
         lastName: [null,{ validators: [ Validators.required]}],

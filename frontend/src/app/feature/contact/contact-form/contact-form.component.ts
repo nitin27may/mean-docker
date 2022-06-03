@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ContactService } from "../contact.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -11,9 +11,9 @@ import { ValidationService } from "@core/components/validation-errors/validation
   styleUrls: ["./contact-form.component.scss"]
 })
 export class ContactFormComponent implements OnInit {
-  contactForm: FormGroup;
+  contactForm: UntypedFormGroup;
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private validationService: ValidationService,
     private contactService: ContactService,

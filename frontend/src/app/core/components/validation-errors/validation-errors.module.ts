@@ -12,15 +12,14 @@ const api = [ValidationMessagesComponent, ValidationErrorAnchorDirective, Valida
 
 
 @NgModule({
-  declarations: [
-    ValidationErrorsDirective,
-    ValidationErrorAnchorDirective,
-    ValidationMessagesComponent,
-    FormActionDirective
-  ],
-  imports: [CommonModule],
-  exports: [api],
-  entryComponents: [ValidationMessagesComponent]
+    declarations: [
+        ValidationErrorsDirective,
+        ValidationErrorAnchorDirective,
+        ValidationMessagesComponent,
+        FormActionDirective
+    ],
+    imports: [CommonModule],
+    exports: [api]
 })
 export class ValidaionErrorsModule {
   static forRoot(config: ControlErrorConfig = {}): ModuleWithProviders<ValidaionErrorsModule> {
