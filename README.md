@@ -10,7 +10,7 @@
   - [Project Folders](#project-folders)
   - [About Project](#about-project)
     - [Built With](#built-with)
-      - [Angular (14.0.0)](#angular-1400)
+      - [Angular (14.1.1)](#angular-1400)
       - [Expressjs (4.17.1)](#expressjs-4171)
       - [Mongo DB](#mongo-db)
       - [NGINX](#nginx)
@@ -69,7 +69,7 @@ This is a simple web application. It has working user registration, login page a
 Also, rest services are secure using JWT. 
 
 ### Built With
-#### Angular (14.0.0)
+#### Angular (14.1.1)
 
 In MEAN stack A stands for Angular, fronend of this project is developed in Angular.
 
