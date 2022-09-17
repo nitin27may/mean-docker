@@ -6,25 +6,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <!-- <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [routerLink]="['/']" >Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/contacts']">Contacts</a>
-          </li> -->
-        </ul>
-        <form class="d-flex">
-          <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button> -->
-        </form>
-        <ul class="navbar-nav form-inline mt-2 mt-md-0">
+          <ul class="nav  navbar-nav ml-auto">
           &nbsp;
           <li class="nav-item dropdown" dropdown>
             <a href="javascript:void(0)" id="basic-link" class="nav-link dropdown-toggle" dropdownToggle>
               <i class="fa fa-user"></i> {{ user?.firstName }} {{ user?.lastName }} <b class="caret"></b>
             </a>
-            <div id="basic-link-dropdown" class="dropdown-menu" *dropdownMenu>
+            <div id="basic-link-dropdown" class="dropdown-menu  dropdown-menu-right" *dropdownMenu>
               <a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active">
                 <i class="fa fa-fw fa-user"></i> Profile
               </a>

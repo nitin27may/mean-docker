@@ -16,6 +16,7 @@
     <br>
     <ngx-datatable class="material striped" [rowHeight]="50" [rows]="contacts" [columns]="columns" [selected]="selected"
       [selectionType]="SelectionType.single" (select)="onSelect($event)" [sortType]="SortType.multi" [limit]="5"
+      [columnMode]="'force'"
       [footerHeight]="50" [headerHeight]="50">
     </ngx-datatable>
 
