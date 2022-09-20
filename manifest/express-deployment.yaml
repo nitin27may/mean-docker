@@ -33,7 +33,7 @@ spec:
               value: admin-user
             - name: SECRET
               value: Thisismysecret
-          image: mean-docker_express:latest
+          image: nitin27may/mean-expressjs:latest
           imagePullPolicy: IfNotPresent
           name: mean-express
           ports:

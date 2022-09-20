@@ -22,7 +22,7 @@ spec:
         - env:
             - name: NODE_ENV
               value: dev
-          image: mean-docker_angular:latest
+          image: nitin27may/mean-angular:latest
           imagePullPolicy: IfNotPresent
           name: mean-angular
           ports:

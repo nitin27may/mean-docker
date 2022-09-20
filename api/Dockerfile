@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18.9.0-alpine3.16
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
@@ -18,6 +18,8 @@ COPY . /app/
 
 # Expose the port the app runs in
 EXPOSE 3000
+
+USER node
 
 # Serve the app
 CMD ["npm", "start"]

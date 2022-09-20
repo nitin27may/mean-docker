@@ -1,9 +1,5 @@
-# Create image based off of the official 12.8-alpine
-FROM node:16-alpine
-
-
-# # Change directory so that our commands run inside this new directory
-# WORKDIR /api
+# Create image based off of the official node:18.9.0-alpine3.16
+FROM node:18.9.0-alpine3.16
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
