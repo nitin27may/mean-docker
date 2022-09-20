@@ -19,7 +19,7 @@ spec:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: mean-docker_nginx
+        - image: nitin27may/mean-nginx
           imagePullPolicy: IfNotPresent
           name: mean-nginx
           ports:
