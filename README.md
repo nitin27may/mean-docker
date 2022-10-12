@@ -3,39 +3,14 @@
 ![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
 ![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
 # MEAN (Stack) using Docker
-- [MEAN (Stack) using Docker](#mean-stack-using-docker)
-    - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
-  - [To Quick Run](#to-quick-run)
-  - [Demo](#demo)
-  - [Project Folders](#project-folders)
-  - [About Project](#about-project)
-    - [Built With](#built-with)
-      - [Angular (14.2.2)](#angular-1422)
-      - [Expressjs (4.17.1)](#expressjs-4171)
-      - [Mongo DB](#mongo-db)
-      - [NGINX](#nginx)
-  - [Getting started](#getting-started)
-    - [Using Docker](#using-docker)
-      - [Prerequisite](#prerequisite)
-      - [Development mode:](#development-mode)
-      - [Production mode:](#production-mode)
-        - [Using 2 containers (Express (frontend and api) and Mongo)](#using-2-containers-express-frontend-and-api-and-mongo)
-        - [Using 4 containers (Mongo,api, angular and nginx)](#using-4-containers-mongoapi-angular-and-nginx)
-      - [About Docker Compose File](#about-docker-compose-file)
-      - [Pushing Image to Registry (Github Actions)](#pushing-image-to-registry-github-actions)
-    - [Without Docker](#without-docker)
-      - [Prerequisites](#prerequisites)
-      - [Running the Project](#running-the-project)
-  - [Roadmap](#roadmap)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Contact](#contact)
-<!-- * [Usage](#usage) -->
-<!-- * [Acknowledgements](#acknowledgements) -->
 
 ### About (MongoDB - Express - Angular - NodeJS)
 This project is intended to provide a starting point for building full-stack web applicatioin. The stack is made of MongoDB, Express, Angular and NodeJS. The focus of this project to show case the possible way to run a real application **(Mean stack) using docker** for development enviornment and produciton mode.
 <br>Also, it has implementation of <b>[github actions](#pushing-image-to-registry-github-actions)</b> to build and push images on Docker Hub.
+
+Below is the architecture of the application while it is running.
+
+![](documents/architecture.png)
 
 ## To Quick Run
 Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
@@ -71,7 +46,7 @@ Also, rest services are secure using JWT.
 ### Built With
 #### Angular (14.2.2)
 
-In MEAN stack A stands for Angular, fronend of this project is developed in Angular.
+In MEAN stack A stands for Angular, fronend of this project is developed in Angular. As we are using Server Side Rendering (SSR) we have used Nodejs alpine image in place of other lightweight docker image like nginx to run Angular app.
 
 It contains sample for below:
 
