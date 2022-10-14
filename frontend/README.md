@@ -22,6 +22,7 @@ Next development
 * [x] Implement Login and add Interceptor to attach token in each request
 * [x] Add CRUD example
 * [x] Add A Grid
+* [x] Add Proxy Configuration for local develolpment
 * [x] Server Side Rendering
 * [x] Reusbale validation module
 * [x] Core and Shared Module
