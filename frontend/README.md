@@ -13,6 +13,32 @@ Or you can run `npm run dev-server`. It will start frontend and api together. Op
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build. Also, we have enabled SSR (Server side rendering) for fast first loading of UI on production.
 
+## Next Todo
+
+Next development
+
+* [x] Add Bootstrap
+* [x] Add Header and Side Menu, Profile page
+* [x] Implement Login and add Interceptor to attach token in each request
+* [x] Add CRUD example
+* [x] Add A Grid
+* [x] Server Side Rendering
+* [x] Reusbale validation module
+* [x] Core and Shared Module
+* [x] Docker Support
+* [ ] Add Service Worker
+
+## Build with
+
+Describes which version .
+
+| Name       | Version  |
+| ---------- | -------- |
+| bootstrap     | v4.5.3    |
+| ngx-bootstrap | v9.0.0 |
+| @swimlane/ngx-datatable | v20.0.0 |
+
+
 ### Dockerfile Production
 
 ```dockerfile
