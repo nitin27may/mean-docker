@@ -3,9 +3,9 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "ngx-toastr/toastr";
 
-@import "@swimlane/ngx-datatable/index.css";
-@import "@swimlane/ngx-datatable/themes/material.scss";
-@import "@swimlane/ngx-datatable/assets/icons.css";
+@import "../node_modules/@swimlane/ngx-datatable/index.css";
+@import "../node_modules/@swimlane/ngx-datatable/themes/material.scss";
+@import "../node_modules/@swimlane/ngx-datatable/assets/icons.css";
 
 @media screen and (max-width: 992px) {
   .push-right {
