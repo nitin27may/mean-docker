@@ -1,11 +1,14 @@
 # Create image based off of the official Node 10 image
-FROM node:18.9.0-alpine3.16 as builder
+FROM node:19.1-alpine3.15 as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
 
+RUN npm install -g npm@9.1.2
+
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm ci && mkdir /app && mv ./node_modules ./app
+## --legacy-peer-deps as ngx-bootstrap still depends on Angular 14
+RUN npm ci --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
 
 # Change directory so that our commands run inside this new directory
 WORKDIR /app
@@ -16,7 +19,7 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
-FROM node:18.9.0-alpine3.16
+FROM node:19.1-alpine3.15
 ## From 'builder' copy published folder
 COPY --from=builder /app /app
 
