@@ -1,6 +1,6 @@
 # Frontend (Angular)
 
-Frontend for application using Angular (updated to 15.0.0)
+Frontend for application using Angular (updated to 15.0.3)
 
 ## Development server
 

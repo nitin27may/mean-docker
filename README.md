@@ -44,7 +44,7 @@ This is a simple web application. It has working user registration, login page a
 Also, rest services are secure using JWT. 
 
 ### Built With
-#### Angular (15.0.0)
+#### Angular (15.0.3)
 
 In MEAN stack A stands for Angular, fronend of this project is developed in Angular. As we are using Server Side Rendering (SSR) we have used Nodejs alpine image in place of other lightweight docker image like nginx to run Angular app.
 
