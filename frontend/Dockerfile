@@ -4,8 +4,6 @@ FROM node:20-alpine as builder
 # Copy dependency definitions
 COPY package.json package-lock.json ./
 
-RUN npm install -g npm@9.1.2
-
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
 ## --legacy-peer-deps as ngx-bootstrap still depends on Angular 14
 RUN npm i --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
