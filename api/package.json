@@ -14,7 +14,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "express-jwt": "^7.7.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.20",
     "mongoose": "^6.3.4",
     "q": "^1.4.1",
