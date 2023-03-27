@@ -20,6 +20,7 @@ mongoimport --jsonArray --authenticationDatabase=admin \
    /docker-entrypoint-initdb.d/data.json
 ```
 Here, we have added database credentials for our new database. 
+
 ```bat
 #!/bin/bash
 set -e
