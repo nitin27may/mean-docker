@@ -38,10 +38,13 @@
 
 ### About (MongoDB - Express - Angular - NodeJS)
 The **MEAN** stack - consisting of MongoDB, Express, Angular, and NodeJS - forms the foundation of a full-stack web application, and this project serves as an ideal starting point for creating one. The project also demonstrates a feasible approach to operating a live application on **Docker** in both development and production settings. Additionally, it features the use of **[Github actions](#pushing-image-to-registry-github-actions)** to construct and upload images to Docker Hub.
+<<<<<<< HEAD
 
 Below is the architecture of the application while it is running.
 
 ![](documents/architecture.png)
+=======
+>>>>>>> 7e9a462 (Update README.md)
 
 Below is the architecture of the application while it is running.
 
@@ -75,6 +78,7 @@ The apps written in the following JavaScript frameworks/libraries:
 
 ## About Project
 The web application presented here is uncomplicated yet functional. It features a user registration and login page that are fully operational, as well as a comprehensive demonstration of **CRUD** (Create, Read, Update, Delete) functionality that incorporates Angular Routing and examples of REST API usage with Express.js. Additionally, the REST services are safeguarded by implementing **JWT** (JSON Web Tokens) for enhanced security.
+<<<<<<< HEAD
 
 ### Built With
 #### Angular (16.2.11)
@@ -91,6 +95,22 @@ Additionally, there are samples of code for implementing an authentication guard
 This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
 
+=======
+
+### Built With
+#### Angular (15.0.3)
+The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
+
+The project includes sample code for various functionalities, such as 
+- User registration 
+- Login
+- Profile Management 
+- Complete CRUD example for contacts. 
+
+Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
+
+
+>>>>>>> 7e9a462 (Update README.md)
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
 **[Dockerfile for Production](/frontend/Dockerfile)**
