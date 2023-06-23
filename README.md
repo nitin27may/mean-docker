@@ -98,7 +98,7 @@ Also, rest services are secure using JWT.
 =======
 
 ### Built With
-#### Angular (15.0.3)
+#### Angular (16.0.1)
 The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
 
 The project includes sample code for various functionalities, such as 
