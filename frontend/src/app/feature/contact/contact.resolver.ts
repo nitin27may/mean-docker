@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Resolve, ActivatedRouteSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot } from "@angular/router";
 import { map } from "rxjs/operators";
 import { ContactService } from "./contact.service";
 
 @Injectable()
-export class ContactDetailsResolver implements Resolve<any> {
+export class ContactDetailsResolver  {
   constructor(private contactService: ContactService) {}
 
   resolve(route: ActivatedRouteSnapshot): any {
