@@ -1,0 +1,45 @@
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
+  <div class="list-group">
+    <a routerLink="/" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>Dashboard</span>
+    </a>
+    <a
+      [routerLink]="['/contacts']"
+      [routerLinkActive]="['router-link-active']"
+      tooltip="Contacts"
+      container="body"
+      style="z-index: 1000; position: relative;"
+      class="list-group-item"
+    >
+      <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+      <span>Contacts</span>
+    </a>
+    <div class="header-fields">
+      <div class="nested-menu">
+        <a class="list-group-item" (click)="addExpandClass('profile')">
+          <span><i class="fa fa-user"></i>&nbsp; {{ user?.firstName }} {{ user?.lastName }}</span>
+        </a>
+        <li class="nested" [class.expand]="showMenu === 'profile'">
+          <ul class="submenu">
+            <li>
+              <a [routerLink]="['/profile']" routerLinkActive="router-link-active">
+                <span><i class="fa fa-fw fa-envelope"></i> Profile</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="javascript:void(0);" (click)="onLoggedout()">
+                <span><i class="fa fa-fw fa-power-off"></i> Log Out</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="toggle-button" [ngClass]="{ collapsed: collapsed }" (click)="toggleCollapsed()">
+    <i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>&nbsp;
+    <span>Collapse Sidebar</span>
+  </div>
+</nav>

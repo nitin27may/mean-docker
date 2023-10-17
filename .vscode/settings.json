@@ -1,0 +1,23 @@
+{
+    "tslint.alwaysShowRuleFailuresAsWarnings": true,
+    "editor.formatOnSave": true,
+    "editor.foldingStrategy": "auto",
+    "editor.fontLigatures": true,
+    "window.zoomLevel": 1,
+    "files.autoSave": "off",
+    "typescript.preferences.quoteStyle": "double",
+    "javascript.preferences.quoteStyle": "double",
+    "npm.scriptExplorerAction": "run",
+    "debug.openDebug": "openOnDebugBreak",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "git.autofetch": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true,
+        "**/dist": true
+    }
+}

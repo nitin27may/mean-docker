@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-4">
+      <h2 *ngIf="!contactForm.get('_id').value">Add Contact</h2>
+      <h2 *ngIf="contactForm.get('_id').value">Update Contact</h2>
+    </div>
+  </div>
+  <div>
+    <div class="col-md-7 offset-md-3">
+      <span class="anchor" id="formComplex"></span>
+      <div class="my-5"></div>
+      <!-- <h3>Contact Details</h3> -->
+      <form [formGroup]="contactForm" class="row g-3">
+        <div class="col-sm-6 col-md-6">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" formControlName="firstName" />
+          </div>
+        <div class="col-sm-6 col-md-6">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" formControlName="lastName" />
+          </div>
+        <div class="col-sm-6 col-md-6">
+          <label for="email" class="form-label">Email </label>
+          <input type="text" class="form-control" formControlName="email" />
+          </div>
+        <div class="col-sm-6 col-md-6">
+          <label for="mobile" class="form-label">Mobile #</label>
+          <input type="text" class="form-control" formControlName="mobile" />
+          </div>
+        <div class="col-sm-6 col-md-6">
+          <label for="city" class="form-label">City</label>
+          <input type="text" class="form-control" formControlName="city" />
+          </div>
+        <div class="col-sm-6 col-md-6">
+          <label for="postalCode" class="form-label">Postal Code</label>
+          <input type="text" class="form-control" formControlName="postalCode" />
+          </div>
+        <div class="row col-sm-12 col-md-12 mt-2">
+          <div class="col-sm-6 col-md-6">
+            <a href="javascript:void(0);" [routerLink]="['/contacts']" class="btn btn-primary"> <i class="fa fa-chevron-left"></i>
+              Back</a>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <div class="btn-group pull-right">
+              <button class="btn btn-primary" [disabled]="contactForm.invalid" (click)="submit()">Save</button>
+              <button class="btn btn-secondary" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

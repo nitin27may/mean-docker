@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+      <h2>Contact List</h2>
+    </div>
+    <div class="col-sm-8">
+      <div class="title-action">
+        <a href="javascript:void(0);" [routerLink]="['/contacts/create']" class="btn btn-primary pull-right">
+          <i class="fa fa-plus-circle"></i> Add New Contact</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="">
+    <br>
+    <ngx-datatable class="material striped" [rowHeight]="50" [rows]="contacts" [columns]="columns" [selected]="selected"
+      [selectionType]="SelectionType.single" (select)="onSelect($event)" [sortType]="SortType.multi" [limit]="5"
+      [columnMode]="'force'"
+      [footerHeight]="50" [headerHeight]="50">
+    </ngx-datatable>
+
+  </div>
+</div>

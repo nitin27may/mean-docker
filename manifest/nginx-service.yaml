@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: nginx
+  name: nginx
+  namespace: mean
+spec:
+  allocateLoadBalancerNodePorts: true
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - nodePort: 32306
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    io.kompose.service: nginx
+  sessionAffinity: None
+  type: LoadBalancer

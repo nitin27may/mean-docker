@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "ngx-toastr/toastr";
+
+@import "../node_modules/@swimlane/ngx-datatable/index.css";
+@import "../node_modules/@swimlane/ngx-datatable/themes/material.scss";
+@import "../node_modules/@swimlane/ngx-datatable/assets/icons.css";
+
+@media screen and (max-width: 992px) {
+  .push-right {
+    .sidebar {
+      left: 235px !important;
+    }
+  }
+}
+/* You can add global styles to this file, and also import other style files */
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+  background-color: #fff;
+  border: 0.05rem solid #fff;
+}
+
+/*
+ * Base structure
+ */
+
+// html,
+// body {
+//   height: 100%;
+// }
+
+// body {
+//   display: -ms-flexbox;
+//   display: -webkit-box;
+//   display: flex;
+//   -ms-flex-pack: center;
+//   -webkit-box-pack: center;
+//   justify-content: center;
+//   box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+// }
+
+// .cover-container {
+//   max-width: 65em;
+// }
+.control-error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.on-submit.form-submitted .ng-touched.ng-invalid, form:not(.on-submit) .ng-touched.ng-invalid {
+  border-color: #dc3545;
+  padding-right: calc(1.5em + 0.75rem);
+}

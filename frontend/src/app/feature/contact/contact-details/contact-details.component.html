@@ -1,0 +1,62 @@
+<div class="panel panel-default">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-4">
+      <h2>Contact Details</h2>
+    </div>
+  </div>
+  <div>
+    <div class="col-md-8 offset-md-3">
+      <span class="anchor" id="formComplex"></span>
+      <div class="my-5"></div>
+      <h3>Details </h3>
+      <!-- form complex example -->
+      <form>
+        <div class="row">
+          <div class="form-group col-sm-6 col-md-6">
+            <label for="firstName" class="col-sm-4 col-md-4 col-form-label">First Name:</label>
+            <label for="firstName" class="col-sm-8 col-md-8 col-form-label">{{contact.firstName}}</label>
+          </div>
+          <div class="form-group col-sm-6 col-md-6">
+            <label for="lastName" class="col-sm-4 col-md-4 col-form-label">Last Name:</label>
+            <label for="lastName" class="col-sm-8 col-md-8 col-form-label">{{contact.lastName}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-6 col-md-6">
+            <label for="email" class="col-sm-4 col-md-4 col-form-label">Email:</label>
+            <label for="email" class="col-sm-8 col-md-8 col-form-label">{{contact.email}}</label>
+          </div>
+          <div class="form-group col-sm-6 col-md-6">
+            <label for="mobile" class="col-sm-4 col-md-4 col-form-label">Mobile:</label>
+            <label for="mobile" class="col-sm-8 col-md-8 col-form-label">{{contact.mobile}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-6 col-md-6">
+            <label for="city" class="col-sm-4 col-md-4 col-form-label">City:</label>
+            <label for="city" class="col-sm-8 col-md-8 col-form-label">{{contact.city}}</label>
+          </div>
+          <div class="form-group col-sm-6 col-md-6">
+            <label for="postalCode" class="col-sm-4 col-md-4 col-form-label">Postal Code:</label>
+            <label for="postalCode" class="col-sm-8 col-md-8 col-form-label">{{contact.postalCode}}</label>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-sm-6 col-md-6">
+            <a href="javascript:void(0);" [routerLink]="['/contacts']" class="btn btn-primary">
+              <i class="fa fa-chevron-left"></i> Back</a>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <div class="btn-group float-end">
+              <span></span>
+              <button class="btn btn-primary " (click)="edit()">Edit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- </main> -->
+
+  </div>
+</div>

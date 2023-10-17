@@ -1,0 +1,58 @@
+version: "3.8" # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    build: frontend # specify the directory of the Dockerfile
+    container_name: mean_angular
+    restart: always
+    ports:
+      - "4000:4000" # specify port forewarding
+    environment:
+      - NODE_ENV=dev
+
+  express: #name of the second service
+    build: api # specify the directory of the Dockerfile
+    container_name: mean_express
+    restart: always
+    ports:
+      - "3000:3000" #specify ports forewarding
+      # Below database enviornment variable for api is helpful when you have to use database as managed service
+    environment:
+      - SECRET=Thisismysecret
+      - MONGO_DB_USERNAME=admin-user
+      - MONGO_DB_PASSWORD=admin-password
+      - MONGO_DB_HOST=database
+      - MONGO_DB_PORT=
+      - MONGO_DB_PARAMETERS=?authSource=admin
+      - MONGO_DB_DATABASE=mean-contacts
+      - EXPRESS_PORT=3000
+    links:
+      - database
+
+  database: # name of the third service
+    image: mongo:latest # specify image to build container from
+    container_name: mean_mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin-user
+      - MONGO_INITDB_ROOT_PASSWORD=admin-password
+      - MONGO_DB_USERNAME=admin-user1
+      - MONGO_DB_PASSWORD=admin-password1
+      - MONGO_DB=mean-contacts
+    volumes:
+      - ./mongo:/home/mongodb
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
+      - ./mongo/db:/data/db
+    ports:
+      - "27017:27017" # specify port forewarding
+
+  nginx: #name of the fourth service
+    build: loadbalancer # specify the directory of the Dockerfile
+    container_name: mean_nginx
+    restart: always
+    ports:
+      - "80:80" #specify ports forewarding
+    links:
+      - express
+      - angular

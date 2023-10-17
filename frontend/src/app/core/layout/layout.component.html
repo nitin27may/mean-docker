@@ -1,0 +1,21 @@
+<!-- <div class="wrapper">
+  <div class="sidebar" data-color="brown" data-active-color="danger">
+    <truck-sidebar-cmp></truck-sidebar-cmp>
+  </div>
+  <div class="main-panel">
+    <router-outlet></router-outlet>
+    <truck-navbar-cmp></truck-navbar-cmp>
+    <truck-footer-cmp>
+    </truck-footer-cmp>
+  </div>
+
+</div>
+<truck-fixedplugin-cmp></truck-fixedplugin-cmp> -->
+
+<!-- <footer></footer> -->
+
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{ collapsed: collapedSideBar }">
+  <router-outlet></router-outlet>
+</section>
