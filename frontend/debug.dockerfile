@@ -1,5 +1,5 @@
 # Create image based off of the official 12.8-alpine
-FROM node:19.1-alpine3.15
+FROM node:20-alpine
 
 #RUN echo "nameserver 8.8.8.8" |  tee /etc/resolv.conf > /dev/null
 WORKDIR /app

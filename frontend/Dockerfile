@@ -1,5 +1,5 @@
 # Create image based off of the official Node 10 image
-FROM node:19.1-alpine3.15 as builder
+FROM node:20-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
@@ -17,7 +17,7 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
-FROM node:19.1-alpine3.15
+FROM node:20-alpine
 ## From 'builder' copy published folder
 COPY --from=builder /app /app
 
