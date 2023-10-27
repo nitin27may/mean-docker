@@ -1,6 +1,6 @@
 ### STAGE 1: Build ###
 # We label our stage as ‘builder’
-FROM node:16-alpine as builder
+FROM node:20-alpine as builder
 
 COPY frontend/package.json frontend/package-lock.json ./
 
@@ -15,7 +15,7 @@ COPY /frontend .
 RUN npm run build:prod
 
 ### STAGE 2: Setup ###
-FROM node:16-alpine
+FROM node:20-alpine
 
 ## channge directory
 WORKDIR /app
