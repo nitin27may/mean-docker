@@ -11,8 +11,6 @@
   - [About Project](#about-project)
     - [Built With](#built-with)
       - [Angular (17.0.1)](#angular-1701)
-    - [Built With](#built-with-1)
-      - [Angular (15.0.3)](#angular-1503)
       - [Expressjs (4.17.1)](#expressjs-4171)
       - [Mongo DB](#mongo-db)
       - [NGINX](#nginx)
@@ -49,10 +47,6 @@ Below is the architecture of the application while it is running.
 
 ![](documents/architecture.png)
 
-Below is the architecture of the application while it is running.
-
-![](documents/architecture.png)
-
 ## To Quick Run
 Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
 
@@ -62,7 +56,6 @@ Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.
   docker-compose -f 'docker-compose.nginx.yml' up
 ```
 ## Demo
-
 
 https://user-images.githubusercontent.com/8065536/138562565-f601586c-ef38-43b6-8db7-67a4bdefbb96.mp4
 
@@ -96,18 +89,6 @@ Additionally, there are samples of code for implementing an authentication guard
 
 This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
-
-### Built With
-#### Angular (15.0.3)
-The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
-
-The project includes sample code for various functionalities, such as 
-- User registration 
-- Login
-- Profile Management 
-- Complete CRUD example for contacts. 
-
-Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
 
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
