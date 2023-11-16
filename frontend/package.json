@@ -29,6 +29,7 @@
     "@angular/platform-server": "^17.0.3",
     "@angular/router": "^17.0.3",
     "@angular/ssr": "^17.0.1",
+    "@nguniversal/express-engine": "^16.2.0",
     "@swimlane/ngx-datatable": "^20.0.0",
     "bootstrap": "^4.5.3",
     "express": "^4.15.2",
