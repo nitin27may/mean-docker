@@ -12,8 +12,6 @@ RUN npm i --legacy-peer-deps --unsafe-perm=true --allow-root
 
 RUN npm install -g @angular/cli
 
-#RUN chrown -R node:node /app
-
 COPY . /app/
 
 EXPOSE 4200 49153
