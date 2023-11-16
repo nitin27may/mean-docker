@@ -10,7 +10,7 @@
   - [Project Folders](#project-folders)
   - [About Project](#about-project)
     - [Built With](#built-with)
-      - [Angular (16.2.11)](#angular-16211)
+      - [Angular (17.0.1)](#angular-16211)
       - [Expressjs (4.17.1)](#expressjs-4171)
       - [Mongo DB](#mongo-db)
       - [NGINX](#nginx)
@@ -81,7 +81,7 @@ The web application presented here is uncomplicated yet functional. It features 
 <<<<<<< HEAD
 
 ### Built With
-#### Angular (16.2.11)
+#### Angular (17.0.1)
 The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
 
 The project includes sample code for various functionalities, such as 
