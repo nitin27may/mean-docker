@@ -47,6 +47,10 @@ Below is the architecture of the application while it is running.
 
 ![](documents/architecture.png)
 
+Below is the architecture of the application while it is running.
+
+![](documents/architecture.png)
+
 ## To Quick Run
 Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
 
@@ -91,8 +95,6 @@ Additionally, there are samples of code for implementing an authentication guard
 This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
 Also, rest services are secure using JWT. 
 
-=======
->>>>>>> 8515de5 (Angular readme update)
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
 **[Dockerfile for Production](/frontend/Dockerfile)**

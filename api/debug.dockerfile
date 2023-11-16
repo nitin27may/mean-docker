@@ -28,6 +28,16 @@ RUN npm install -g nodemon
 
 RUN npm install -g nodemon
 
+# Copy dependency definitions
+COPY package.json package-lock.json ./
+
+
+RUN npm ci && mkdir /api && mv ./node_modules ./api
+
+# RUN npm ci
+
+RUN npm install -g nodemon
+
 COPY . /api/
 
 
