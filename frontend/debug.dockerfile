@@ -12,8 +12,9 @@ RUN npm i --legacy-peer-deps
 
 RUN npm install -g @angular/cli
 
+RUN npm install -g @angular/cli
+
 COPY . /app/
 
 EXPOSE 4200 49153
-
 

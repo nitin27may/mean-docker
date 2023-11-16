@@ -3,9 +3,48 @@
 ![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
 ![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
 # MEAN (Stack) using Docker
+- [MEAN (Stack) using Docker](#mean-stack-using-docker)
+    - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
+  - [To Quick Run](#to-quick-run)
+  - [Demo](#demo)
+  - [Project Folders](#project-folders)
+  - [About Project](#about-project)
+    - [Built With](#built-with)
+      - [Angular (17.0.1)](#angular-16211)
+      - [Expressjs (4.17.1)](#expressjs-4171)
+      - [Mongo DB](#mongo-db)
+      - [NGINX](#nginx)
+  - [Getting started](#getting-started)
+    - [Using Docker](#using-docker)
+      - [Prerequisite](#prerequisite)
+      - [Development mode:](#development-mode)
+      - [Production mode:](#production-mode)
+        - [Using 2 containers (Express (frontend and api) and Mongo)](#using-2-containers-express-frontend-and-api-and-mongo)
+        - [Using 4 containers (Mongo,api, angular and nginx)](#using-4-containers-mongoapi-angular-and-nginx)
+      - [About Docker Compose File](#about-docker-compose-file)
+      - [Pushing Image to Registry (Github Actions)](#pushing-image-to-registry-github-actions)
+    - [Without Docker](#without-docker)
+      - [Prerequisites](#prerequisites)
+      - [Running the Project](#running-the-project)
+    - [Without Docker](#without-docker-1)
+      - [Prerequisites](#prerequisites-1)
+      - [Running the Project](#running-the-project-1)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Contact](#contact)
+<!-- * [Usage](#usage) -->
+<!-- * [Acknowledgements](#acknowledgements) -->
 
 ### About (MongoDB - Express - Angular - NodeJS)
 The **MEAN** stack - consisting of MongoDB, Express, Angular, and NodeJS - forms the foundation of a full-stack web application, and this project serves as an ideal starting point for creating one. The project also demonstrates a feasible approach to operating a live application on **Docker** in both development and production settings. Additionally, it features the use of **[Github actions](#pushing-image-to-registry-github-actions)** to construct and upload images to Docker Hub.
+<<<<<<< HEAD
+
+Below is the architecture of the application while it is running.
+
+![](documents/architecture.png)
+=======
+>>>>>>> 7e9a462 (Update README.md)
 
 Below is the architecture of the application while it is running.
 
@@ -39,9 +78,27 @@ The apps written in the following JavaScript frameworks/libraries:
 
 ## About Project
 The web application presented here is uncomplicated yet functional. It features a user registration and login page that are fully operational, as well as a comprehensive demonstration of **CRUD** (Create, Read, Update, Delete) functionality that incorporates Angular Routing and examples of REST API usage with Express.js. Additionally, the REST services are safeguarded by implementing **JWT** (JSON Web Tokens) for enhanced security.
+<<<<<<< HEAD
 
 ### Built With
-#### Angular (16.2.11)
+#### Angular (17.0.1)
+The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
+
+The project includes sample code for various functionalities, such as 
+- User registration 
+- Login
+- Profile Management 
+- Complete CRUD example for contacts. 
+
+Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
+
+This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
+Also, rest services are secure using JWT. 
+
+=======
+
+### Built With
+#### Angular (16.0.1)
 The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
 
 The project includes sample code for various functionalities, such as 
@@ -53,6 +110,7 @@ The project includes sample code for various functionalities, such as
 Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
 
 
+>>>>>>> 7e9a462 (Update README.md)
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
 **[Dockerfile for Production](/frontend/Dockerfile)**
@@ -217,7 +275,8 @@ services:
     container_name: mean_express
     ports:
       - "3000:3000" #specify ports forewarding
-      # Below database enviornment variable for api is helpful when you have to use database as managed service
+      # Below database enviornment variable for api is helpful when you have to use 
+      # database as managed service
     environment:
       - SECRET=Thisismysecret
       - MONGO_DB_USERNAME=admin-user
@@ -319,6 +378,94 @@ services:
 
   ```
 #### Pushing Image to Registry (Github Actions)
+
+Earlier, we were using docker hub autobuild triggers to build images and push to registry (Docker Hub), now it is using github action, we can take an example of frontend image: 
+File : 
+[angular-build-and-push.yml](/.github/workflows/angular-build-and-push.yml)
+```
+name: Angular Build
+on:
+  push:
+    branches: master
+    paths: 
+    - 'frontend/**'
+
+jobs:
+  main:
+    runs-on: Ubuntu-20.04
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: frontend/.
+          file: frontend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-angular:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+```
+
+here, DOCKERHUB_USERNAME is your docker hub username and DOCKERHUB_TOKEN,  we can generate from account settings (account settings > Security > New Access Token) section from your docker hub accounts and add under your github repo > settings > secrets 
+### Without Docker
+
+#### Prerequisites
+
+1. Install latest [Node js ](https://nodejs.org/en/)
+2. Install Nodemon as global package (To run exprerssjs in development mode)
+   `npm install -g nodemon`
+3. Optional (Install Angular CLI
+   `npm install -g @angular/cli`)
+4. Install Mongodb locally or [Signup](https://www.mongodb.com/atlas-signup-from-mlab?utm_source=mlab.com&utm_medium=referral&utm_campaign=mlab%20signup&utm_content=blue%20sign%20up%20button) for a free managed account
+5. Before running the project make sure that you are able to connect MongoDb , you can use [Robo 3T](https://robomongo.org/download) for it
+
+#### Running the Project
+
+Clone the project and run `npm install` in frontend and api folder.
+
+```
+  git clone https://github.com/nitin27may/mean-docker.git
+
+  cd mean-docker/frontend
+
+  npm i
+
+  npm start 
+
+  cd mean-docker/api
+
+  npm i
+
+  npm start 
+
+```
+For passing enviornment variables (database details) in api, Navigate to api folder, __rename `.env.example` to `.env`__ and update your mongo db details there.
+
+  Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
+
+It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
+
+
 
 Earlier, we were using docker hub autobuild triggers to build images and push to registry (Docker Hub), now it is using github action, we can take an example of frontend image: 
 File : 
