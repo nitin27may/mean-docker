@@ -10,7 +10,7 @@
   - [Project Folders](#project-folders)
   - [About Project](#about-project)
     - [Built With](#built-with)
-      - [Angular (17.0.1)](#angular-1701)
+      - [Angular (17.0.3)](#angular-1703)
       - [Expressjs (4.17.1)](#expressjs-4171)
       - [Mongo DB](#mongo-db)
       - [NGINX](#nginx)
@@ -76,7 +76,7 @@ The apps written in the following JavaScript frameworks/libraries:
 The web application presented here is uncomplicated yet functional. It features a user registration and login page that are fully operational, as well as a comprehensive demonstration of **CRUD** (Create, Read, Update, Delete) functionality that incorporates Angular Routing and examples of REST API usage with Express.js. Additionally, the REST services are safeguarded by implementing **JWT** (JSON Web Tokens) for enhanced security.
 
 ### Built With
-#### Angular (17.0.1)
+#### Angular (17.0.3)
 The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
 
 The project includes sample code for various functionalities, such as 
