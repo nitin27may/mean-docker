@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i --legacy-peer-deps
+RUN npm i --legacy-peer-deps --unsafe-perm=true --allow-root
 
 RUN npm install -g @angular/cli
 

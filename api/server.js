@@ -9,6 +9,8 @@ const { expressjwt: expressjwt } = require("express-jwt");
 // Import Mongoose
 let mongoose = require("mongoose");
 
+const config = require("./config.json");
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -95,7 +97,6 @@ app.use(
 
 const HOST = "0.0.0.0";
 const port = Number(process.env.EXPRESS_PORT) || 3000;
-
 // start server
 // Launch app to listen to specified port
 app.listen(port, () => {
