@@ -1,5 +1,5 @@
 # Create image based off of the official node:18.9.0-alpine3.16
-FROM node:20
+FROM node:21-alpine
 
 WORKDIR /api
 
@@ -8,7 +8,7 @@ RUN chown -R node:node /api
 # Copy dependency definitions
 COPY --chown=node:node package*.json .
 
-RUN npm ci
+RUN npm i
 
 RUN chmod -R 777 node_modules
 
