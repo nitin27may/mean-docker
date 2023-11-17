@@ -1,5 +1,5 @@
 # Create image based off of the official node:18.9.0-alpine3.16
-FROM node:19
+FROM node:21-alpine
 
 WORKDIR /api
 
