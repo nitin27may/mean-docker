@@ -43,10 +43,6 @@ Below is the architecture of the application while it is running.
 
 ![](documents/architecture.png)
 
-Below is the architecture of the application while it is running.
-
-![](documents/architecture.png)
-
 ## To Quick Run
 Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
 
