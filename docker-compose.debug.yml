@@ -23,10 +23,12 @@ services:
       context: ./api
       dockerfile: debug.dockerfile
     container_name: mean_express
+    command : ["npm", "run", "dev:server"]
     volumes:
       - ./api:/api
     ports:
       - "3000:3000" #specify ports forewarding
+      - "9229:9229"
     environment:
       - SECRET=Thisismysecret
       - NODE_ENV=development
