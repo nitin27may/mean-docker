@@ -3,19 +3,12 @@ FROM node:21-alpine
 
 WORKDIR /api
 
-RUN chown -R node:node /api
+COPY package*.json ./
 
-# Copy dependency definitions
-COPY --chown=node:node package*.json .
+RUN npm i --legacy-peer-deps --unsafe-perm=true --allow-root
 
-RUN npm i
-
-RUN chmod -R 777 node_modules
-
-RUN npm install -g nodemon
-
+COPY . /api/
 # Expose the port the app runs in
-EXPOSE 3000
+EXPOSE 3000 9229
 
-# Serve the app
-CMD [ "npm", "run", "dev-server" ]
+
