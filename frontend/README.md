@@ -44,16 +44,16 @@ Describes which version .
 
 ```dockerfile
 # Create image based off of the official Node 10 image
-FROM node:16-alpine as builder
+FROM node:21-alpine as builder
 
 # Copy dependency definitions
 COPY package.json package-lock.json ./
 
-# disabling ssl for npm for Dev or if you are behind proxy
-RUN npm set strict-ssl false
+RUN npm install -g npm@9.1.2
 
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm ci && mkdir /app && mv ./node_modules ./app
+## --legacy-peer-deps as ngx-bootstrap still depends on Angular 14
+RUN npm i --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
 
 # Change directory so that our commands run inside this new directory
 WORKDIR /app
@@ -64,22 +64,37 @@ COPY . /app/
 # Build server side bundles
 RUN npm run build:ssr
 
-FROM node:14.5-alpine
+FROM node:21-alpine
 ## From 'builder' copy published folder
-COPY --from=builder /app/dist/frontend /app
+COPY --from=builder /app /app
 
 WORKDIR /app
 # Expose the port the app runs in
 EXPOSE 4000
 
-CMD ["node", "server/main.js"]
+USER node
+
+CMD ["node", "dist/frontend/server/main.js"]
 
 ```
 ### Dockerfile Development mode
 ```dockerfile
+
 # Create image based off of the official 12.8-alpine
-FROM node:14
+FROM node:21-alpine
 
-## Further help
+#RUN echo "nameserver 8.8.8.8" |  tee /etc/resolv.conf > /dev/null
+WORKDIR /app
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Copy dependency definitions
+COPY package*.json ./
+
+## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN npm i --legacy-peer-deps --unsafe-perm=true --allow-root
+
+RUN npm install -g @angular/cli
+
+COPY . /app/
+
+EXPOSE 4200 49153
+```

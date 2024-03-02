@@ -5,7 +5,6 @@
 We have used mongo db image and for data seed used `docker-entrypoint-initdb.d` and shell script is in file `init-mongo.sh`
 
 
-
 Also, we have used mongo import to seed data :
 
 
