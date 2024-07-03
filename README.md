@@ -4,12 +4,12 @@
 ![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
 # MEAN (Stack) using Docker
 - [MEAN (Stack) using Docker](#mean-stack-using-docker)
-    - [About (MongoDB - Express - Angular - NodeJS)](#about-mongodb---express---angular---nodejs)
-  - [To Quick Run](#to-quick-run)
+    - [Overview](#overview)
+  - [To Quick Run](#quick-start)
   - [Demo](#demo)
-  - [Project Folders](#project-folders)
-  - [About Project](#about-project)
-    - [Built With](#built-with)
+  - [Project Structure](#project-structure)
+  - [Project Details](#project-details)
+    - [Technologies Used](#technologies-used)
       - [Angular (17.0.3)](#angular-1703)
       - [Expressjs (4.17.1)](#expressjs-4171)
       - [Mongo DB](#mongo-db)
@@ -36,14 +36,14 @@
 <!-- * [Usage](#usage) -->
 <!-- * [Acknowledgements](#acknowledgements) -->
 
-### About (MongoDB - Express - Angular - NodeJS)
-The **MEAN** stack - consisting of MongoDB, Express, Angular, and NodeJS - forms the foundation of a full-stack web application, and this project serves as an ideal starting point for creating one. The project also demonstrates a feasible approach to operating a live application on **Docker** in both development and production settings. Additionally, it features the use of **[Github actions](#pushing-image-to-registry-github-actions)** to construct and upload images to Docker Hub.
+### Overview
+This project demonstrates a MEAN (MongoDB, Express, Angular, NodeJS) stack application running on Docker. It is an ideal starting point for creating a full-stack web application and demonstrates both development and production setups using Docker. Additionally, it showcases using GitHub Actions for building and pushing Docker images to Docker Hub.
 
-Below is the architecture of the application while it is running.
+The architecture of the application while running:
 
 ![](documents/architecture.png)
 
-## To Quick Run
+## Quick Start
 Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
 
 ```
@@ -58,7 +58,7 @@ https://user-images.githubusercontent.com/8065536/138562565-f601586c-ef38-43b6-8
 
 <!-- ## [Demo](https://youtu.be/ixVxq9k6xVo)
 [![Watch the video](docs/screenshots/demo.gif)](https://youtu.be/ixVxq9k6xVo) -->
-## Project Folders 
+## Project Structure 
 The apps written in the following JavaScript frameworks/libraries:
 
 | folder          | Description                                                                                  |
@@ -68,10 +68,10 @@ The apps written in the following JavaScript frameworks/libraries:
 | **loadbalancer** | [load balancer using **nginx**](https://github.com/nitin27may/mean-docker/tree/master/loadbalancer) |
 | **mongo** | [mongo db image setup](https://github.com/nitin27may/mean-docker/tree/master/mongo) |
 
-## About Project
-The web application presented here is uncomplicated yet functional. It features a user registration and login page that are fully operational, as well as a comprehensive demonstration of **CRUD** (Create, Read, Update, Delete) functionality that incorporates Angular Routing and examples of REST API usage with Express.js. Additionally, the REST services are safeguarded by implementing **JWT** (JSON Web Tokens) for enhanced security.
+## Project Details
+This application features user registration, login, and a full CRUD (Create, Read, Update, Delete) example with Angular Routing and REST API samples using Express.js. REST services are secured using JWT (JSON Web Tokens).
 
-### Built With
+### Technologies Used
 #### Angular (17.0.3)
 The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
 
