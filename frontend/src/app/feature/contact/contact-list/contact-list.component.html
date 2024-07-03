@@ -1,24 +1,92 @@
-<div class="panel panel-default">
-  <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-      <h2>Contact List</h2>
+<div class="container px-4 py-5">
+    <div class="row align-items-center">
+        <div
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 justify-content-center"
+        >
+            <div class="panel panel-default container px-4 py-5">
+                <div class="row wrapper border-bottom white-bg page-heading">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <h2>Contact List</h2>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div class="title-action">
+                            <a
+                                href="javascript:void(0);"
+                                [routerLink]="['/contacts/create']"
+                                class="btn btn-primary float-end"
+                            >
+                                <i class="fa fa-plus-circle"></i> Add New
+                                Contact</a
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="">
+                    <br />
+
+                    <table class="table-striped table">
+                        <thead>
+                            <tr>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mobile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (
+                                contact of contacts ; track contact.email) {
+                                <tr style="cursor: pointer" (click)="onSelect(contact)">
+                                    <td>
+                                        <ngb-highlight
+                                            [result]="contact.firstName"
+                                            [term]="filter.value"
+                                        />
+                                    </td>
+                                    <td>
+                                        <ngb-highlight
+                                            [result]="contact.lastName"
+                                            [term]="filter.value"
+                                        />
+                                    </td>
+                                    <td>
+                                        <ngb-highlight
+                                            [result]="contact.email"
+                                            [term]="filter.value"
+                                        />
+                                    </td>
+                                    <td>
+                                        <ngb-highlight
+                                            [result]="contact.mobile"
+                                            [term]="filter.value"
+                                        />
+                                    </td>
+                                </tr>
+                            } @empty {
+                                <tr>
+                                    <td colspan="4" style="text-align: center">
+                                        No contacts found
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination
+                        [collectionSize]="collectionSize"
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        (pageChange)="refreshContacts()"
+                      >
+                      </ngb-pagination>
+                      <select class="form-select" style="width: auto; height: 40px;" [(ngModel)]="pageSize" (ngModelChange)="refreshContacts()">
+                        <option [ngValue]="2">2 items per page</option>
+                        <option [ngValue]="4">4 items per page</option>
+                        <option [ngValue]="6">6 items per page</option>
+                      </select>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-8">
-      <div class="title-action">
-        <a href="javascript:void(0);" [routerLink]="['/contacts/create']" class="btn btn-primary pull-right">
-          <i class="fa fa-plus-circle"></i> Add New Contact</a>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="">
-    <br>
-    <ngx-datatable class="material striped" [rowHeight]="50" [rows]="contacts" [columns]="columns" [selected]="selected"
-      [selectionType]="SelectionType.single" (select)="onSelect($event)" [sortType]="SortType.multi" [limit]="5"
-      [columnMode]="'force'"
-      [footerHeight]="50" [headerHeight]="50">
-    </ngx-datatable>
-
-  </div>
 </div>

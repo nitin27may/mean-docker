@@ -1,0 +1,99 @@
+<header class="navbar navbar-expand-lg navbar-dark fixed-top nga-navbar">
+    <nav class="container" aria-label="Main navigation">
+        <a routerLink="/" class="navbar-brand" alt="Accueil">
+            <span class="nga-logo mx-1" aria-label="Contacts">Contacts System</span>
+        </a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarCollapse">
+            <ul class="navbar-nav mx-auto">
+                <!-- <li class="nav-item">
+                    <a
+                        class="nav-link nga-nav-link"
+                        aria-current="page"
+                        routerLink="/"
+                    >
+                        <i class="fab fa-angular me-1"></i>Features</a
+                    >
+                </li> -->
+            </ul>
+            <ul class="navbar-nav me-auto">
+                <!-- <li class="nav-item">
+                    <a
+                        class="nav-link nga-nav-link"
+                        aria-current="page"
+                        routerLink="/about"
+                    >
+                        <i class="far fa-question-circle me-1"></i>About</a
+                    >
+                </li> -->
+                <li class="nav-item">
+                    <a
+                        class="nav-link nga-nav-link"
+                        aria-current="page"
+                        routerLink="/contacts"
+                    >
+                        <i class="fas fa-envelope me-1"></i>Contacts</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link nga-nav-link"
+                        aria-current="page"
+                        target="_blank"
+                        href="https://github.com/nitin27may"
+
+                    >
+                        <i class="fab fa-github me-1"></i>Github
+                    </a>
+                </li>
+                <li class="nav-item dropdown" ngbDropdown *ngIf="user">
+                    <a
+                        href="javascript:void(0)"
+                        id="basic-link"
+                        class="nav-link dropdown-toggle"
+                        ngbDropdownToggle
+                    >
+                        <i class="fa fa-user"></i> {{user?.firstName}} {{user?.lastName}}
+                        <b class="caret"></b>
+                    </a>
+                    <div
+                        id="basic-link-dropdown"
+                        class="dropdown-menu dropdown-menu-right"
+                        ngbDropdownMenu
+                    >
+                        <a
+                            class="dropdown-item"
+                            [routerLink]="['/profile']"
+                            routerLinkActive="router-link-active"
+                            ngbDropdownItem
+                        >
+                            <i class="fa fa-fw fa-user"></i> Profile
+                        </a>
+                        <a
+                            href="javascript:void(0);"
+                            class="dropdown-item"
+                            (click)="logOut()"
+                            ngbDropdownItem
+                        >
+                            <i class="fa fa-fw fa-power-off"></i>Log Out
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex" *ngIf="!user">
+
+
+            </form>
+        </div>
+    </nav>
+</header>
