@@ -3,38 +3,7 @@
 ![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
 ![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
 # MEAN (Stack) using Docker
-- [MEAN (Stack) using Docker](#mean-stack-using-docker)
-    - [Overview](#overview)
-  - [To Quick Run](#quick-start)
-  - [Demo](#demo)
-  - [Project Structure](#project-structure)
-  - [Project Details](#project-details)
-    - [Technologies Used](#technologies-used)
-      - [Angular (17.0.3)](#angular-1703)
-      - [Expressjs (4.17.1)](#expressjs-4171)
-      - [Mongo DB](#mongo-db)
-      - [NGINX](#nginx)
-  - [Getting started](#getting-started)
-    - [Using Docker](#using-docker)
-      - [Prerequisite](#prerequisite)
-      - [Development mode:](#development-mode)
-      - [Production mode:](#production-mode)
-        - [Using 2 containers (Express (frontend and api) and Mongo)](#using-2-containers-express-frontend-and-api-and-mongo)
-        - [Using 4 containers (Mongo,api, angular and nginx)](#using-4-containers-mongoapi-angular-and-nginx)
-      - [About Docker Compose File](#about-docker-compose-file)
-      - [Pushing Image to Registry (Github Actions)](#pushing-image-to-registry-github-actions)
-    - [Without Docker](#without-docker)
-      - [Prerequisites](#prerequisites)
-      - [Running the Project](#running-the-project)
-    - [Without Docker](#without-docker-1)
-      - [Prerequisites](#prerequisites-1)
-      - [Running the Project](#running-the-project-1)
-  - [Roadmap](#roadmap)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Contact](#contact)
-<!-- * [Usage](#usage) -->
-<!-- * [Acknowledgements](#acknowledgements) -->
+
 
 ### Overview
 This project demonstrates a MEAN (MongoDB, Express, Angular, NodeJS) stack application running on Docker. It is an ideal starting point for creating a full-stack web application and demonstrates both development and production setups using Docker. Additionally, it showcases using GitHub Actions for building and pushing Docker images to Docker Hub.
