@@ -2,11 +2,11 @@
 ![Expressjs Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)
 ![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
 ![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
-# MEAN (Stack) using Docker
+# MEAN Stack Project Template with Docker and Bootstrap 5
 
 
 ### Overview
-This project demonstrates a MEAN (MongoDB, Express, Angular, NodeJS) stack application running on Docker. It is an ideal starting point for creating a full-stack web application and demonstrates both development and production setups using Docker. Additionally, it showcases using GitHub Actions for building and pushing Docker images to Docker Hub.
+This project demonstrates a MEAN (**MongoDB, Express, Angular, NodeJS**) stack application running on Docker. It is an ideal starting point for creating a full-stack web application and demonstrates both development and production setups using Docker. Additionally, it showcases using GitHub Actions for building and pushing Docker images to Docker Hub.
 
 The architecture of the application while running:
 
@@ -25,7 +25,7 @@ Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.
 https://user-images.githubusercontent.com/8065536/138562565-f601586c-ef38-43b6-8db7-67a4bdefbb96.mp4-->
 
 ## Project Structure 
-The apps written in the following JavaScript frameworks/libraries:
+This project is organized into several folders, each representing a different component built with popular JavaScript frameworks and libraries:
 
 | folder          | Description                                                                                  |
 | --------------- | -------------------------------------------------------------------------------------------- |
@@ -35,22 +35,21 @@ The apps written in the following JavaScript frameworks/libraries:
 | **mongo** | [mongo db image setup](https://github.com/nitin27may/mean-docker/tree/master/mongo) |
 
 ## Project Details
-This application features user registration, login, and a full CRUD (Create, Read, Update, Delete) example with Angular Routing and REST API samples using Express.js. REST services are secured using JWT (JSON Web Tokens).
+This application includes features such as user registration, login, and a complete CRUD (Create, Read, Update, Delete) example. It utilizes Angular Routing for navigation and provides REST API samples built with Express.js. The REST services are secured using JWT (JSON Web Tokens), ensuring safe and efficient user authentication.
 
 ### Technologies Used
 #### Angular (18.1.0)
-The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
+The frontend of this project is developed using Angular, the "A" in the MEAN stack. For Server-Side Rendering (SSR), we chose the Node.js Alpine image over a lightweight Docker image like Nginx to run the Angular application.
 
-The project includes sample code for various functionalities, such as 
+The project includes sample code for various key functionalities, such as:
 - User registration 
 - Login
 - Profile Management 
 - Complete CRUD example for contacts. 
 
-Additionally, there are samples of code for implementing an authentication guard, services, HTTP interceptors, resolvers, and JWT authentication.
+Additionally, you'll find examples of implementing authentication guards, services, HTTP interceptors, resolvers, and JWT authentication.
 
-This is a simple web application. It has working user registration, login page and there is a complete example of CRUD which contains example for Angular Routing and exprtess js rest api samples.
-Also, rest services are secure using JWT. 
+This application is designed to be user-friendly, featuring a functional registration and login page, along with a comprehensive CRUD implementation that showcases Angular Routing and Express.js REST API examples. All REST services are secured using JWT for enhanced security.
 
 For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
 
@@ -59,9 +58,9 @@ For folder structure details refer this link: [Frontend Folder Structure] (/docs
 
 #### Expressjs (4.17.1)
 
-In MEAN stack, E stands for Expressjs, all rest services are developed using express js.
+In the MEAN stack, the "E" stands for Express.js, which is used to develop all REST services.
 
-It contains sample for:
+This project includes samples for:
 
 1. Mongo dB connection and schema validation using Mongoose
 2. JWT implementation for Authorization
