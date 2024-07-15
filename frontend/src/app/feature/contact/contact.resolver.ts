@@ -1,17 +1,24 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot } from "@angular/router";
-import { map } from "rxjs/operators";
+import { inject } from '@angular/core';
 import { ContactService } from "./contact.service";
+import { ResolveFn } from '@angular/router';
 
-@Injectable()
-export class ContactDetailsResolver  {
-  constructor(private contactService: ContactService) {}
+// export class ContactDetailsResolver  {
+//   constructor(private contactService: ContactService) {}
 
-  resolve(route: ActivatedRouteSnapshot): any {
-    return this.contactService.getById(route.paramMap.get("contactId")).pipe(
-      map((result: any) => {
-        return result;
-      })
-    );
-  }
-}
+//   export const userDetailsResolver: ResolveFn<UserDetails> = (route, state) => {
+//     let userService = inject(UserService);
+//     return userService.getUserDetails(+route.paramMap.get('id'));
+//   };
+
+//   // resolve(route: ActivatedRouteSnapshot): any {
+//   //   return this.contactService.getById(route.paramMap.get("contactId")).pipe(
+//   //     map((result: any) => {
+//   //       return result;
+//   //     })
+//   //   );
+//   // }
+// }
+export const ContactDetailsResolver: ResolveFn<any> = (route, state) => {
+  let userService = inject(ContactService);
+  return userService.getById(route.paramMap.get('contactId'));
+};

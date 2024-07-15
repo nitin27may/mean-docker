@@ -1,15 +1,121 @@
-<div
-  class="container-fluid d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
->
-  <h1 class="h2">Dashboard</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <div class="btn-group mr-2">
-      <button class="btn btn-sm btn-outline-secondary">Share</button>
-      <button class="btn btn-sm btn-outline-secondary">Export</button>
+<section class="nga-gradient text-white">
+    <div class="col-xxl-8 container px-4 py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8 p-lg-8 pt-lg-3 p-3">
+                <div class="text-center">
+                    <h1 class="display-4 fw-bold mt-2">Mean</h1>
+                    <h2 class="h1">MongoDb, Expressjs, Angular, Nodejs</h2>
+                    <h3 class="h3">Running on Docker</h3>
+                    <hr />
+                    <h2 class="h5 mt-4">{{ angular }}</h2>
+                    <h2 class="h5">{{ bootstrap }}</h2>
+                    <h2 class="h5">{{ expressjs }}</h2>
+                    <h2 class="h5">{{ mongoDb }}</h2>
+                    <div class="col-lg-12 mx-auto mt-4">
+                        <div
+                            class="d-grid d-sm-flex justify-content-sm-center gap-2"
+                        >
+                            <a
+                                class="nga-btn-home"
+                                target="_blank"
+                                href="https://github.com/nitin27may/mean-docker?tab=readme-ov-file#overview"
+                                >Get Started</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1 p-0">
+                <div class="position-lg-absolute left-0 top-0 overflow-hidden">
+                    <!-- <img
+                        src="./assets/params/images/home/demarrer-avec-angular.png"
+                        srcset="
+                            ./assets/params/images/home/demarrer-avec-angular.png,
+                            ./assets/params/images/home/demarrer-avec-angular@2x.png 2x
+                        "
+                        alt="Getting started with Angular"
+                        width="360"
+                        height="350"
+                    /> -->
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-      <span data-feather="calendar"></span>
-      This week
-    </button>
-  </div>
+</section>
+
+<div class="container px-4 py-5">
+    <h2 class="display-6 fw-bold pb-2 text-center">Technologies Used</h2>
+    <hr />
+    <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-4 py-2">
+
+        <div class="col">
+          <div class="nga-card-step p-4">
+              <a routerLink="/components">
+                  <i class="text-primary fa-solid fa-database fa-2x mb-2"></i>
+                  <h3 class="h4 text-primary fw-bold">MongoDb</h3>
+                  <p>
+                    MongoDB is a cross-platform document-oriented database program.
+                  </p>
+              </a>
+          </div>
+      </div>
+      <div class="col">
+        <div class="nga-card-step p-4">
+            <a   href="javascript:void(0)">
+                <i class="text-primary fab fa-node-js fa-2x mb-2"></i>
+                <h3 class="h4 text-primary fw-bold">Expressjs</h3>
+                <p>Authentication and all rest services are developed using express js.</p>
+            </a>
+        </div>
+    </div>
+        <div class="col">
+            <div class="nga-card-step p-4">
+                <a   href="javascript:void(0)">
+                    <i class="text-primary fab fa-angular fa-2x mb-2"></i>
+                    <h3 class="h4 text-primary fw-bold">Angular</h3>
+                    <p>Front end Interfaces has been created using Angular 18 Framework.</p>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+          <div class="nga-card-step p-4">
+              <a  href="javascript:void(0)">
+                  <i class="text-primary fa-brands  fa-node fa-2x mb-2"></i>
+                  <h3 class="h4 text-primary fw-bold">NodeJs</h3>
+                  <p>Expressjs runs on Nodejs server, also angular dev server run on NodeJs.</p>
+              </a>
+          </div>
+      </div>
+        <div class="col">
+          <div class="nga-card-step p-4">
+              <a href="javascript:void(0)">
+                  <i class="text-primary fab fa-bootstrap fa-2x mb-2"></i>
+                  <h3 class="h4 text-primary fw-bold">Bootstrap</h3>
+                  <p>
+                    Powerful, extensible, and feature-packed frontend toolkit. Utilize grid system and components.
+                  </p>
+              </a>
+          </div>
+      </div>
+        <div class="col">
+            <div class="nga-card-step p-4">
+                <a href="javascript:void(0)">
+                  <i class="text-primary fab fa-brands fa-docker  fa-2x mb-2"></i>
+                    <h3 class="h4 text-primary fw-bold">Docker</h3>
+                    <p>Docker is used to build images and running the application in container.</p>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="nga-card-step p-4">
+                <a href="javascript:void(0)">
+                    <i class="text-primary fa-brands fa-github fa-2x mb-2"></i>
+                    <h3 class="h4 text-primary fw-bold">Github Actions</h3>
+                    <p>Github Actions used for build images and push to registry (Docker Hub),</p>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

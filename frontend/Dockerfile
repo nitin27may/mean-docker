@@ -4,11 +4,9 @@ FROM node:21-alpine as builder
 # Copy dependency definitions
 COPY package.json package-lock.json ./
 
-RUN npm install -g npm@9.1.2
-
 ## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
 ## --legacy-peer-deps as ngx-bootstrap still depends on Angular 14
-RUN npm i --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
+RUN npm i && mkdir /app && mv ./node_modules ./app
 
 # Change directory so that our commands run inside this new directory
 WORKDIR /app
@@ -17,7 +15,7 @@ WORKDIR /app
 COPY . /app/
 
 # Build server side bundles
-RUN npm run build:ssr
+RUN npm run build
 
 FROM node:21-alpine
 ## From 'builder' copy published folder
@@ -29,4 +27,4 @@ EXPOSE 4000
 
 USER node
 
-CMD ["node", "dist/frontend/server/main.js"]
+CMD ["node", "dist/contacts/server/server.mjs"]

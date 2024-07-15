@@ -1,6 +1,6 @@
 # Frontend (Angular)
 
-Frontend for application using Angular (updated to 17.0.3)
+Frontend for application using Angular (updated to 18.1.0)
 
 ## Development server
 
@@ -35,9 +35,8 @@ Describes which version .
 
 | Name       | Version  |
 | ---------- | -------- |
-| bootstrap     | v4.5.3    |
-| ngx-bootstrap | v9.0.0 |
-| @swimlane/ngx-datatable | v20.0.0 |
+| bootstrap     | v5.3.2    |
+| @ng-bootstrap | v17.0.0 |
 
 
 ### Dockerfile Production

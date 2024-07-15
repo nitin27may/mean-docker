@@ -1,46 +1,88 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
-      <div class="row">
-        <div class="col-lg-4 col-md-8 mx-auto">
-          <div class="card">
-            <article class="card-body">
-              <a [routerLink]="['/register']" class="float-right btn btn-outline-primary">Sign up</a>
-              <h4 class="card-title mb-4 mt-1">Sign in</h4>
-              <form (submit)="login(loginForm)" novalidate autocomplete="off" [formGroup]="loginForm" class="row g-3">
-                <div class="col-sm-12 col-md-12">
-                  <label>User Name</label>
-                  <input class="form-control" placeholder="Email" type="email" name="username" formControlName="userName" />
-                </div>
-                <div class="col-sm-12 col-md-12">
-                  <label>Password</label>
-                  <input class="form-control" placeholder="******" type="password" name="password" formControlName="password" />
-                </div>
-                <div class="col-sm-12 col-md-12">
-                  <!-- form-group// -->
+    <div class="row">
+        <div
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 min-vh-100 d-flex flex-column justify-content-center"
+        >
+            <div class="row">
+                <div class="col-lg-4 col-md-8 mx-auto">
+                    <div class="card">
+                        <h1 class="h5 card-header py-4 text-center">
+                            <i class="fas fa-sign-in-alt me-4"></i
+                            ><strong>Login</strong>
+                        </h1>
+                        <article class="card-body">
+                            <!-- <a [routerLink]="['/signup']" class="float-right btn btn-outline-primary">Sign up</a> -->
+                            <!-- <h4 class="card-title mb-4 mt-1">Sign in</h4> -->
+                            <form
+                                (submit)="login(loginForm)"
+                                novalidate
+                                autocomplete="off"
+                                [formGroup]="loginForm"
+                                class="row g-3"
+                            >
+                                <div class="col-sm-12 col-md-12">
+                                    <label>User Name</label>
+                                    <input
+                                        class="form-control"
+                                        placeholder="Email"
+                                        type="email"
+                                        name="username"
+                                        formControlName="userName"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    <label>Password</label>
+                                    <input
+                                        class="form-control"
+                                        placeholder="******"
+                                        type="password"
+                                        name="password"
+                                        formControlName="password"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    <!-- form-group// -->
 
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="rememberMe" formControlName="rememberMe" />
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-12 mt-2">
-                  <!-- checkbox .// -->
+                                    <div class="checkbox">
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                name="rememberMe"
+                                                formControlName="rememberMe"
+                                            />
+                                            Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 mt-2">
+                                    <!-- checkbox .// -->
 
-                  <!-- form-group// -->
-                  <div class="form-group">
-                    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-block">Login</button>
-                  </div>
+                                    <!-- form-group// -->
+                                    <div class="form-group">
+                                        <button
+                                            type="submit"
+                                            [disabled]="loginForm.invalid"
+                                            class="btn btn-primary btn-block"
+                                        >
+                                            Login
+                                        </button>
+
+                                    <button
+                                    type="button"
+                                    class="btn btn-primary  float-end"
+                                    routerLink="/signup"
+                                >
+                                    <i class="fas fa-user-plus me-2"></i>Sign up
+                                </button>
+                                    </div>
+                                </div>
+                                <!-- form-group// -->
+                            </form>
+                        </article>
+                    </div>
+                    <!-- card.// -->
                 </div>
-                <!-- form-group// -->
-              </form>
-            </article>
-          </div>
-          <!-- card.// -->
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

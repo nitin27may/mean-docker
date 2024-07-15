@@ -1,47 +1,103 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
-      <div class="row">
-        <div class="col-lg-4 col-md-8 mx-auto">
-          <div class="card">
-            <article class="card-body">
-              <a [routerLink]="['/login']" class="float-right btn btn-outline-primary">Sign in</a>
-              <h4 class="card-title mb-4 mt-1">Register</h4>
-              <form (submit)="register()" novalidate autocomplete="off" [formGroup]="registerForm" class="row g-3">
-                <div class="col-sm-12 col-md-12">
-                  <label>First Name</label>
-                  <input type="text" formControlName="firstName" name="firstName" class="form-control" />
+	<div class="row mb-5">
+        <div
+            class="col-xl-12 col-lg-12 col-md-12  col-sm-12 min-vh-100 d-flex flex-column justify-content-center"
+        >
+            <!-- <h1 class="h5 card-header py-4 text-center">
+                <i class="fas fa-user-plus me-4"></i><strong>SignUp</strong>
+            </h1> -->
+            <div class="row">
+                <div class="col-lg-4 col-md-8 mx-auto">
+                    <div class="card">
+                      <h1 class="h5 card-header text-center py-4">
+                        <i class="fas fa-user-plus me-4"></i><strong>SignUp</strong>
+                      </h1>
+                        <article class="card-body">
+                            <!-- <a
+                                [routerLink]="['/login']"
+                                class="btn btn-outline-primary float-right"
+                                >Sign in</a
+                            > -->
+                            <!-- <h4 class="card-title mb-4 mt-1">SignUp</h4> -->
+                            <form
+                                (submit)="register()"
+                                novalidate
+                                autocomplete="off"
+                                [formGroup]="registerForm"
+                                class="row g-3"
+                            >
+                                <div class="col-sm-12 col-md-12">
+                                    <label>First Name</label>
+                                    <input
+                                        type="text"
+                                        formControlName="firstName"
+                                        name="firstName"
+                                        class="form-control"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    <label>Last Name</label>
+                                    <input
+                                        name="lastName"
+                                        class="form-control"
+                                        type="text"
+                                        formControlName="lastName"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    <label>Your email</label>
+                                    <input
+                                        class="form-control"
+                                        type="email"
+                                        name="username"
+                                        formControlName="username"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    <label>Your password</label>
+                                    <input
+                                        class="form-control"
+                                        type="password"
+                                        name="password"
+                                        formControlName="password"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12">
+                                    <label>Confirm password</label>
+                                    <input
+                                        class="form-control"
+                                        type="password"
+                                        name="confirmPassword"
+                                        formControlName="confirmPassword"
+                                    />
+                                </div>
+                                <div class="col-sm-12 col-md-12 mt-3">
+                                    <!-- checkbox .// -->
+                                    <!-- form-group// -->
+                                    <div class="form-group">
+                                        <button
+                                            type="submit"
+                                            [disabled]="registerForm.invalid"
+                                            class="btn btn-primary btn-block"
+                                        >
+                                        SignUp
+                                        </button>
+                                        <button
+                                        type="button"
+                                        class="btn float-end btn-primary btn-outline-light me-2"
+                                        routerLink="/login"
+                                    >
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                    </button>
+                                    </div>
+                                </div>
+                                <!-- form-group// -->
+                            </form>
+                        </article>
+                    </div>
+                    <!-- card.// -->
                 </div>
-                <div class="col-sm-12 col-md-12">
-                  <label>Last Name</label>
-                  <input name="lastName" class="form-control" type="text" formControlName="lastName" />
-                </div>
-                <div class="col-sm-12 col-md-12">
-                  <label>Your email</label>
-                  <input class="form-control" type="email" name="username" formControlName="username" />
-                </div>
-                <div class="col-sm-12 col-md-12">
-                  <label>Your password</label>
-                  <input class="form-control" type="password" name="password" formControlName="password" />
-                </div>
-                <div class="col-sm-12 col-md-12">
-                  <label>Confirm password</label>
-                  <input class="form-control" type="password" name="confirmPassword" formControlName="confirmPassword" />
-                </div>
-                <div class="col-sm-12 col-md-12 mt-3">
-                  <!-- checkbox .// -->
-                  <!-- form-group// -->
-                  <div class="form-group">
-                    <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary btn-block">Register</button>
-                  </div>
-                </div>
-                <!-- form-group// -->
-              </form>
-            </article>
-          </div>
-          <!-- card.// -->
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

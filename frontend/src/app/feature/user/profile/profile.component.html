@@ -1,107 +1,276 @@
-<tabset #staticTabs>
-  <tab heading="Profile">
-    <div class="container py-3">
-      <div class="row">
-        <div class="mx-auto col-sm-6">
-          <!-- form user info -->
-          <div class="card">
-            <div class="card-header">
-              <h4 class="mb-0">Basic Information</h4>
-            </div>
-            <div class="card-body">
-              <form class="form" [formGroup]="profileForm" name="profileForm" novalidate autocomplete="off">
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                  <div class="col-lg-9">
-                    <input class="form-control" type="text" name="firstName" formControlName="firstName" />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                  <div class="col-lg-9">
-                    <input class="form-control" type="text" name="lastName" formControlName="lastName" />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                  <div class="col-lg-9">
-                    <input class="form-control" type="email" name="email" formControlName="email" />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Mobile</label>
-                  <div class="col-lg-9">
-                    <input class="form-control" type="text" name="mobile" formControlName="mobile" />
-                  </div>
-                </div>
+<div class="container px-4 py-5" >
+    <div class="row align-items-center">
+        <div
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 justify-content-center"
+        >
+            <section class="nga-gradient text-white">
+                <div class="col-xxl-8 container px-4 py-5">
+                    <ul
+                        ngbNav
+                        #nav="ngbNav"
+                        [(activeId)]="active"
+                        class="nav-tabs"
+                    >
+                        <li [ngbNavItem]="1">
+                            <button ngbNavLink>Profile</button>
+                            <ng-template ngbNavContent>
+                                <div class="container py-3">
+                                    <div class="row">
+                                        <div class="col-lg-12 mx-auto">
+                                            <!-- form user info -->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="mb-0">
+                                                        Basic Information
+                                                    </h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form
+                                                        class="form"
+                                                        [formGroup]="
+                                                            profileForm
+                                                        "
+                                                    >
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >First
+                                                                name</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="text"
+                                                                    name="firstName"
+                                                                    formControlName="firstName"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >Last
+                                                                name</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="text"
+                                                                    name="lastName"
+                                                                    formControlName="lastName"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >Email</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="email"
+                                                                    name="email"
+                                                                    formControlName="email"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >Mobile</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="text"
+                                                                    name="mobile"
+                                                                    formControlName="mobile"
+                                                                />
+                                                            </div>
+                                                        </div>
 
-                <div class="form-group row">
-                  <div class="col-lg-6"></div>
-                  <div class="col-lg-6">
-                    <div class="btn-group float-right mt-2" role="group">
-                      <input (click)="resetProfileForm()" type="submit" class="btn btn-secondary" value="Reset" />
-                      <input (click)="updateProfile()" type="button" class="btn btn-primary" value="Update" />
-                    </div>
-                  </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <div
+                                                                class="col-lg-6"
+                                                            ></div>
+                                                            <div
+                                                                class="col-lg-6"
+                                                            >
+                                                                <div
+                                                                    class="btn-group float-right mt-2"
+                                                                    role="group"
+                                                                >
+                                                                    <input
+                                                                        (click)="
+                                                                            resetProfileForm()
+                                                                        "
+                                                                        type="submit"
+                                                                        class="btn btn-secondary"
+                                                                        value="Reset"
+                                                                    />
+                                                                    <input
+                                                                        (click)="
+                                                                            updateProfile()
+                                                                        "
+                                                                        type="button"
+                                                                        class="btn btn-primary"
+                                                                        value="Update"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /form user info -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="2">
+                            <button ngbNavLink>Password</button>
+                            <ng-template ngbNavContent>
+                                <div class="container py-3">
+                                    <div class="row">
+                                      <div class="col-lg-12 mx-auto">
+                                            <!-- form user info -->
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="mb-0">
+                                                        Password Update
+                                                    </h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form
+                                                        class="form"
+                                                        [formGroup]="
+                                                            passwordForm
+                                                        "
+                                                        name="passwordForm"
+                                                        novalidate
+                                                        autocomplete="off"
+                                                    >
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >Username</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="text"
+                                                                    name="username"
+                                                                    formControlName="username"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >Password</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="password"
+                                                                    name="password"
+                                                                    formControlName="password"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <label
+                                                                class="col-lg-3 col-form-label form-control-label"
+                                                                >Confirm</label
+                                                            >
+                                                            <div
+                                                                class="col-lg-9"
+                                                            >
+                                                                <input
+                                                                    class="form-control"
+                                                                    type="password"
+                                                                    name="confirmPassword"
+                                                                    formControlName="confirmPassword"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="row mb-3  align-items-center"
+                                                        >
+                                                            <div
+                                                                class="col-lg-6"
+                                                            ></div>
+                                                            <div
+                                                                class="col-lg-6"
+                                                            >
+                                                                <div
+                                                                    class="btn-group float-right mt-2"
+                                                                    role="group"
+                                                                >
+                                                                    <input
+                                                                        type="submit"
+                                                                        class="btn btn-secondary"
+                                                                        (click)="
+                                                                            resetPasswordForm()
+                                                                        "
+                                                                        value="Reset"
+                                                                    />
+                                                                    <input
+                                                                        type="button"
+                                                                        (click)="
+                                                                            updatePassword()
+                                                                        "
+                                                                        class="btn btn-primary"
+                                                                        value="Update"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /form user info -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+                    <pre>Active: {{ active }}</pre>
                 </div>
-              </form>
-            </div>
-          </div>
-          <!-- /form user info -->
+            </section>
         </div>
-      </div>
     </div>
-  </tab>
-  <tab heading="Password"
-    ><div class="container py-3">
-      <div class="row">
-        <div class="mx-auto col-sm-6">
-          <!-- form user info -->
-          <div class="card">
-            <div class="card-header">
-              <h4 class="mb-0">Password Update</h4>
-            </div>
-            <div class="card-body">
-              <form class="form" [formGroup]="passwordForm" name="passwordForm" novalidate autocomplete="off">
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                  <div class="col-lg-9">
-                    <input disabled class="form-control" type="text" name="username" formControlName="username" />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                  <div class="col-lg-9">
-                    <input class="form-control" type="password" name="password" formControlName="password" />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Confirm</label>
-                  <div class="col-lg-9">
-                    <input class="form-control" type="password" name="confirmPassword" formControlName="confirmPassword" />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-lg-6"></div>
-                  <div class="col-lg-6">
-                    <div class="btn-group float-right mt-2" role="group">
-                      <input type="submit" class="btn btn-secondary" (click)="resetPasswordForm()" value="Reset" />
-                      <input
-                        type="button"
-                        [disabled]="passwordForm.invalid"
-                        (click)="updatePassword()"
-                        class="btn btn-primary"
-                        value="Update"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <!-- /form user info -->
-        </div>
-      </div>
-    </div></tab
-  >
-</tabset>
+</div>

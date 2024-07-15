@@ -41,7 +41,7 @@ The apps written in the following JavaScript frameworks/libraries:
 This application features user registration, login, and a full CRUD (Create, Read, Update, Delete) example with Angular Routing and REST API samples using Express.js. REST services are secured using JWT (JSON Web Tokens).
 
 ### Technologies Used
-#### Angular (17.0.3)
+#### Angular (18.1.0)
 The frontend of this project is built with Angular, which is represented by the "A" in MEAN stack. To enable Server Side Rendering (SSR), we opted to use the Node.js Alpine image instead of a lightweight Docker image like Nginx to run the Angular application.
 
 The project includes sample code for various functionalities, such as 
