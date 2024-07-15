@@ -36,6 +36,7 @@ export class ContactListComponent implements OnInit {
     getAll(): void {
         this.contactService.getAll().subscribe(
             (data) => {
+              data.sort((a, b) => new Date(b.create_date).getTime() - new Date(a.create_date).getTime());
                 console.log(data);
                 this.collectionSize = data.length;
                 this.allContacts = data;
