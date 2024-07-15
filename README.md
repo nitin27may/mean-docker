@@ -2,7 +2,7 @@
 ![Expressjs Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)
 ![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
 ![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
-# MEAN Stack Project Template with Docker and Bootstrap 5
+# MEAN Stack Project with Docker and Bootstrap 5
 
 
 ### Overview
