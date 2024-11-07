@@ -1,11 +1,14 @@
-mongo -- "$MONGO_INITDB_DATABASE" <<EOF
+#!/bin/bash
+
+## Set new user to database
+mongosh $MONGO_DB -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "db.createUser({ user: '$MONGO_DB_USERNAME', pwd:  '$MONGO_DB_PASSWORD', roles: [{ role: 'readWrite', db: '$MONGO_DB'}]})" --authenticationDatabase admin
+
+## Seed Users and Contacts into database
+mongosh $MONGO_DB <<EOF 
     var rootUser = '$MONGO_INITDB_ROOT_USERNAME';
     var rootPassword = '$MONGO_INITDB_ROOT_PASSWORD';
-    var admin = db.getSiblingDB('admin');
+    var admin = db.getSiblingDB('$MONGO_INITDB_DATABASE');
     admin.auth(rootUser, rootPassword);
-
-    db.createUser({user: rootUser, pwd: rootPassword, roles: ["readWrite"]});
-
 
 db.users.drop();
 db.users.insertMany([
@@ -16,7 +19,7 @@ db.users.insertMany([
     mobile: "9876543210",
     username: "john.doe@gmail.com",
     email: "john.doe@gmail.com",
-   "password" : "$2a$10$85qQuOuD4cDtXOoxbtv0/e79ijARyN/4vpN438N2i8MKLQPUvSX46",
+   "password" : "\$2a\$10\$85qQuOuD4cDtXOoxbtv0/e79ijARyN/4vpN438N2i8MKLQPUvSX46",
     create_date: Date(),
   }
   ]);
@@ -54,5 +57,4 @@ db.contacts.insertMany([
     create_date: Date(),
   }
 ]);
-
 EOF

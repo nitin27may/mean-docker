@@ -106,7 +106,7 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
   docker-compose -f 'docker-compose.debug.yml' up
   ```
 
-  It will run fronend `http://localhost:4200` and api on `http://localhost:3000`. you can also access mongodb on port 27017.
+  It will run frontend `http://localhost:4200` and api on `http://localhost:3000`. you can also access mongodb on port 27017.
 
   Also, it will automatically refresh (hot reload) your UI for code changes. That is also true for expressjs file changes. 
      
@@ -125,7 +125,7 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
   ``` 
     docker-compose up
   ```
-  It will run fronend and api on `http://localhost:3000`. you can also access mongodb on port 27017
+  It will run frontend and api on `http://localhost:3000`. you can also access mongodb on port 27017
  ##### Using 4 containers (Mongo,api, angular and nginx)
   ```
     git clone https://github.com/nitin27may/mean-docker.git
@@ -133,7 +133,7 @@ Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
     docker-compose -f 'docker-compose.nginx.yml' up
   ```
-  It will run fronend and api on `http://localhost`. you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
+  It will run frontend and api on `http://localhost`. you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
 #### About Docker Compose File
 The main focus of this project to show case the possible way to run a real application (Mean stack) using docker.
 
