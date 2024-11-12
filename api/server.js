@@ -85,9 +85,7 @@ app.use(
       { url: "/api/user/authenticate", methods: ["POST"] },
       { url: "/index.html", methods: ["GET"] },
       { url: /\.js$/, methods: ["GET"] },
-      { url: /\.css$/, methods: ["GET"] },
-      { url: /^\/api\/beneficiarios(.*)$/, methods: ["POST"] },
-      { url: "/", methods: ["GET"] }
+      { url: /\.css$/, methods: ["GET"] }
     ]
   })
 );

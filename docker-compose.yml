@@ -6,9 +6,11 @@ services:
     build: # specify the directory of the Dockerfile
       context: .
       dockerfile: dockerfile
+      args:
+        BASE_HREF: ${BASE_HREF:-/}
     container_name: ${ID_PROJECT:-mean}_angular_express
     ports:
-      - "3000:3000" #specify ports forewarding
+      - "4200:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
       - SECRET=Thisismysecret

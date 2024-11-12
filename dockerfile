@@ -11,8 +11,13 @@ WORKDIR /app
 
 COPY /frontend .
 
+ARG BASE_HREF=/
+
 ## Build the angular app in production mode and store the artifacts in dist folder
 RUN npm run build:prod
+
+## Change base href in index.html
+RUN sh -c "find . -name \"index*.html\" -exec sed -i 's|<base href=\"/\">|<base href=\"${BASE_HREF}\">|' {} +"
 
 ### STAGE 2: Setup ###
 FROM node:20-alpine
@@ -26,7 +31,8 @@ COPY /api/ /app/
 RUN npm ci
 
 ## From ‘builder’ copy published angular bundles in app/public
-COPY --from=builder /app/dist /app/public
+COPY --from=builder /app/dist/contacts/browser /app/public
+
 ## expose port for express
 EXPOSE 3000
 
