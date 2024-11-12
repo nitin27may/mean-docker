@@ -82,18 +82,15 @@ app.use(
     }
   }).unless({
     path: [
-      "/api/user/authenticate",
-      "/api/users",
-      "/index.html",
-      "/*.js",
-      "/*.css"
+      { url: "/api/user/authenticate", methods: ["POST"] },
+      { url: "/index.html", methods: ["GET"] },
+      { url: /\.js$/, methods: ["GET"] },
+      { url: /\.css$/, methods: ["GET"] },
+      { url: /^\/api\/beneficiarios(.*)$/, methods: ["POST"] },
+      { url: "/", methods: ["GET"] }
     ]
   })
 );
-
-
-
-
 
 const HOST = "0.0.0.0";
 const port = Number(process.env.EXPRESS_PORT) || 3000;
