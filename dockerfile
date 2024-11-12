@@ -11,6 +11,12 @@ WORKDIR /app
 
 COPY /frontend .
 
+## Change apiEndpoint in environment.ts
+RUN sh -c "sed -i 's|http://localhost:3000/api|/api|' src/environments/environment.ts"
+
+## Change production to true in environment.ts
+RUN sh -c "sed -i 's|production: false|production: true|' src/environments/environment.ts"
+
 ARG BASE_HREF=/
 
 ## Build the angular app in production mode and store the artifacts in dist folder

@@ -10,7 +10,7 @@ services:
         BASE_HREF: ${BASE_HREF:-/}
     container_name: ${ID_PROJECT:-mean}_angular_express
     ports:
-      - "4200:3000" #specify ports forewarding
+      - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
       - SECRET=Thisismysecret
