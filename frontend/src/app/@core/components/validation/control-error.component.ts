@@ -19,18 +19,17 @@ export interface ControlErrorComponent {
 }
 
 @Component({
-  selector: 'control-error',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'control-error',
+    imports: [CommonModule],
+    template: `
     @if (!errorTemplate) {
       <label class="control-error" [class.hide-control]="hideError">{{ errorText }}</label>
     }
     <ng-template *ngTemplateOutlet="errorTemplate; context: errorContext"></ng-template>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styles: [
+        `
       .hide-control {
         display: none !important;
       }
@@ -39,7 +38,7 @@ export interface ControlErrorComponent {
         display: block;
       }
     `,
-  ],
+    ]
 })
 export class DefaultControlErrorComponent implements ControlErrorComponent {
   errorText: string | null = null;

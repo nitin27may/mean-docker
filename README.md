@@ -38,7 +38,7 @@ This project is organized into several folders, each representing a different co
 This application includes features such as user registration, login, and a complete CRUD (Create, Read, Update, Delete) example. It utilizes Angular Routing for navigation and provides REST API samples built with Express.js. The REST services are secured using JWT (JSON Web Tokens), ensuring safe and efficient user authentication.
 
 ### Technologies Used
-#### Angular (18.1.0)
+#### Angular (19.0.3)
 The frontend of this project is developed using Angular, the "A" in the MEAN stack. For Server-Side Rendering (SSR), we chose the Node.js Alpine image over a lightweight Docker image like Nginx to run the Angular application.
 
 The project includes sample code for various key functionalities, such as:

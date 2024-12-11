@@ -14,8 +14,7 @@ import { LoginService } from './login.service';
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
     imports: [RouterModule, ReactiveFormsModule],
-    standalone: true,
-    providers: [LoginService],
+    providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
     model: any = {};

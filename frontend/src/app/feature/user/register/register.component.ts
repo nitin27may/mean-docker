@@ -12,10 +12,9 @@ import { ValidationService } from '../../../@core/services/validation.service';
 
 @Component({
     selector: 'app-register',
-    standalone: true,
     imports: [RouterModule, ReactiveFormsModule],
     templateUrl: './register.component.html',
-    styleUrl: './register.component.css',
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
     loading = false;

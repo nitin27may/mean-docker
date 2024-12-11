@@ -13,13 +13,13 @@ services:
       - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
-      - SECRET=Thisismysecret
-      - MONGO_DB_USERNAME=admin-user
-      - MONGO_DB_PASSWORD=admin-password
-      - MONGO_DB_HOST=database
-      - MONGO_DB_PORT=
-      - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-contacts
+      - SECRET=${SECRET}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGO_DB_PORT=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
     links:
       - database
 
@@ -27,11 +27,11 @@ services:
     image: mongo:latest # specify image to build container from
     container_name: ${ID_PROJECT:-mean}_mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin-user
-      - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_DB_USERNAME=admin-user1
-      - MONGO_DB_PASSWORD=admin-password1
-      - MONGO_DB=mean-contacts
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB=${MONGO_DB_DATABASE}
     volumes:
       - ./mongo:/home/mongodb
       - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
