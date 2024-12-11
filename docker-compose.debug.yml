@@ -23,6 +23,7 @@ services:
       context: ./api
       dockerfile: debug.dockerfile
     container_name: ${ID_PROJECT:-mean}_express
+
     command: sh -c "npm install && npm run dev:server"
     volumes:
       - ./api:/api
