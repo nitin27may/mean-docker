@@ -6,10 +6,10 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./frontend
       dockerfile: debug.dockerfile
-    command: ["npm", "run", "start"]
-    container_name: mean_angular
+    command: sh -c "npm install && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
+    container_name: ${ID_PROJECT:-mean}_angular
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend:/app
     ports:
       - "4200:4200" # specify port forewarding
       - "49153:49153"
@@ -22,8 +22,8 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./api
       dockerfile: debug.dockerfile
-    container_name: mean_express
-    command : ["npm", "run", "dev:server"]
+    container_name: ${ID_PROJECT:-mean}_express
+    command: sh -c "npm install && npm run dev:server"
     volumes:
       - ./api:/api
     ports:
@@ -32,6 +32,7 @@ services:
     environment:
       - SECRET=Thisismysecret
       - NODE_ENV=development
+      - MONGO_INITDB_DATABASE=admin
       - MONGO_DB_USERNAME=admin-user
       - MONGO_DB_PASSWORD=admin-password
       - MONGO_DB_HOST=database
@@ -43,7 +44,7 @@ services:
 
   database: # name of the third service
     image: mongo # specify image to build container from
-    container_name: mean_mongo
+    container_name: ${ID_PROJECT:-mean}_mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password

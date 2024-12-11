@@ -6,7 +6,9 @@ services:
     build: # specify the directory of the Dockerfile
       context: .
       dockerfile: dockerfile
-    container_name: mean_angular_express
+      args:
+        BASE_HREF: ${BASE_HREF:-/}
+    container_name: ${ID_PROJECT:-mean}_angular_express
     ports:
       - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
@@ -23,7 +25,7 @@ services:
 
   database: # name of the third service
     image: mongo:latest # specify image to build container from
-    container_name: mean_mongo
+    container_name: ${ID_PROJECT:-mean}_mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
       - MONGO_INITDB_ROOT_PASSWORD=admin-password

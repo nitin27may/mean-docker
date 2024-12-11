@@ -4,7 +4,7 @@ version: "3.8" # specify docker-compose version
 services:
   angular: # name of the first service
     image: nitin27may/mean-angular:latest # specify image to build container from
-    container_name: mean_angular
+    container_name: ${ID_PROJECT:-mean}_angular
     restart: always
     ports:
       - "4000:4000" # specify port forewarding
@@ -15,7 +15,7 @@ services:
 
   express: #name of the second service
     image: nitin27may/mean-expressjs:latest # specify image to build container from
-    container_name: mean_express
+    container_name: ${ID_PROJECT:-mean}_express
     restart: always
     ports:
       - "3000:3000" #specify ports forewarding
@@ -33,7 +33,7 @@ services:
 
   database: # name of the third service
     image: mongo:latest # specify image to build container from
-    container_name: mean_mongo
+    container_name: ${ID_PROJECT:-mean}_mongo
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin-user
@@ -50,7 +50,7 @@ services:
 
   nginx: #name of the fourth service
     image: nitin27may/mean-nginx # specify image to build container from
-    container_name: mean_nginx
+    container_name: ${ID_PROJECT:-mean}_nginx
     restart: always
     ports:
       - "80:80" #specify ports forewarding

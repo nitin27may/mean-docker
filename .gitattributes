@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# For windows users
+mongo/init-db.d/init-mongo.sh text eol=lf
