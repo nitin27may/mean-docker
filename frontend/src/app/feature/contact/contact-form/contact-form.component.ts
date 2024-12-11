@@ -14,11 +14,10 @@ import { errorTailorImports } from "../../../@core/components/validation";
 
 @Component({
     selector: 'app-contact-form',
-    standalone: true,
-    imports: [ReactiveFormsModule, RouterModule, CommonModule,errorTailorImports],
+    imports: [ReactiveFormsModule, RouterModule, CommonModule, errorTailorImports],
     templateUrl: './contact-form.component.html',
     styleUrl: './contact-form.component.css',
-    providers: [ContactService],
+    providers: [ContactService]
 })
 export class ContactFormComponent implements OnInit {
     contactForm: UntypedFormGroup;

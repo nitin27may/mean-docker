@@ -7,11 +7,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 @Component({
     selector: 'app-contact-details',
-    standalone: true,
     imports: [RouterModule, CommonModule, ReactiveFormsModule],
     templateUrl: './contact-details.component.html',
     styleUrl: './contact-details.component.css',
-    providers: [ContactService],
+    providers: [ContactService]
 })
 export class ContactDetailsComponent implements OnInit {
     contact: any;

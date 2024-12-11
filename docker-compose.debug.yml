@@ -6,7 +6,7 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./frontend
       dockerfile: debug.dockerfile
-    command: sh -c "npm install && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
+    command: sh -c "npm install --legacy-peer-deps && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
     container_name: ${ID_PROJECT:-mean}_angular
     volumes:
       - ./frontend:/app
@@ -23,6 +23,7 @@ services:
       context: ./api
       dockerfile: debug.dockerfile
     container_name: ${ID_PROJECT:-mean}_express
+
     command: sh -c "npm install && npm run dev:server"
     volumes:
       - ./api:/api
@@ -30,15 +31,15 @@ services:
       - "3000:3000" #specify ports forewarding
       - "9229:9229"
     environment:
-      - SECRET=Thisismysecret
-      - NODE_ENV=development
-      - MONGO_INITDB_DATABASE=admin
-      - MONGO_DB_USERNAME=admin-user
-      - MONGO_DB_PASSWORD=admin-password
-      - MONGO_DB_HOST=database
-      - MONGO_DB_PORT=
-      - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-contacts
+      - SECRET=${SECRET}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGO_DB_PORT=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
+      - NODE_ENV=${NODE_ENV}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
     links:
       - database
 
@@ -46,11 +47,11 @@ services:
     image: mongo # specify image to build container from
     container_name: ${ID_PROJECT:-mean}_mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin-user
-      - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_DB_USERNAME=admin-user1
-      - MONGO_DB_PASSWORD=admin-password1
-      - MONGO_DB=mean-contacts
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB=${MONGO_DB_DATABASE}
 
     volumes:
       - ./mongo:/home/mongodb
