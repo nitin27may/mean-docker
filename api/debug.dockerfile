@@ -5,7 +5,7 @@ WORKDIR /api
 
 COPY package*.json ./
 
-RUN npm i --legacy-peer-deps --unsafe-perm=true --allow-root
+RUN npm install
 
 COPY . /api/
 # Expose the port the app runs in

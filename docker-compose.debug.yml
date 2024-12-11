@@ -6,7 +6,7 @@ services:
     build: # specify the directory of the Dockerfile
       context: ./frontend
       dockerfile: debug.dockerfile
-    command: sh -c "npm install && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
+    command: sh -c "npm install --legacy-peer-deps && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
     container_name: ${ID_PROJECT:-mean}_angular
     volumes:
       - ./frontend:/app

@@ -13,48 +13,47 @@ mongosh $MONGO_DB <<EOF
 db.users.drop();
 db.users.insertMany([
   {
-    _id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    mobile: "9876543210",
-    username: "john.doe@gmail.com",
-    email: "john.doe@gmail.com",
-   "password" : "\$2a\$10\$85qQuOuD4cDtXOoxbtv0/e79ijARyN/4vpN438N2i8MKLQPUvSX46",
-    create_date: Date(),
+    "_id": ObjectId("6759daeb097c7d69426b7649"),
+    "create_date": new Date("2024-12-11T19:29:19.895Z"),
+    "username": "nitin27may@gmail.com",
+    "email": "nitin27may@gmail.com",
+    "password": "\$2a\$10\$nc0yO2eeCDOLg6sObsAHfuXQY8NnCrhHz5GbkmPYsAGLsQoSZa.qm",
+    "firstName": "NItin",
+    "lastName": "Singh"
   }
-  ]);
+]);
 
 db.contacts.drop();
 db.contacts.insertMany([
   {
-    _id: 1,
-    firstName: "Nitin",
-    lastName: "Singh",
-    mobile: "9876543243",
-    email: "nitin27may@gmail.com",
-    city: "Mumbai",
-    postalCode: "421201",
-    create_date: Date(),
+    "_id": ObjectId("6759daeb097c7d69426b7641"),
+    "firstName": "Nitin",
+    "lastName": "Singh",
+    "mobile": "9876543243",
+    "email": "nitin27may@gmail.com",
+    "city": "Mumbai",
+    "postalCode": "421201",
+    "create_date": new Date()
   },
   {
-    _id: 2,
-    firstName: "Sachin",
-    lastName: "Singh",
-    mobile: "9876540000",
-    email: "saching@gmail.com",
-    city: "Pune",
-    postalCode: "421201",
-    create_date: Date(),
+    "_id": ObjectId("6759daeb097c7d69426b7650"),
+    "firstName": "Sachin",
+    "lastName": "Singh",
+    "mobile": "9876540000",
+    "email": "saching@gmail.com",
+    "city": "Pune",
+    "postalCode": "421201",
+    "create_date": new Date()
   },
   {
-    _id: 3,
-    firstName: "Vikram",
-    lastName: "Singh",
-    mobile: "9876540000",
-    email: "saching@gmail.com",
-    city: "Pune",
-    postalCode: "421201",
-    create_date: Date(),
+    "_id": ObjectId("6759daeb097c7d69426b7651"),
+    "firstName": "Vikram",
+    "lastName": "Singh",
+    "mobile": "9876540000",
+    "email": "saching@gmail.com",
+    "city": "Pune",
+    "postalCode": "421201",
+    "create_date": new Date()
   }
 ]);
 EOF

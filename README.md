@@ -10,7 +10,7 @@ This project demonstrates a MEAN (**MongoDB, Express, Angular, NodeJS**) stack a
 
 The architecture of the application while running:
 
-![](documents/architecture.png)
+![](docs/screenshots/architecture.png)
 
 ## Quick Start
 Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
@@ -77,8 +77,15 @@ For folder structure details refer this link: [API Folder Structure](/docs/expre
 
 We are using Mongodb for database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
 
-**[Seed data script](/mongo/init-db.d/01.Seed.sh)**
-**[Database user creation script](/mongo/init-db.d/02.Users.sh)**
+**[Seed data script](/mongo/init-db.d/init-mongo.sh)**
+
+### Data Seed
+
+ We have added a seed file with data, which will be loaded on docker compose, it has 1 user and 3 contacts:
+ 
+ | Username             |  Passsword    |
+ |----------------------|---------------|
+ |nitin27may@gmail.com  | P@ssword#321  |
 
 #### NGINX
 
@@ -92,6 +99,17 @@ We have uses NGINX loadbalancer in case if there is a requirement that frontend 
 ## Getting started
 
 ### Using Docker
+
+Rename `.env.example` to `.env` :
+
+Shell
+```bash
+mv .env.example .env
+```
+Powershell
+```powershell
+Rename-Item .env.example .env
+```
 
 #### Prerequisite
 Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
@@ -157,36 +175,39 @@ services:
     build: # specify the directory of the Dockerfile
       context: .
       dockerfile: dockerfile
-    container_name: mean_angular_express
+      args:
+        BASE_HREF: ${BASE_HREF:-/}
+    container_name: ${ID_PROJECT:-mean}_angular_express
     ports:
       - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
-      - SECRET=Thisismysecret
-      - MONGO_DB_USERNAME=admin-user
-      - MONGO_DB_PASSWORD=admin-password
-      - MONGO_DB_HOST=database
-      - MONGO_DB_PORT=
-      - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-contacts
+      - SECRET=${SECRET}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGO_DB_PORT=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
     links:
       - database
 
   database: # name of the third service
     image: mongo:latest # specify image to build container from
-    container_name: mean_mongo
+    container_name: ${ID_PROJECT:-mean}_mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin-user
-      - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_DB_USERNAME=admin-user1
-      - MONGO_DB_PASSWORD=admin-password1
-      - MONGO_DB=mean-contacts
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB=${MONGO_DB_DATABASE}
     volumes:
       - ./mongo:/home/mongodb
       - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
       - ./mongo/db:/data/db
     ports:
       - "27017:27017" # specify port forewarding
+
 ```
 
 2. **Using 4 containers** ([docker-compose.nginx.yml](/docker-compose.nginx.yml))
@@ -204,7 +225,8 @@ version: "3.8" # specify docker-compose version
 services:
   angular: # name of the first service
     build: frontend # specify the directory of the Dockerfile
-    container_name: mean_angular
+    container_name: ${ID_PROJECT:-mean}_angular
+    restart: always
     ports:
       - "4000:4000" # specify port forewarding
     environment:
@@ -212,31 +234,33 @@ services:
 
   express: #name of the second service
     build: api # specify the directory of the Dockerfile
-    container_name: mean_express
+    container_name: ${ID_PROJECT:-mean}_express
+    restart: always
     ports:
       - "3000:3000" #specify ports forewarding
-      # Below database enviornment variable for api is helpful when you have to use 
-      # database as managed service
+      # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
-      - SECRET=Thisismysecret
-      - MONGO_DB_USERNAME=admin-user
-      - MONGO_DB_PASSWORD=admin-password
-      - MONGO_DB_HOST=database
-      - MONGO_DB_PORT=
-      - MONGO_DB_PARAMETERS=?authSource=admin
-      - MONGO_DB_DATABASE=mean-contacts
+      - SECRET=${SECRET}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGO_DB_PORT=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
+      - EXPRESS_PORT=${MONGO_DB_DATABASE}
     links:
       - database
 
   database: # name of the third service
     image: mongo:latest # specify image to build container from
-    container_name: mean_mongo
+    container_name: ${ID_PROJECT:-mean}_mongo
+    restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin-user
-      - MONGO_INITDB_ROOT_PASSWORD=admin-password
-      - MONGO_DB_USERNAME=admin-user1
-      - MONGO_DB_PASSWORD=admin-password1
-      - MONGO_DB=mean-contacts
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB=${MONGO_DB_DATABASE}
     volumes:
       - ./mongo:/home/mongodb
       - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
@@ -246,12 +270,14 @@ services:
 
   nginx: #name of the fourth service
     build: loadbalancer # specify the directory of the Dockerfile
-    container_name: mean_nginx
+    container_name: ${ID_PROJECT:-mean}_nginx
+    restart: always
     ports:
       - "80:80" #specify ports forewarding
     links:
       - express
       - angular
+
 ```
 
 3. **Development Mode** ([docker-compose.debug.yml](/docker-compose.debug.yml))
@@ -259,62 +285,67 @@ services:
     It will run 3 containers which are required for development.
 
   ```dockerfile
-  version: "3.8" # specify docker-compose version
+ version: "3.8" # specify docker-compose version
 
-  # Define the services/containers to be run
-  services:
-    angular: # name of the first service
-      build: # specify the directory of the Dockerfile
-        context: ./frontend
-        dockerfile: debug.dockerfile
-      container_name: mean_angular
-      volumes:
-        - ./frontend:/frontend
-        - /frontend/node_modules
-      ports:
-        - "4200:4200" # specify port forewarding
-        - "49153:49153"
-      environment:
-        - NODE_ENV=dev
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    build: # specify the directory of the Dockerfile
+      context: ./frontend
+      dockerfile: debug.dockerfile
+    command: sh -c "npm install --legacy-peer-deps && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
+    container_name: ${ID_PROJECT:-mean}_angular
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "4200:4200" # specify port forewarding
+      - "49153:49153"
+    environment:
+      - NODE_ENV=dev
+    links: 
+      - express 
 
-    express: #name of the second service
-      build: # specify the directory of the Dockerfile
-        context: ./api
-        dockerfile: debug.dockerfile
-      container_name: mean_express
-      volumes:
-        - ./api:/api
-        - /api/node_modules
-      ports:
-        - "3000:3000" #specify ports forewarding
-      environment:
-        - SECRET=Thisismysecret
-        - NODE_ENV=development
-        - MONGO_DB_USERNAME=admin-user
-        - MONGO_DB_PASSWORD=admin-password
-        - MONGO_DB_HOST=database
-        - MONGO_DB_PORT=
-        - MONGO_DB_PARAMETERS=?authSource=admin
-        - MONGO_DB_DATABASE=mean-contacts
-      links:
-        - database
+  express: #name of the second service
+    build: # specify the directory of the Dockerfile
+      context: ./api
+      dockerfile: debug.dockerfile
+    container_name: ${ID_PROJECT:-mean}_express
+    command: sh -c "npm install && npm run dev:server"
+    volumes:
+      - ./api:/api
+    ports:
+      - "3000:3000" #specify ports forewarding
+      - "9229:9229"
+    environment:
+      - SECRET=${SECRET}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGO_DB_PORT=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
+      - NODE_ENV=${NODE_ENV}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
+    links:
+      - database
 
-    database: # name of the third service
-      image: mongo # specify image to build container from
-      container_name: mean_mongo
-      environment:
-        - MONGO_INITDB_ROOT_USERNAME=admin-user
-        - MONGO_INITDB_ROOT_PASSWORD=admin-password
-        - MONGO_DB_USERNAME=admin-user1
-        - MONGO_DB_PASSWORD=admin-password1
-        - MONGO_DB=mean-contacts
+  database: # name of the third service
+    image: mongo # specify image to build container from
+    container_name: ${ID_PROJECT:-mean}_mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB=${MONGO_DB_DATABASE}
 
-      volumes:
-        - ./mongo:/home/mongodb
-        - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-        - ./mongo/db:/data/db
-      ports:
-        - "27017:27017" # specify port forewarding
+    volumes:
+      - ./mongo:/home/mongodb
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
+      - ./mongo/db:/data/db
+    ports:
+      - "27017:27017" # specify port forewarding
+
 
   ```
 #### Pushing Image to Registry (Github Actions)

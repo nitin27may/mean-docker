@@ -14,11 +14,9 @@ import { ValidationService } from '../../../@core/services/validation.service';
 
 @Component({
     selector: 'app-profile',
-    // encapsulation: ViewEncapsulation.None,
-    // changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [NgbNavModule, ReactiveFormsModule],
     templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.scss']
+    styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
     active = 1;
