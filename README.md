@@ -165,7 +165,7 @@ See the [Local Development Guide](./docs/local-development.md) for instructions 
 
 ## Roadmap
 
-For future plans and development priorities, see our [Roadmap](./ROADMAP.md).
+For future plans and development priorities, see our [Roadmap](./docs/roadmap.md).
 
 ## Contributing
 
