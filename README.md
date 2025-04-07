@@ -36,11 +36,18 @@ cd mean-docker
 
 # Create environment file
 cp .env.example .env
-
 # Start the application
 docker-compose -f docker-compose.nginx.yml up
 ```
+### API Configuration
 
+The application supports two deployment modes:
+
+1. **Direct API Access**: When using `docker-compose.yml`, the frontend connects directly to the Express API at `http://localhost:3000/api`
+
+2. **Nginx Proxy**: When using `docker-compose.nginx.yml`, the frontend uses a relative path `/api` which Nginx routes to the Express service
+
+This configuration is automatically set during the Docker build process.
 That's it! Visit [http://localhost](http://localhost) in your browser.
 
 **Login with:**
@@ -52,6 +59,18 @@ That's it! Visit [http://localhost](http://localhost) in your browser.
 <p align="center">
   <img src="docs/screenshots/architecture.png" alt="Architecture Diagram" width="600">
 </p>
+
+### Single Entry Point Architecture
+
+When using the `docker-compose.nginx.yml` configuration, all traffic flows through a single port (80):
+
+- **Single Exposed Port**: Only port 80 is exposed to the outside world
+- **Unified Access Point**: Both UI and API requests enter through Nginx
+- **Intelligent Routing**: 
+  - Requests to `/api/*` are proxied to the Express.js service
+  - All other requests are served by the Angular frontend
+- **Simplified Deployment**: No need to manage multiple public endpoints
+- **Enhanced Security**: Internal services remain isolated from direct external access
 
 The application uses a microservices architecture with four main components:
 
@@ -88,15 +107,16 @@ The application uses a microservices architecture with four main components:
 - Swagger API documentation
 
 
-### Production Mode (2 Containers)
+### Production Mode (3 Containers)
 
-Compact deployment with Express.js serving Angular assets:
+MongoDb, API and UI running on different ports.
 
 ```bash
 docker-compose up
 ```
 
-- Application: http://localhost:3000
+- Api : http://localhost:3000
+- UI: 
 
 ### Production Mode (4 Containers)
 

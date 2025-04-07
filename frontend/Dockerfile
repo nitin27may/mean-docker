@@ -14,6 +14,12 @@ WORKDIR /app
 # Get all the code needed to run the app
 COPY . /app/
 
+# Define build argument with default value (for direct API access)
+ARG API_URL="/api"
+
+RUN echo "Replacing API endpoint with: $API_URL"
+RUN sed -i "s|apiEndpoint: '[^']*'|apiEndpoint: '$API_URL'|g" src/environments/environment.ts
+RUN cat src/environments/environment.ts
 # Build server side bundles
 RUN npm run build
 
