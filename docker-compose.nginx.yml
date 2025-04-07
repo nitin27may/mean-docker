@@ -1,6 +1,4 @@
-version: "3.8" # specify docker-compose version
-
-# Define the services/containers to be run
+#Define the services/containers to be run
 services:
   angular: # name of the first service
     build: frontend # specify the directory of the Dockerfile
@@ -24,7 +22,7 @@ services:
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB_HOST=${MONGO_DB_HOST}
       - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PARAMETERS}
       - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
       - EXPRESS_PORT=${MONGO_DB_DATABASE}
     links:
@@ -40,8 +38,8 @@ services:
       - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB=${MONGO_DB_DATABASE}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE} 
     volumes:
-      - ./mongo:/home/mongodb
       - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
       - ./mongo/db:/data/db
     ports:
