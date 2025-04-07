@@ -1,4 +1,4 @@
-# 📱 MEAN Stack Contacts Application
+# 📱 MEAN Stack with Docker (Sample Contacts Application)
 
 [![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
