@@ -125,13 +125,25 @@ The API will be available at `http://localhost:3000/api`.
    ```bash
    cd mean-docker/frontend
    ```
+2. Updated the API endpoint in environment.ts
 
-2. Install dependencies:
+   ```
+   export const environment = {
+    production: false,
+    apiEndpoint: 'http://localhost:3000/api',  // updating this
+    angular: 'Angular 19',
+    bootstrap: 'Bootstrap 5',
+    expressjs: 'Express.js 4.17.1',
+    mongoDb: 'MongoDB 7.0',
+};
+
+   ```
+3. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Start the development server:
+4. Start the development server:
    ```bash
    npm run serve
    ```
