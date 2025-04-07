@@ -1,5 +1,11 @@
 # 📱 MEAN Stack with Docker (Sample Contacts Application) 
-
+---
+layout: default
+title: Home
+nav_order: 1
+description: "MEAN Stack Contacts Application Documentation"
+permalink: /
+---
 [![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![MongoDB Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)

@@ -1,14 +1,17 @@
-# Deployment Guide WIP
+---
+layout: default
+title: Deployment Guide
+nav_order: 3
+---
 
-This guide provides instructions for deploying the MEAN Stack Contacts application to various environments.
+# Deployment Guide
+{: .no_toc }
 
-## Table of Contents
+## Table of contents
+{: .no_toc .text-delta }
 
-1. [Docker Deployment](#docker-deployment)
-2. [Cloud Platform Deployment](#cloud-platform-deployment)
-3. [Manual Deployment](#manual-deployment)
-4. [Continuous Integration/Continuous Deployment](#continuous-integrationcontinuous-deployment)
-5. [Backup and Recovery](#backup-and-recovery)
+1. TOC
+{:toc}
 
 ## Docker Deployment
 
@@ -296,7 +299,6 @@ deploy:
   stage: deploy
   script:
     - ssh user@server "cd /path/to/app && docker-compose -f docker-compose.nginx.yml pull && docker-compose -f docker-compose.nginx.yml up -d"
-```
 
 ## Backup and Recovery
 

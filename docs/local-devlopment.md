@@ -1,3 +1,18 @@
+---
+layout: default
+title: Local Development
+nav_order: 2
+---
+
+# Local Development
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 # Local Development Guide
 
 This guide explains how to set up and run the MEAN Stack Contacts application locally without Docker.

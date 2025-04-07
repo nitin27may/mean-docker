@@ -1,3 +1,19 @@
+---
+layout: default
+title: MongoDB Database
+parent: Architecture
+nav_order: 3
+---
+
+# MongoDB Database
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 # MongoDB Configuration
 
 This directory contains the MongoDB configuration and seed data for the MEAN Stack Contacts application.

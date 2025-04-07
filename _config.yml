@@ -1,3 +1,35 @@
-remote_theme: pmarsceill/just-the-docs
-title: MEAN Docker Documentation
-description: Documentation for a MEAN stack application with TypeScript, CRUD, and security features
+title: MEAN Stack Contacts Application
+description: A full-featured contact management system built with TypeScript-powered MEAN stack
+theme: just-the-docs
+
+url: https://nitin27may.github.io/mean-docker
+
+# Enable support for hyphenated search keywords
+search_tokenizer_separator: /[\s/]+/
+
+# Aux links for the upper right navigation
+aux_links:
+  "View on GitHub":
+    - "//github.com/nitin27may/mean-docker"
+
+# Footer content
+footer_content: "Copyright &copy; 2024 Nitin Singh. Distributed by an MIT license."
+
+# Color scheme supports "light" (default) and "dark"
+color_scheme: light
+
+# Enable navigation structure
+nav_external_links:
+  - title: MEAN Stack Contacts on GitHub
+    url: https://github.com/nitin27may/mean-docker
+    hide_icon: false
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# Enable collapsible navigation
+collapse_inactive_chapters: true
+
+# Enable copy code button
+enable_copy_code_button: true
