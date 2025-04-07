@@ -178,4 +178,4 @@ Each feature will be evaluated based on:
 4. Dependencies on other features
 5. Strategic alignment
 
-We welcome community input on prioritizing these items. Please submit your feedback through GitHub issues or discussions.
+We welcome community input on prioritizing these items. Please submit your feedback through GitHub issues or discussions..
