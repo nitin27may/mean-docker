@@ -161,11 +161,9 @@ We're constantly improving! Here's what's coming:
 For details, see the [complete roadmap](/docs/roadmap.md).
 
 ## 🤝 Contributing
-
 We welcome contributions! Whether you're fixing a bug, improving documentation, or adding a feature, check out our [Contributing Guide](/CONTRIBUTING.md) to get started.
 
 ## 📝 Learn More
-
 This project demonstrates several modern web development best practices:
 
 - **TypeScript** for type safety across the stack
@@ -179,11 +177,11 @@ This project demonstrates several modern web development best practices:
 Explore the codebase to learn how these technologies work together in a real-world application!
 
 ## 📄 License
-
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.
 
 ## 🔗 Contact
-
 Nitin Singh - [@nitin27may](https://twitter.com/nitin27may)
-
 Project Link: [https://github.com/nitin27may/mean-docker](https://github.com/nitin27may/mean-docker)
+
+## 🌟 Star the Repository
+If you find this project useful, please consider giving it a star on GitHub to show your support!
