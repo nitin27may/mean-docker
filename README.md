@@ -5,6 +5,51 @@
 [![MongoDB Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 
+## Introduction
+
+The MEAN Stack Contacts Application is a comprehensive, production-ready contact management system built using the MEAN stack (MongoDB, Express.js, Angular, Node.js). This application demonstrates modern web development practices including containerization, microservices architecture, and CI/CD integration.
+
+Perfect for developers looking to understand how to:
+- Implement a full-stack JavaScript application
+- Structure Docker-based microservices
+- Deploy applications using modern DevOps practices
+- Build secure authentication systems with JWT
+- Create responsive, accessible user interfaces
+
+This project serves as both a practical application for managing contacts and an educational resource for developers wanting to explore MEAN stack development with Docker.
+
+## Key Features
+
+### User Management
+- **Secure Authentication**: JWT-based token authentication system
+- **User Registration**: Self-service account creation with email verification
+- **Profile Management**: Update personal information and preferences
+- **Password Protection**: Secure password hashing and reset functionality
+
+### Contact Management
+- **Comprehensive Contact Records**: Store detailed contact information including personal details, addresses, and custom fields
+- **Advanced Search**: Quickly find contacts with multi-field search capabilities
+- **Contact Organization**: Group and categorize contacts with tags and custom fields
+- **Import/Export**: Transfer contact data via CSV/JSON formats
+- **Contact History**: Track interactions and changes to contact records
+
+### Technical Architecture
+- **Containerized Deployment**: Fully dockerized application with separate containers for each component
+- **Scalable Design**: Horizontally scalable architecture with load balancing via Nginx
+- **Database Integration**: MongoDB with mongoose ODM for data modeling
+- **API Security**: Protected endpoints with JWT verification middleware
+- **Server-Side Rendering**: Angular Universal implementation for improved performance and SEO
+- **Responsive Design**: Mobile-first interface built with Bootstrap 5
+- **Error Handling**: Comprehensive client and server-side error management
+- **Logging**: Detailed application logging for troubleshooting
+
+### DevOps Features
+- **CI/CD Integration**: GitHub Actions workflows for automated testing and deployment
+- **Multiple Deployment Options**: Development, staging, and production configurations
+- **Environment Configuration**: Externalized configuration via environment variables
+- **Kubernetes Support**: Deployment manifests for Kubernetes environments
+
+
 ## Overview
 
 This project demonstrates a full MEAN (MongoDB, Express, Angular, Node.js) stack application running with Docker. It features:
