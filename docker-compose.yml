@@ -1,14 +1,21 @@
-version: "3.8" # specify docker-compose version
-
-# Define the services/containers to be run
+#Define the services/containers to be run
 services:
-  express: #name of the second service
+  angular: # name of the first service
     build: # specify the directory of the Dockerfile
-      context: .
-      dockerfile: dockerfile
+      context: frontend
       args:
-        BASE_HREF: ${BASE_HREF:-/}
-    container_name: ${ID_PROJECT:-mean}_angular_express
+        - API_URL=http://localhost:3000/api
+    container_name: ${ID_PROJECT:-mean}_angular
+    restart: always
+    ports:
+      - "4000:4000" # specify port forewarding
+    environment:
+      - NODE_ENV=dev
+
+  express: #name of the second service
+    build: api # specify the directory of the Dockerfile
+    container_name: ${ID_PROJECT:-mean}_express
+    restart: always
     ports:
       - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
@@ -18,22 +25,24 @@ services:
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB_HOST=${MONGO_DB_HOST}
       - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PARAMETERS}
       - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
+      - EXPRESS_PORT=${MONGO_DB_DATABASE}
     links:
       - database
 
   database: # name of the third service
     image: mongo:latest # specify image to build container from
     container_name: ${ID_PROJECT:-mean}_mongo
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB=${MONGO_DB_DATABASE}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE} 
     volumes:
-      - ./mongo:/home/mongodb
       - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
       - ./mongo/db:/data/db
     ports:

@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Full viewport height */
+}
+
+.content-wrapper {
+  flex: 1;
+  /* This will push the footer down */
+}

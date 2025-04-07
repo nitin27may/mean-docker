@@ -1,474 +1,189 @@
-![Mongo Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)
-![Expressjs Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)
-![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg) 
-![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)
-# MEAN Stack Project with Docker and Bootstrap 5
+# 📱 MEAN Stack Contacts Application
 
+[![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
+[![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
+[![MongoDB Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
+[![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 
-### Overview
-This project demonstrates a MEAN (**MongoDB, Express, Angular, NodeJS**) stack application running on Docker. It is an ideal starting point for creating a full-stack web application and demonstrates both development and production setups using Docker. Additionally, it showcases using GitHub Actions for building and pushing Docker images to Docker Hub.
+<p align="center">
+  <img src="docs/screenshots/contact-list.png" alt="Contacts List" width="600">
+</p>
 
-The architecture of the application while running:
+A modern, full-stack TypeScript contact management system built with the MEAN stack (MongoDB, Express.js, Angular, Node.js) and containerized with Docker. Perfect for learning full-stack development or as a starting point for your own projects!
 
-![](docs/screenshots/architecture.png)
+## 🌟 What You'll Learn
 
-## Quick Start
-Clone repo, navigate to root folder and run ` docker-compose -f 'docker-compose.nginx.yml' up`
+- **TypeScript** throughout the entire stack
+- **Angular 19** with reactive forms, guards, and SSR
+- **Express.js** with TypeScript for a robust API
+- **MongoDB** integration with Mongoose
+- **JWT Authentication** for secure user management
+- **Docker** containerization for development and production
+- **Nginx** as a load balancer and API gateway
+- **CI/CD** with GitHub Actions
 
-```
-  git clone https://github.com/nitin27may/mean-docker.git
-  cd mean-docker 
-  docker-compose -f 'docker-compose.nginx.yml' up
-```
-<!--## Demo
+## 🚀 Getting Started in 30 Seconds
 
-https://user-images.githubusercontent.com/8065536/138562565-f601586c-ef38-43b6-8db7-67a4bdefbb96.mp4-->
+### Prerequisites
 
-## Project Structure 
-This project is organized into several folders, each representing a different component built with popular JavaScript frameworks and libraries:
+- [Docker](https://www.docker.com/products/docker-desktop) and Docker Compose
+- [Git](https://git-scm.com/downloads)
 
-| folder          | Description                                                                                  |
-| --------------- | -------------------------------------------------------------------------------------------- |
-| **frontend** | [frontend app using **Angular**](https://github.com/nitin27may/mean-docker/tree/master/frontend)         |
-| **api** | [api using **expressjs**](https://github.com/nitin27may/mean-docker/tree/master/api) |
-| **loadbalancer** | [load balancer using **nginx**](https://github.com/nitin27may/mean-docker/tree/master/loadbalancer) |
-| **mongo** | [mongo db image setup](https://github.com/nitin27may/mean-docker/tree/master/mongo) |
-
-## Project Details
-This application includes features such as user registration, login, and a complete CRUD (Create, Read, Update, Delete) example. It utilizes Angular Routing for navigation and provides REST API samples built with Express.js. The REST services are secured using JWT (JSON Web Tokens), ensuring safe and efficient user authentication.
-
-### Technologies Used
-#### Angular (19.0.3)
-The frontend of this project is developed using Angular, the "A" in the MEAN stack. For Server-Side Rendering (SSR), we chose the Node.js Alpine image over a lightweight Docker image like Nginx to run the Angular application.
-
-The project includes sample code for various key functionalities, such as:
-- User registration 
-- Login
-- Profile Management 
-- Complete CRUD example for contacts. 
-
-Additionally, you'll find examples of implementing authentication guards, services, HTTP interceptors, resolvers, and JWT authentication.
-
-This application is designed to be user-friendly, featuring a functional registration and login page, along with a comprehensive CRUD implementation that showcases Angular Routing and Express.js REST API examples. All REST services are secured using JWT for enhanced security.
-
-For folder structure details refer this link: [Frontend Folder Structure] (/docs/angular-frontend-structure.md)
-
-**[Dockerfile for Production](/frontend/Dockerfile)**
-**[Dockerfile for Development](/frontend/debug.dockerfile)**
-
-#### Expressjs (4.17.1)
-
-In the MEAN stack, the "E" stands for Express.js, which is used to develop all REST services.
-
-This project includes samples for:
-
-1. Mongo dB connection and schema validation using Mongoose
-2. JWT implementation for Authorization
-3. API routing
-4. User registration & login APIs
-5. Complete CRUD example for Contact
-
-For folder structure details refer this link: [API Folder Structure](/docs/expressjs-api-structure.md)
-
-**[Dockerfile for production](/api/Dockerfile)**
-**[Dockerfile for development](/api/debug.dockerfile)**
-
-#### Mongo DB
-
-We are using Mongodb for database. MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
-
-**[Seed data script](/mongo/init-db.d/init-mongo.sh)**
-
-### Data Seed
-
- We have added a seed file with data, which will be loaded on docker compose, it has 1 user and 3 contacts:
- 
- | Username             |  Passsword    |
- |----------------------|---------------|
- |nitin27may@gmail.com  | P@ssword#321  |
-
-#### NGINX
-
-_Note: only if you are using docker. _
-
-We have uses NGINX loadbalancer in case if there is a requirement that frontend and api need to be exposed on same port.
- For configutration please check [nginx.conf](/loadbalancer/nginx.conf)
-
-**Load balancer (nginx) [Dockerfile](/api/loadbalancer)**
-
-## Getting started
-
-### Using Docker
-
-Rename `.env.example` to `.env` :
-
-Shell
 ```bash
-mv .env.example .env
+# Clone the repository
+git clone https://github.com/nitin27may/mean-docker.git
+cd mean-docker
+
+# Create environment file
+cp .env.example .env
+# Start the application
+docker-compose -f docker-compose.nginx.yml up
 ```
-Powershell
-```powershell
-Rename-Item .env.example .env
-```
+### API Configuration
 
-#### Prerequisite
-Install latest [Docker Desktop](https://www.docker.com/products/docker-desktop)
+The application supports two deployment modes:
 
-#### Development mode:
-  You can start the application in debug mode (database, api and frontend) using docker-compose:
+1. **Direct API Access**: When using `docker-compose.yml`, the frontend connects directly to the Express API at `http://localhost:3000/api`
 
-  ```
-  git clone https://github.com/nitin27may/mean-docker.git
-  cd mean-docker
-  
-  docker-compose -f 'docker-compose.debug.yml' up
-  ```
+2. **Nginx Proxy**: When using `docker-compose.nginx.yml`, the frontend uses a relative path `/api` which Nginx routes to the Express service
 
-  It will run frontend `http://localhost:4200` and api on `http://localhost:3000`. you can also access mongodb on port 27017.
+This configuration is automatically set during the Docker build process.
+That's it! Visit [http://localhost](http://localhost) in your browser.
 
-  Also, it will automatically refresh (hot reload) your UI for code changes. That is also true for expressjs file changes. 
-     
-#### Production mode:
+**Login with:**
+- Username: `nitin27may@gmail.com`
+- Password: `P@ssword#321`
 
-  For Production mode, there is 2 options: 
- ##### Using 2 containers (Express (frontend and api) and Mongo)
+## 🏗️ System Architecture
 
-  ```
-    git clone https://github.com/nitin27may/mean-docker.git
-    cd mean-docker
-    
-    docker-compose -f 'docker-compose.yml' up
-  ```
-  or just run beow as docker consider default file name 'docker-compose.yml'
-  ``` 
-    docker-compose up
-  ```
-  It will run frontend and api on `http://localhost:3000`. you can also access mongodb on port 27017
- ##### Using 4 containers (Mongo,api, angular and nginx)
-  ```
-    git clone https://github.com/nitin27may/mean-docker.git
-    cd mean-docker
+<p align="center">
+  <img src="docs/screenshots/architecture.png" alt="Architecture Diagram" width="600">
+</p>
 
-    docker-compose -f 'docker-compose.nginx.yml' up
-  ```
-  It will run frontend and api on `http://localhost`. you can aslo access by it's invidual ports. For Frontend `http://localhost:4000` and for api `http://localhost:3000` .you can also access mongodb on port 27017
-#### About Docker Compose File
-The main focus of this project to show case the possible way to run a real application (Mean stack) using docker.
+### Single Entry Point Architecture
 
-we have considered 3 scenarios:
+When using the `docker-compose.nginx.yml` configuration, all traffic flows through a single port (80):
 
-1. **Using 2 containers** ([docker-compose.yml](/docker-compose.yml)) 
+- **Single Exposed Port**: Only port 80 is exposed to the outside world
+- **Unified Access Point**: Both UI and API requests enter through Nginx
+- **Intelligent Routing**: 
+  - Requests to `/api/*` are proxied to the Express.js service
+  - All other requests are served by the Angular frontend
+- **Simplified Deployment**: No need to manage multiple public endpoints
+- **Enhanced Security**: Internal services remain isolated from direct external access
 
-   
-    * express: To host Frontend (Angular) and backend api (expressjs) together
-    * database: To host MongoDB 
+The application uses a microservices architecture with four main components:
 
-  _Note: If in above case we are using MongoDB as managed service then we will require only one container._
+1. **Angular Frontend** - Modern UI with TypeScript and Bootstrap 5
+2. **Express.js API** - RESTful API with TypeScript and JWT authentication
+3. **MongoDB Database** - NoSQL database for flexible data storage
+4. **Nginx** - Load balancer and reverse proxy for seamless integration
+
+## 💻 Key Features
+
+### User Authentication
+
+<p align="center">
+  <img src="docs/screenshots/login.png" alt="Login Screen" width="400">
+</p>
+
+- JWT-based secure login and registration
+- Protected routes with Angular guards
+- Token-based API authorization
+- Password change functionality
+
+### Contact Management
+
+- Create, read, update, and delete contacts
+- Responsive design for mobile and desktop
+- Form validation with custom error messages
+- Search, sort, and paginate contacts
+
+### Developer Experience
+
+- Hot reloading in development mode
+- TypeScript type safety throughout
+- Comprehensive error handling
+- Swagger API documentation
 
 
-```dockerfile
-version: "3.8" # specify docker-compose version
+### Production Mode (3 Containers)
 
-# Define the services/containers to be run
-services:
-  express: #name of the second service
-    build: # specify the directory of the Dockerfile
-      context: .
-      dockerfile: dockerfile
-      args:
-        BASE_HREF: ${BASE_HREF:-/}
-    container_name: ${ID_PROJECT:-mean}_angular_express
-    ports:
-      - "3000:3000" #specify ports forewarding
-      # Below database enviornment variable for api is helpful when you have to use database as managed service
-    environment:
-      - SECRET=${SECRET}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB_HOST=${MONGO_DB_HOST}
-      - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
-      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
-    links:
-      - database
+MongoDb, API and UI running on different ports.
 
-  database: # name of the third service
-    image: mongo:latest # specify image to build container from
-    container_name: ${ID_PROJECT:-mean}_mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB=${MONGO_DB_DATABASE}
-    volumes:
-      - ./mongo:/home/mongodb
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
-    ports:
-      - "27017:27017" # specify port forewarding
-
+```bash
+docker-compose up
 ```
 
-2. **Using 4 containers** ([docker-compose.nginx.yml](/docker-compose.nginx.yml))
-   
-    * angular: Application's frontend (Angular) 
-    * express: Application's Rest services (expressjs)
-    * database: Application database: MongoDB
-    * nginx: As laod balancer, also expose UI and API on same ports
+- Api : http://localhost:3000
+- UI: 
 
-  _Note: If in above case we are using MongoDB as managed service  then we will require only one container._
-```dockerfile
-version: "3.8" # specify docker-compose version
+### Production Mode (4 Containers)
 
-# Define the services/containers to be run
-services:
-  angular: # name of the first service
-    build: frontend # specify the directory of the Dockerfile
-    container_name: ${ID_PROJECT:-mean}_angular
-    restart: always
-    ports:
-      - "4000:4000" # specify port forewarding
-    environment:
-      - NODE_ENV=dev
+Full microservices architecture with Nginx:
 
-  express: #name of the second service
-    build: api # specify the directory of the Dockerfile
-    container_name: ${ID_PROJECT:-mean}_express
-    restart: always
-    ports:
-      - "3000:3000" #specify ports forewarding
-      # Below database enviornment variable for api is helpful when you have to use database as managed service
-    environment:
-      - SECRET=${SECRET}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB_HOST=${MONGO_DB_HOST}
-      - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
-      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
-      - EXPRESS_PORT=${MONGO_DB_DATABASE}
-    links:
-      - database
-
-  database: # name of the third service
-    image: mongo:latest # specify image to build container from
-    container_name: ${ID_PROJECT:-mean}_mongo
-    restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB=${MONGO_DB_DATABASE}
-    volumes:
-      - ./mongo:/home/mongodb
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
-    ports:
-      - "27017:27017" # specify port forewarding
-
-  nginx: #name of the fourth service
-    build: loadbalancer # specify the directory of the Dockerfile
-    container_name: ${ID_PROJECT:-mean}_nginx
-    restart: always
-    ports:
-      - "80:80" #specify ports forewarding
-    links:
-      - express
-      - angular
-
+```bash
+docker-compose -f docker-compose.nginx.yml up
 ```
 
-3. **Development Mode** ([docker-compose.debug.yml](/docker-compose.debug.yml))
+- Application: http://localhost
+- MongoDB: localhost:27017
 
-    It will run 3 containers which are required for development.
+## 📚 Documentation
 
-  ```dockerfile
- version: "3.8" # specify docker-compose version
+| Component | Documentation |
+|-----------|---------------|
+| **[Frontend](/frontend/README.md)** | Angular application with TypeScript |
+| **[Backend](/api/README.md)** | Express.js API with TypeScript |
+| **[Database](/docs/mongo-readme.md)** | MongoDB configuration and data models |
+| **[Load Balancer](/loadbalancer/README.md)** | Nginx configuration and routing |
+| **[Local Development](/docs/local-devlopment.md)** | Running without Docker |
 
-# Define the services/containers to be run
-services:
-  angular: # name of the first service
-    build: # specify the directory of the Dockerfile
-      context: ./frontend
-      dockerfile: debug.dockerfile
-    command: sh -c "npm install --legacy-peer-deps && ng serve --host 0.0.0.0 --poll=2000 --disable-host-check"
-    container_name: ${ID_PROJECT:-mean}_angular
-    volumes:
-      - ./frontend:/app
-    ports:
-      - "4200:4200" # specify port forewarding
-      - "49153:49153"
-    environment:
-      - NODE_ENV=dev
-    links: 
-      - express 
+## 🗺️ Roadmap
 
-  express: #name of the second service
-    build: # specify the directory of the Dockerfile
-      context: ./api
-      dockerfile: debug.dockerfile
-    container_name: ${ID_PROJECT:-mean}_express
-    command: sh -c "npm install && npm run dev:server"
-    volumes:
-      - ./api:/api
-    ports:
-      - "3000:3000" #specify ports forewarding
-      - "9229:9229"
-    environment:
-      - SECRET=${SECRET}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB_HOST=${MONGO_DB_HOST}
-      - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
-      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
-      - NODE_ENV=${NODE_ENV}
-      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
-    links:
-      - database
+We're constantly improving! Here's what's coming:
 
-  database: # name of the third service
-    image: mongo # specify image to build container from
-    container_name: ${ID_PROJECT:-mean}_mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
-      - MONGO_DB=${MONGO_DB_DATABASE}
+### Phase 1: TypeScript Migration (Completed ✅)
+- Express.js API fully converted to TypeScript
+- Type-safe models and controllers
+- Enhanced API documentation with Swagger
 
-    volumes:
-      - ./mongo:/home/mongodb
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
-    ports:
-      - "27017:27017" # specify port forewarding
+### Phase 2: UI Enhancement (Coming Soon)
+- Angular Material and Tailwind CSS integration
+- Dark/light theme support
+- Enhanced mobile experience
 
+### Phase 3: Role-Based Access Control
+- Admin, Manager, and User roles
+- Permission-based UI components
+- Secure API endpoints based on roles
 
-  ```
-#### Pushing Image to Registry (Github Actions)
+For details, see the [complete roadmap](/docs/roadmap.md).
 
-Earlier, we were using docker hub autobuild triggers to build images and push to registry (Docker Hub), now it is using github action, we can take an example of frontend image: 
-File : 
-[angular-build-and-push.yml](/.github/workflows/angular-build-and-push.yml)
-```
-name: Angular Build
-on:
-  push:
-    branches: master
-    paths: 
-    - 'frontend/**'
+## 🤝 Contributing
 
-jobs:
-  main:
-    runs-on: Ubuntu-20.04
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: frontend/.
-          file: frontend/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mean-angular:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+We welcome contributions! Whether you're fixing a bug, improving documentation, or adding a feature, check out our [Contributing Guide](/CONTRIBUTING.md) to get started.
 
-```
+## 📝 Learn More
 
-here, DOCKERHUB_USERNAME is your docker hub username and DOCKERHUB_TOKEN,  we can generate from account settings (account settings > Security > New Access Token) section from your docker hub accounts and add under your github repo > settings > secrets 
-### Without Docker
+This project demonstrates several modern web development best practices:
 
-#### Prerequisites
+- **TypeScript** for type safety across the stack
+- **Angular** reactive forms and component architecture
+- **Express.js** middleware and REST API design
+- **MongoDB** with Mongoose schemas
+- **JWT** authentication flow
+- **Docker** containerization and multi-container applications
+- **Nginx** reverse proxy configuration
 
-1. Install latest [Node js ](https://nodejs.org/en/)
-2. Install Nodemon as global package (To run exprerssjs in development mode)
-   `npm install -g nodemon`
-3. Optional (Install Angular CLI
-   `npm install -g @angular/cli`)
-4. Install Mongodb locally or [Signup](https://www.mongodb.com/atlas-signup-from-mlab?utm_source=mlab.com&utm_medium=referral&utm_campaign=mlab%20signup&utm_content=blue%20sign%20up%20button) for a free managed account
-5. Before running the project make sure that you are able to connect MongoDb , you can use [Robo 3T](https://robomongo.org/download) for it
+Explore the codebase to learn how these technologies work together in a real-world application!
 
-#### Running the Project
+## 📄 License
 
-Clone the project and run `npm install` in frontend and api folder.
+This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.
 
-```
-  git clone https://github.com/nitin27may/mean-docker.git
+## 🔗 Contact
 
-  cd mean-docker/frontend
+Nitin Singh - [@nitin27may](https://twitter.com/nitin27may)
 
-  npm i
-
-  npm start 
-
-  cd mean-docker/api
-
-  npm i
-
-  npm start 
-
-```
-For passing enviornment variables (database details) in api, Navigate to api folder, __rename `.env.example` to `.env`__ and update your mongo db details there.
-
-  Also, you can run d `npm run dev-server` from frontend folder to run frontend and api together.
-
-It will run Api on `http://localhost:3000` and frontend on `http://localhost:4200`
-
-
-
-<!-- ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-For more examples, please refer to the [Documentation](https://example.com) -->
-
-## Roadmap
-
-See the [open issues](https://github.com/nitin27may/mean-docker/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) for a list of proposed features (and known issues).
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are *greatly appreciated*.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-[MIT](https://github.com/nitin27may/mean-docker/blob/master/LICENSE/)
-  ## Contact
-  Nitin Singh - [@nitin27may](https://twitter.com/nitin27may) 
-
-<!-- Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-   -->
-  <!-- ## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com) -->
+Project Link: [https://github.com/nitin27may/mean-docker](https://github.com/nitin27may/mean-docker)

@@ -1,13 +1,14 @@
-version: "3.8" # specify docker-compose version
-
-# Define the services/containers to be run
+# Docker Compose file to run as production mode for a MEAN stack application with Nginx as a load balancer.
 services:
   angular: # name of the first service
-    build: frontend # specify the directory of the Dockerfile
+    build: # specify the directory of the Dockerfile
+      context: frontend
+      args:
+        - API_URL=/api
     container_name: ${ID_PROJECT:-mean}_angular
     restart: always
-    ports:
-      - "4000:4000" # specify port forewarding
+    # ports:
+    #   - "4000:4000" # specify port forewarding
     environment:
       - NODE_ENV=dev
 
@@ -15,8 +16,8 @@ services:
     build: api # specify the directory of the Dockerfile
     container_name: ${ID_PROJECT:-mean}_express
     restart: always
-    ports:
-      - "3000:3000" #specify ports forewarding
+    # ports:
+    #   - "3000:3000" #specify ports forewarding
       # Below database enviornment variable for api is helpful when you have to use database as managed service
     environment:
       - SECRET=${SECRET}
@@ -24,7 +25,7 @@ services:
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB_HOST=${MONGO_DB_HOST}
       - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_PARAMETERS=${MONGO_DB_PORT}
+      - MONGO_DB_PARAMETERS=${MONGO_DB_PARAMETERS}
       - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}  
       - EXPRESS_PORT=${MONGO_DB_DATABASE}
     links:
@@ -40,8 +41,8 @@ services:
       - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
       - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
       - MONGO_DB=${MONGO_DB_DATABASE}
+      - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE} 
     volumes:
-      - ./mongo:/home/mongodb
       - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
       - ./mongo/db:/data/db
     ports:

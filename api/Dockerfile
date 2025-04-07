@@ -1,25 +1,33 @@
-FROM node:21-alpine
+FROM node:22-alpine as builder
 
-# Copy dependency definitions
-COPY package.json package-lock.json ./
-
-# disabling ssl for npm for Dev or if you are behind proxy
-RUN npm set strict-ssl false
-
-
-## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm i && mkdir /app && mv ./node_modules ./app
-
-# Change directory so that our commands run inside this new directory
+# Set working directory
 WORKDIR /app
 
-# Get all the code needed to run the app
-COPY . /app/
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci
 
-# Expose the port the app runs in
+# Copy source code
+COPY . .
+
+# Build TypeScript code
+RUN npm run build
+
+# Create production image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files and install production dependencies only
+COPY package*.json ./
+RUN npm ci --production
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
+
+# Expose the port
 EXPOSE 3000
 
-USER node
-
-# Serve the app
-CMD ["npm", "start"]
+# Start the server
+CMD ["node", "dist/server.js"]
