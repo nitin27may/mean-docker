@@ -1,5 +1,5 @@
-# MEAN Stack Contacts Application
-
+# MEAN Stack Contacts Application with TypeScript & Docker
+A full-featured contact management system built with TypeScript-powered MEAN stack (MongoDB, Express.js, Angular, Node.js). Designed for flexibility - runs seamlessly with Docker or as standalone services.
 [![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![MongoDB Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
@@ -7,7 +7,7 @@
 
 ## Introduction
 
-The MEAN Stack Contacts Application is a comprehensive, production-ready contact management system built using the MEAN stack (MongoDB, Express.js, Angular, Node.js). This application demonstrates modern web development practices including containerization, microservices architecture, and CI/CD integration.
+The MEAN Stack Contacts Application demonstrates a modern, TypeScript-based implementation of the complete JavaScript stack. While optimized for Docker deployment, all components can run independently without containerization.
 
 Perfect for developers looking to understand how to:
 - Implement a full-stack JavaScript application
