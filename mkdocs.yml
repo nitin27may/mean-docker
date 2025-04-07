@@ -17,8 +17,8 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
-repo_url: https://github.com/yourusername/mean-docker
-repo_name: yourusername/mean-docker
+repo_url: https://github.com/nitin27may/mean-docker
+repo_name: nitin27may/mean-docker
 
 markdown_extensions:
   - pymdownx.highlight:
