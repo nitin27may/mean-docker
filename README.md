@@ -127,8 +127,6 @@ docker-compose -f docker-compose.nginx.yml up
 ```
 
 - Application: http://localhost
-- Frontend: http://localhost:4000
-- API: http://localhost:3000
 - MongoDB: localhost:27017
 
 ## 📚 Documentation
@@ -137,9 +135,9 @@ docker-compose -f docker-compose.nginx.yml up
 |-----------|---------------|
 | **[Frontend](/frontend/README.md)** | Angular application with TypeScript |
 | **[Backend](/api/README.md)** | Express.js API with TypeScript |
-| **[Database](/mongo/README.md)** | MongoDB configuration and data models |
+| **[Database](/docs/mongo-readme.md)** | MongoDB configuration and data models |
 | **[Load Balancer](/loadbalancer/README.md)** | Nginx configuration and routing |
-| **[Local Development](/docs/local-development.md)** | Running without Docker |
+| **[Local Development](/docs/local-devlopment.md)** | Running without Docker |
 
 ## 🗺️ Roadmap
 
