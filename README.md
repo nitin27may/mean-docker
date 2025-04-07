@@ -18,36 +18,42 @@ Perfect for developers looking to understand how to:
 
 This project serves as both a practical application for managing contacts and an educational resource for developers wanting to explore MEAN stack development with Docker.
 
-## Key Features
+## Core Features
 
-### User Management
-- **Secure Authentication**: JWT-based token authentication system
-- **User Registration**: Self-service account creation with email verification
-- **Profile Management**: Update personal information and preferences
-- **Password Protection**: Secure password hashing and reset functionality
+### Authentication System
 
-### Contact Management (CRUD Example)
-- **Comprehensive Contact Records**: Store detailed contact information including personal details, addresses, and custom fields
-- **Advanced Search**: Quickly find contacts with multi-field search capabilities
-- **Contact Organization**: Group and categorize contacts with tags and custom fields
-- **Import/Export**: Transfer contact data via CSV/JSON formats
-- **Contact History**: Track interactions and changes to contact records
+- JWT-based authentication
+- User registration and login
+- Password change functionality
+- Route guards for protected pages
 
-### Technical Architecture
-- **Containerized Deployment**: Fully dockerized application with separate containers for each component
-- **Scalable Design**: Horizontally scalable architecture with load balancing via Nginx
-- **Database Integration**: MongoDB with mongoose ODM for data modeling
-- **API Security**: Protected endpoints with JWT verification middleware
-- **Server-Side Rendering**: Angular Universal implementation for improved performance and SEO
-- **Responsive Design**: Mobile-first interface built with Bootstrap 5
-- **Error Handling**: Comprehensive client and server-side error management
-- **Logging**: Detailed application logging for troubleshooting
+### Contact Management
 
-### DevOps Features
-- **CI/CD Integration**: GitHub Actions workflows for automated testing and deployment
-- **Multiple Deployment Options**: Development, staging, and production configurations
-- **Environment Configuration**: Externalized configuration via environment variables
-- **Kubernetes Support**: Deployment manifests for Kubernetes environments
+- List all contacts with pagination
+- View contact details
+- Add new contacts
+- Edit existing contacts
+- Delete contacts
+
+### Technical Features
+
+- Angular SSR (Server-Side Rendering)
+- Responsive design with Bootstrap 5
+- Form validation
+- MongoDB integration
+- RESTful API architecture
+- Docker containerization
+- GitHub Actions for CI/CD
+
+## Development Guide
+
+For comprehensive development guides, see:
+
+- [Frontend Development Guide](./frontend/README.md)
+- [API Development Guide](./api/README.md)
+- [Database Guide](./mongo/README.md)
+- [Load Balancer Configuration](./loadbalancer/README.md)
+- [Deployment Guide](./docs/deployment.md)
 
 
 ## Overview
@@ -167,42 +173,6 @@ docker-compose -f 'docker-compose.nginx.yml' up
 
 For detailed information about each component, see the README in the respective directory.
 
-## Core Features
-
-### Authentication System
-
-- JWT-based authentication
-- User registration and login
-- Password change functionality
-- Route guards for protected pages
-
-### Contact Management
-
-- List all contacts with pagination
-- View contact details
-- Add new contacts
-- Edit existing contacts
-- Delete contacts
-
-### Technical Features
-
-- Angular SSR (Server-Side Rendering)
-- Responsive design with Bootstrap 5
-- Form validation
-- MongoDB integration
-- RESTful API architecture
-- Docker containerization
-- GitHub Actions for CI/CD
-
-## Development Guide
-
-For comprehensive development guides, see:
-
-- [Frontend Development Guide](./frontend/README.md)
-- [API Development Guide](./api/README.md)
-- [Database Guide](./mongo/README.md)
-- [Load Balancer Configuration](./loadbalancer/README.md)
-- [Deployment Guide](./docs/deployment.md)
 
 ## Running Without Docker
 
