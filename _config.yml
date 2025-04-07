@@ -1,1 +1,3 @@
 remote_theme: pmarsceill/just-the-docs
+title: MEAN Docker Documentation
+description: Documentation for a MEAN stack application with TypeScript, CRUD, and security features
