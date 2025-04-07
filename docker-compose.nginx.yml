@@ -1,4 +1,4 @@
-#Define the services/containers to be run
+# Docker Compose file to run as production mode for a MEAN stack application with Nginx as a load balancer.
 services:
   angular: # name of the first service
     build: frontend # specify the directory of the Dockerfile

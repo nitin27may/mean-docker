@@ -87,19 +87,6 @@ The application uses a microservices architecture with four main components:
 - Comprehensive error handling
 - Swagger API documentation
 
-## 🛠️ Development Options
-
-### Development Mode (Hot Reloading)
-
-Great for active development with live updates:
-
-```bash
-docker-compose -f docker-compose.debug.yml up
-```
-
-- Frontend: http://localhost:4200 (with hot reloading)
-- API: http://localhost:3000
-- MongoDB: localhost:27017
 
 ### Production Mode (2 Containers)
 
@@ -133,7 +120,6 @@ docker-compose -f docker-compose.nginx.yml up
 | **[Database](/mongo/README.md)** | MongoDB configuration and data models |
 | **[Load Balancer](/loadbalancer/README.md)** | Nginx configuration and routing |
 | **[Local Development](/docs/local-development.md)** | Running without Docker |
-| **[Deployment](/docs/deployment.md)** | Deployment options and strategies |
 
 ## 🗺️ Roadmap
 

@@ -1,4 +1,4 @@
-# Deployment Guide
+# Deployment Guide WIP
 
 This guide provides instructions for deploying the MEAN Stack Contacts application to various environments.
 
@@ -8,8 +8,7 @@ This guide provides instructions for deploying the MEAN Stack Contacts applicati
 2. [Cloud Platform Deployment](#cloud-platform-deployment)
 3. [Manual Deployment](#manual-deployment)
 4. [Continuous Integration/Continuous Deployment](#continuous-integrationcontinuous-deployment)
-5. [Monitoring and Logging](#monitoring-and-logging)
-6. [Backup and Recovery](#backup-and-recovery)
+5. [Backup and Recovery](#backup-and-recovery)
 
 ## Docker Deployment
 
@@ -291,26 +290,6 @@ To use these workflows:
    - `DOCKERHUB_TOKEN`: Your Docker Hub access token
 3. Push changes to trigger the workflows
 
-### Other CI/CD Platforms
-
-#### GitLab CI
-
-Create a `.gitlab-ci.yml` file:
-
-```yaml
-stages:
-  - build
-  - deploy
-
-build_angular:
-  stage: build
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - docker build -t $CI_REGISTRY_IMAGE/mean-angular:latest ./frontend
-    - docker push $CI_REGISTRY_IMAGE/mean-angular:latest
-
 # Add similar jobs for other components
 
 deploy:
@@ -318,52 +297,6 @@ deploy:
   script:
     - ssh user@server "cd /path/to/app && docker-compose -f docker-compose.nginx.yml pull && docker-compose -f docker-compose.nginx.yml up -d"
 ```
-
-#### Jenkins
-
-Create a `Jenkinsfile`:
-
-```groovy
-pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                sh 'docker-compose build'
-            }
-        }
-        stage('Push') {
-            steps {
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-                    sh 'docker login -u username -p ${DOCKER_HUB_CREDENTIALS}'
-                    sh 'docker push username/mean-angular:latest'
-                    sh 'docker push username/mean-expressjs:latest'
-                    sh 'docker push username/mean-nginx:latest'
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'docker-compose -f docker-compose.nginx.yml up -d'
-            }
-        }
-    }
-}
-```
-
-## Monitoring and Logging
-
-### Monitoring with Prometheus and Grafana
-
-1. Add Prometheus and Grafana to your Docker Compose file
-2. Configure Prometheus to scrape metrics from your services
-3. Set up Grafana dashboards
-
-### Logging with ELK Stack
-
-1. Add Elasticsearch, Logstash, and Kibana to your Docker Compose file
-2. Configure log forwarding from your services to Logstash
-3. Set up Kibana dashboards
 
 ## Backup and Recovery
 
