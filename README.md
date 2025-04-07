@@ -26,7 +26,7 @@ This project serves as both a practical application for managing contacts and an
 - **Profile Management**: Update personal information and preferences
 - **Password Protection**: Secure password hashing and reset functionality
 
-### Contact Management
+### Contact Management (CRUD Example)
 - **Comprehensive Contact Records**: Store detailed contact information including personal details, addresses, and custom fields
 - **Advanced Search**: Quickly find contacts with multi-field search capabilities
 - **Contact Organization**: Group and categorize contacts with tags and custom fields
