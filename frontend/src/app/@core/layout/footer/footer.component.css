@@ -1,5 +1,7 @@
 .nga-footer {
   background-color: #212121;
+  margin-top: auto;
+    /* This helps push it to the bottom */
   color: white;
 }
 
