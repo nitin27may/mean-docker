@@ -9,8 +9,7 @@ Before getting started, make sure you have the following installed:
 1. **Node.js** (LTS version recommended): [Download Node.js](https://nodejs.org/)
 2. **npm** (comes with Node.js)
 3. **MongoDB** (Community Edition): [Download MongoDB](https://www.mongodb.com/try/download/community)
-4. **Nodemon** (for API development): `npm install -g nodemon`
-5. **Angular CLI** (optional): `npm install -g @angular/cli`
+4. **Angular CLI** (optional but recommended): `npm install -g @angular/cli`
 
 ## MongoDB Setup
 
@@ -67,7 +66,7 @@ Before getting started, make sure you have the following installed:
        firstName: "Sachin",
        lastName: "Singh",
        mobile: "9876540000",
-       email: "saching@gmail.com",
+       email: "sachin@gmail.com",
        city: "Pune",
        postalCode: "421201",
        create_date: new Date()
@@ -75,8 +74,8 @@ Before getting started, make sure you have the following installed:
      {
        firstName: "Vikram",
        lastName: "Singh",
-       mobile: "9876540000",
-       email: "saching@gmail.com",
+       mobile: "9876541111",
+       email: "vikram@gmail.com",
        city: "Pune",
        postalCode: "421201",
        create_date: new Date()
@@ -97,14 +96,14 @@ Before getting started, make sure you have the following installed:
    ```
 
 3. Create a `.env` file based on `.env.example`:
+
+      example`:
    ```bash
    cp .env.example .env
    ```
-
-4. Update the `.env` file with your MongoDB connection details:
    ```
-   EXPRESS_PORT=3000
-   SECRET=Thisismysecret
+   PORT=3000
+   SECRET=your_jwt_secret_key
    MONGO_DB_USERNAME=admin-user
    MONGO_DB_PASSWORD=admin-password
    MONGO_DB_HOST=localhost
@@ -113,9 +112,9 @@ Before getting started, make sure you have the following installed:
    MONGO_DB_DATABASE=mean-contacts
    ```
 
-5. Start the API in development mode:
+4. Start the API in development mode:
    ```bash
-   npm run dev-server
+   npm run dev:watch
    ```
 
 The API will be available at `http://localhost:3000/api`.
@@ -134,21 +133,10 @@ The API will be available at `http://localhost:3000/api`.
 
 3. Start the development server:
    ```bash
-   npm start
+   npm run serve
    ```
 
 The frontend will be available at `http://localhost:4200`.
-
-## Running Both Together
-
-For convenience, you can run both the frontend and backend together from the frontend directory:
-
-```bash
-# From the frontend directory
-npm run dev-server
-```
-
-This command is configured in the frontend's `package.json` and runs both services simultaneously.
 
 ## Testing the Application
 
@@ -164,7 +152,7 @@ This command is configured in the frontend's `package.json` and runs both servic
 ### Backend Debugging
 
 1. You can debug the Node.js backend using:
-   - Visual Studio Code's debugger
+   - Visual Studio Code's debugger (launch configuration is included)
    - Chrome DevTools by running:
      ```bash
      node --inspect server.js
@@ -180,14 +168,6 @@ This command is configured in the frontend's `package.json` and runs both servic
 1. Use the Angular DevTools extension for Chrome
 2. Use the browser's built-in DevTools (F12)
 3. Enable source maps in Chrome for better debugging
-
-## Database Management
-
-For managing the MongoDB database, consider using:
-
-1. [MongoDB Compass](https://www.mongodb.com/products/compass)
-2. [Robo 3T](https://robomongo.org/)
-3. [Studio 3T](https://studio3t.com/)
 
 ## Common Issues
 

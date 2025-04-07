@@ -1,159 +1,122 @@
-# MEAN Stack Contacts Application with TypeScript & Docker
-A full-featured contact management system built with TypeScript-powered MEAN stack (MongoDB, Express.js, Angular, Node.js). Designed for flexibility - runs seamlessly with Docker or as standalone services.
+# 📱 MEAN Stack Contacts Application
+
 [![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![MongoDB Build](https://github.com/nitin27may/mean-docker/workflows/Mongo%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 
-## Introduction
+<p align="center">
+  <img src="docs/screenshots/contact-list.png" alt="Contacts List" width="600">
+</p>
 
-The MEAN Stack Contacts Application demonstrates a modern, TypeScript-based implementation of the complete JavaScript stack. While optimized for Docker deployment, all components can run independently without containerization.
+A modern, full-stack TypeScript contact management system built with the MEAN stack (MongoDB, Express.js, Angular, Node.js) and containerized with Docker. Perfect for learning full-stack development or as a starting point for your own projects!
 
-Perfect for developers looking to understand how to:
-- Implement a full-stack JavaScript application
-- Structure Docker-based microservices
-- Deploy applications using modern DevOps practices
-- Build secure authentication systems with JWT
-- Create responsive, accessible user interfaces
+## 🌟 What You'll Learn
 
-This project serves as both a practical application for managing contacts and an educational resource for developers wanting to explore MEAN stack development with Docker.
+- **TypeScript** throughout the entire stack
+- **Angular 19** with reactive forms, guards, and SSR
+- **Express.js** with TypeScript for a robust API
+- **MongoDB** integration with Mongoose
+- **JWT Authentication** for secure user management
+- **Docker** containerization for development and production
+- **Nginx** as a load balancer and API gateway
+- **CI/CD** with GitHub Actions
 
-## Core Features
-
-### Authentication System
-
-- JWT-based authentication
-- User registration and login
-- Password change functionality
-- Route guards for protected pages
-
-### Contact Management
-
-- List all contacts with pagination
-- View contact details
-- Add new contacts
-- Edit existing contacts
-- Delete contacts
-
-### Technical Features
-
-- Angular SSR (Server-Side Rendering)
-- Responsive design with Bootstrap 5
-- Form validation
-- MongoDB integration
-- RESTful API architecture
-- Docker containerization
-- GitHub Actions for CI/CD
-
-## Development Guide
-
-For comprehensive development guides, see:
-
-- [Frontend Development Guide](./frontend/README.md)
-- [API Development Guide](./api/README.md)
-- [Database Guide](./mongo/README.md)
-- [Load Balancer Configuration](./loadbalancer/README.md)
-- [Deployment Guide](./docs/deployment.md)
-
-
-## Overview
-
-This project demonstrates a full MEAN (MongoDB, Express, Angular, Node.js) stack application running with Docker. It features:
-
-- User authentication with JWT
-- Contact management system (CRUD operations)
-- Responsive UI with Bootstrap 5
-- Server-side rendering with Angular Universal
-- Containerized with Docker for both development and production
-- GitHub Actions for CI/CD
-
-## Demo
-
-[Demo video placeholder - Add your demo video or screenshots here]
-
-## System Architecture
-
-![Architecture Diagram](docs/screenshots/architecture.png)
-
-The application consists of four main components, each running in its own container:
-
-1. **Frontend (Angular)**: Provides the user interface
-2. **Backend (Express.js)**: Handles API requests and business logic
-3. **Database (MongoDB)**: Stores user and contact data
-4. **Load Balancer (Nginx)**: Manages traffic between frontend and backend
-
-## Quick Start
+## 🚀 Getting Started in 30 Seconds
 
 ### Prerequisites
 
 - [Docker](https://www.docker.com/products/docker-desktop) and Docker Compose
 - [Git](https://git-scm.com/downloads)
 
-### Running the Application
-
-Clone the repository:
-
 ```bash
+# Clone the repository
 git clone https://github.com/nitin27may/mean-docker.git
 cd mean-docker
-```
 
-Create environment file:
-
-```bash
+# Create environment file
 cp .env.example .env
+
+# Start the application
+docker-compose -f docker-compose.nginx.yml up
 ```
 
-Start the application using Docker Compose:
+That's it! Visit [http://localhost](http://localhost) in your browser.
+
+**Login with:**
+- Username: `nitin27may@gmail.com`
+- Password: `P@ssword#321`
+
+## 🏗️ System Architecture
+
+<p align="center">
+  <img src="docs/screenshots/architecture.png" alt="Architecture Diagram" width="600">
+</p>
+
+The application uses a microservices architecture with four main components:
+
+1. **Angular Frontend** - Modern UI with TypeScript and Bootstrap 5
+2. **Express.js API** - RESTful API with TypeScript and JWT authentication
+3. **MongoDB Database** - NoSQL database for flexible data storage
+4. **Nginx** - Load balancer and reverse proxy for seamless integration
+
+## 💻 Key Features
+
+### User Authentication
+
+<p align="center">
+  <img src="docs/screenshots/login.png" alt="Login Screen" width="400">
+</p>
+
+- JWT-based secure login and registration
+- Protected routes with Angular guards
+- Token-based API authorization
+- Password change functionality
+
+### Contact Management
+
+- Create, read, update, and delete contacts
+- Responsive design for mobile and desktop
+- Form validation with custom error messages
+- Search, sort, and paginate contacts
+
+### Developer Experience
+
+- Hot reloading in development mode
+- TypeScript type safety throughout
+- Comprehensive error handling
+- Swagger API documentation
+
+## 🛠️ Development Options
+
+### Development Mode (Hot Reloading)
+
+Great for active development with live updates:
 
 ```bash
-docker-compose -f 'docker-compose.nginx.yml' up
+docker-compose -f docker-compose.debug.yml up
 ```
 
-The application will be available at:
-- Frontend + API: http://localhost
-- Frontend only: http://localhost:4000
-- API only: http://localhost:3000
-- MongoDB: localhost:27017
-
-### Default Login Credentials
-
-```
-Username: nitin27may@gmail.com
-Password: P@ssword#321
-```
-
-## Running in Different Modes
-
-### Development Mode
-
-This starts the application with hot reloading for both frontend and backend:
-
-```bash
-docker-compose -f 'docker-compose.debug.yml' up
-```
-
-- Frontend: http://localhost:4200
+- Frontend: http://localhost:4200 (with hot reloading)
 - API: http://localhost:3000
 - MongoDB: localhost:27017
 
 ### Production Mode (2 Containers)
 
-Runs Express.js serving both frontend and API in a single container with MongoDB:
+Compact deployment with Express.js serving Angular assets:
 
 ```bash
 docker-compose up
 ```
 
 - Application: http://localhost:3000
-- MongoDB: localhost:27017
 
 ### Production Mode (4 Containers)
 
-Runs each component in a separate container using Nginx as a load balancer:
+Full microservices architecture with Nginx:
 
 ```bash
-docker-compose -f 'docker-compose.nginx.yml' up
+docker-compose -f docker-compose.nginx.yml up
 ```
 
 - Application: http://localhost
@@ -161,42 +124,61 @@ docker-compose -f 'docker-compose.nginx.yml' up
 - API: http://localhost:3000
 - MongoDB: localhost:27017
 
-## Project Structure
+## 📚 Documentation
 
-| Directory | Description |
-|-----------|-------------|
-| **[`/frontend`](./frontend/README.md)** | Angular application |
-| **[`/api`](./api/README.md)** | Express.js API |
-| **[`/loadbalancer`](./loadbalancer/README.md)** | Nginx configuration |
-| **[`/mongo`](./mongo/README.md)** | MongoDB initialization scripts |
-| **[`/manifest`](./manifest/)** | Kubernetes deployment files |
+| Component | Documentation |
+|-----------|---------------|
+| **[Frontend](/frontend/README.md)** | Angular application with TypeScript |
+| **[Backend](/api/README.md)** | Express.js API with TypeScript |
+| **[Database](/mongo/README.md)** | MongoDB configuration and data models |
+| **[Load Balancer](/loadbalancer/README.md)** | Nginx configuration and routing |
+| **[Local Development](/docs/local-development.md)** | Running without Docker |
+| **[Deployment](/docs/deployment.md)** | Deployment options and strategies |
 
-For detailed information about each component, see the README in the respective directory.
+## 🗺️ Roadmap
 
+We're constantly improving! Here's what's coming:
 
-## Running Without Docker
+### Phase 1: TypeScript Migration (Completed ✅)
+- Express.js API fully converted to TypeScript
+- Type-safe models and controllers
+- Enhanced API documentation with Swagger
 
-See the [Local Development Guide](./docs/local-development.md) for instructions on running the application without Docker.
+### Phase 2: UI Enhancement (Coming Soon)
+- Angular Material and Tailwind CSS integration
+- Dark/light theme support
+- Enhanced mobile experience
 
-## Roadmap
+### Phase 3: Role-Based Access Control
+- Admin, Manager, and User roles
+- Permission-based UI components
+- Secure API endpoints based on roles
 
-For future plans and development priorities, see our [Roadmap](./docs/roadmap.md).
+For details, see the [complete roadmap](/docs/roadmap.md).
 
-## Contributing
+## 🤝 Contributing
 
-We welcome contributions! Please check our [Contributing Guide](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and suggest enhancements.
+We welcome contributions! Whether you're fixing a bug, improving documentation, or adding a feature, check out our [Contributing Guide](/CONTRIBUTING.md) to get started.
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## 📝 Learn More
 
-## License
+This project demonstrates several modern web development best practices:
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **TypeScript** for type safety across the stack
+- **Angular** reactive forms and component architecture
+- **Express.js** middleware and REST API design
+- **MongoDB** with Mongoose schemas
+- **JWT** authentication flow
+- **Docker** containerization and multi-container applications
+- **Nginx** reverse proxy configuration
 
-## Contact
+Explore the codebase to learn how these technologies work together in a real-world application!
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.
+
+## 🔗 Contact
 
 Nitin Singh - [@nitin27may](https://twitter.com/nitin27may)
 

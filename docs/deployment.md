@@ -5,10 +5,11 @@ This guide provides instructions for deploying the MEAN Stack Contacts applicati
 ## Table of Contents
 
 1. [Docker Deployment](#docker-deployment)
-2. [Kubernetes Deployment](#kubernetes-deployment)
-3. [Cloud Platform Deployment](#cloud-platform-deployment)
-4. [Manual Deployment](#manual-deployment)
-5. [Continuous Integration/Continuous Deployment](#continuous-integrationcontinuous-deployment)
+2. [Cloud Platform Deployment](#cloud-platform-deployment)
+3. [Manual Deployment](#manual-deployment)
+4. [Continuous Integration/Continuous Deployment](#continuous-integrationcontinuous-deployment)
+5. [Monitoring and Logging](#monitoring-and-logging)
+6. [Backup and Recovery](#backup-and-recovery)
 
 ## Docker Deployment
 
@@ -84,60 +85,11 @@ To enable HTTPS:
        - ./certs:/etc/nginx/certs
    ```
 
-## Kubernetes Deployment
-
-The repository includes Kubernetes manifest files in the `manifest/` directory.
-
-### Prerequisites
-
-- Kubernetes cluster (e.g., Minikube, EKS, GKE, AKS)
-- kubectl configured
-- Helm (optional)
-
-### Steps
-
-1. Create a namespace:
-   ```bash
-   kubectl create namespace mean
-   ```
-
-2. Apply the configuration files:
-   ```bash
-   kubectl apply -f manifest/
-   ```
-
-3. Check the deployment status:
-   ```bash
-   kubectl get all -n mean
-   ```
-
-4. Access the application:
-   ```bash
-   kubectl get svc nginx -n mean
-   ```
-   Use the external IP address displayed.
-
-### Helm Chart (Optional)
-
-If you prefer using Helm:
-
-1. Create a Helm chart:
-   ```bash
-   helm create mean-contacts
-   ```
-
-2. Replace the default templates with customized ones based on the Kubernetes manifest files.
-
-3. Install the chart:
-   ```bash
-   helm install mean-contacts ./mean-contacts -n mean
-   ```
-
 ## Cloud Platform Deployment
 
 ### AWS Deployment
 
-#### Using Elastic Beanstalk (Simplified Approach)
+#### Using Elastic Beanstalk
 
 1. Create a `Dockerrun.aws.json` file:
    ```json
@@ -171,7 +123,7 @@ If you prefer using Helm:
            {
              "name": "MONGO_DB_HOST",
              "value": "database"
-           },
+           }
            // Add other environment variables
          ]
        },
@@ -197,10 +149,6 @@ If you prefer using Helm:
              "hostPort": 80,
              "containerPort": 80
            }
-         ],
-         "links": [
-           "express",
-           "angular"
          ]
        }
      ]
@@ -219,17 +167,17 @@ If you prefer using Helm:
 
 ### Azure Deployment
 
-#### Using Azure Container Instances
+#### Using Azure Container Apps
 
 1. Create a resource group
-2. Create container instances for each service
+2. Create container apps for each service
 3. Set up networking between containers
 4. Configure environment variables
 
 #### Using Azure Kubernetes Service (AKS)
 
 1. Create an AKS cluster
-2. Apply the Kubernetes manifests
+2. Apply Kubernetes manifests
 3. Set up Azure Load Balancer
 
 ### Google Cloud Platform Deployment
@@ -237,7 +185,7 @@ If you prefer using Helm:
 #### Using Google Kubernetes Engine (GKE)
 
 1. Create a GKE cluster
-2. Apply the Kubernetes manifests
+2. Apply Kubernetes manifests
 3. Set up Cloud Load Balancing
 
 ## Manual Deployment
@@ -263,13 +211,18 @@ For a manual deployment without Docker:
    npm install --production
    ```
 
-3. Create `.env` file with appropriate settings.
+3. Build the TypeScript code:
+   ```bash
+   npm run build
+   ```
 
-4. Start the application:
+4. Create `.env` file with appropriate settings.
+
+5. Start the application:
    ```bash
    # Using PM2 (recommended)
    npm install -g pm2
-   pm2 start server.js --name "mean-api"
+   pm2 start dist/server.js --name "mean-api"
    
    # Or using systemd
    # Create a service file and enable it
@@ -437,8 +390,15 @@ docker exec -i mean_mongo mongorestore --username $MONGO_DB_USERNAME --password 
 
 ### Horizontal Scaling
 
+For higher loads, you can scale the services horizontally:
+
 1. Add more instances of the frontend and backend
 2. Configure the load balancer to distribute traffic
+
+With Docker Compose:
+```bash
+docker-compose -f docker-compose.nginx.yml up -d --scale angular=3 --scale express=3
+```
 
 ### Vertical Scaling
 
@@ -452,6 +412,29 @@ services:
           cpus: '0.5'
           memory: 512M
 ```
+
+## Environment-Specific Configuration
+
+Different environments may require different configurations:
+
+### Production
+
+- Enable SSL/TLS
+- Set up proper logging and monitoring
+- Use a dedicated MongoDB instance
+- Configure backups
+
+### Staging/Testing
+
+- Use a smaller MongoDB instance
+- Configure for easier debugging
+- May use mock services for testing
+
+### Development
+
+- Use hot reloading for faster development
+- Enable debugging tools
+- Use local MongoDB instance
 
 ## Troubleshooting
 
@@ -471,7 +454,12 @@ services:
    - Verify Nginx configuration
    - Check API for proper CORS headers
 
-4. **Performance issues**:
-   - Monitor resource usage: `docker stats`
-   - Consider scaling resources
-   - Optimize database queries
+4. **Authentication problems**:
+   - Verify JWT secret is consistent
+   - Check token expiration settings
+   - Ensure login endpoint is working
+
+For more detailed troubleshooting, check container logs:
+```bash
+docker-compose -f docker-compose.nginx.yml logs -f
+```

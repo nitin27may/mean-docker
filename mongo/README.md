@@ -70,6 +70,37 @@ Username: nitin27may@gmail.com
 Password: P@ssword#321
 ```
 
+## Data Models
+
+### User Schema
+
+```typescript
+interface IUser extends Document {
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  token?: string;
+  email?: string;
+  mobile?: string;
+  create_date: Date;
+}
+```
+
+### Contact Schema
+
+```typescript
+interface IContact extends Document {
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  email?: string;
+  city?: string;
+  postalCode?: string;
+  create_date: Date;
+}
+```
+
 ## Environment Variables
 
 The MongoDB container uses the following environment variables:
@@ -138,36 +169,4 @@ To connect using GUI tools like MongoDB Compass or Robo 3T:
 
 ### Permission Issues
 
-If you encounter permission issues with the MongoDB data directory, run:
-
-```bash
-sudo chown -R $USER:$USER ./mongo/db
-```
-
-### Connection Issues
-
-If you cannot connect to MongoDB, check:
-
-1. The MongoDB container is running: `docker ps`
-2. Environment variables are set correctly in `.env`
-3. Ports are not blocked by a firewall
-4. No other process is using port 27017
-
-### Initialization Script Issues
-
-If the initialization script fails, check:
-
-1. The script has proper permissions: `chmod +x ./mongo/init-db.d/init-mongo.sh`
-2. Line endings are set to LF: `git config --global core.autocrlf input`
-3. No syntax errors in the script
-
-## Customizing Seed Data
-
-To modify the seed data:
-
-1. Edit the `init-mongo.sh` file in the `init-db.d` directory
-2. Rebuild and restart the containers:
-   ```bash
-   docker-compose down
-   docker-compose -f docker-compose.nginx.yml up --build
-   ```
+If you encounter permission issues with

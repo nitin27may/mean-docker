@@ -178,24 +178,6 @@ location /api {
 }
 ```
 
-## Monitoring and Debugging
-
-To enable monitoring and improve debugging, add the following to your Nginx config:
-
-```nginx
-# Enable Nginx status
-location /nginx_status {
-  stub_status on;
-  access_log off;
-  allow 127.0.0.1;
-  deny all;
-}
-
-# Enable access and error logging
-access_log /var/log/nginx/access.log;
-error_log /var/log/nginx/error.log warn;
-```
-
 ## Security Considerations
 
 Enhance security with these settings:

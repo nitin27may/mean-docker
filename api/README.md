@@ -1,58 +1,131 @@
-# Contact Management API
+# API Documentation
 
-A RESTful API for managing contacts, built with TypeScript, Express.js, and MongoDB.
+This directory contains the TypeScript-based Express.js REST API for the MEAN Stack Contacts Application.
 
 ## Features
 
-- User authentication with JWT
-- CRUD operations for contacts
-- MongoDB database integration
-- API documentation with Swagger
-- TypeScript for type safety
+- **TypeScript** for enhanced type safety and code quality
+- **JWT Authentication** for secure user management
+- **MongoDB Integration** using Mongoose
+- **RESTful API Design** following best practices
+- **Swagger Documentation** for API endpoints
+- **Error Handling** with consistent response formats
+- **Environment Configuration** for different deployment scenarios
 
-## Prerequisites
+## Directory Structure
 
-- Node.js (v14+)
-- MongoDB (local or Atlas)
-- npm or yarn
+```
+api/
+├── src/                # TypeScript source files
+│   ├── config/         # Configuration files
+│   │   ├── database.ts # MongoDB connection
+│   │   ├── env.ts      # Environment variables
+│   │   └── swagger.ts  # Swagger configuration
+│   ├── controllers/    # Request handlers
+│   │   ├── ContactController.ts
+│   │   └── UserController.ts
+│   ├── middlewares/    # Custom middlewares
+│   │   ├── auth.middleware.ts
+│   │   └── error.middleware.ts
+│   ├── models/         # MongoDB models
+│   │   ├── contact.ts
+│   │   └── user.ts
+│   ├── routes/         # API routes
+│   │   └── api.routes.ts
+│   └── server.ts       # Application entry point
+├── Dockerfile          # Docker configuration
+├── package.json        # Dependencies and scripts
+├── tsconfig.json       # TypeScript configuration
+└── README.md           # This file
+```
+
+## API Endpoints
+
+### Authentication
+
+- **POST /api/user/authenticate** - Authenticate user and get JWT token
+  - Request: `{ username: string, password: string }`
+  - Response: `{ status: string, message: string, token: string, data: User }`
+
+### Users
+
+- **GET /api/users** - Get all users (requires authentication)
+  - Response: `{ status: string, message: string, data: User[] }`
+
+- **POST /api/users** - Create a new user
+  - Request: `{ firstName: string, lastName: string, username: string, password: string }`
+  - Response: `{ message: string, data: User }`
+
+- **GET /api/user/:user_id** - Get user by ID (requires authentication)
+  - Response: `{ message: string, data: User }`
+
+- **PUT /api/user/:user_id** - Update user (requires authentication)
+  - Request: `{ firstName?: string, lastName?: string, email?: string, mobile?: string }`
+  - Response: `{ message: string, data: User }`
+
+- **DELETE /api/user/:user_id** - Delete user (requires authentication)
+  - Response: `{ status: string, message: string }`
+
+- **PUT /api/user/changepassword/:user_id** - Change user password (requires authentication)
+  - Request: `{ password: string }`
+  - Response: `{ status: string, message: string }`
+
+### Contacts
+
+- **GET /api/contacts** - Get all contacts (requires authentication)
+  - Response: `{ status: string, message: string, data: Contact[] }`
+
+- **POST /api/contacts** - Create a new contact (requires authentication)
+  - Request: `{ firstName: string, lastName: string, mobile: string, email?: string, city?: string, postalCode?: string }`
+  - Response: `{ message: string, data: Contact }`
+
+- **GET /api/contact/:contact_id** - Get contact by ID (requires authentication)
+  - Response: `{ message: string, data: Contact }`
+
+- **PUT /api/contact/:contact_id** - Update contact (requires authentication)
+  - Request: `{ firstName?: string, lastName?: string, mobile?: string, email?: string, city?: string, postalCode?: string }`
+  - Response: `{ message: string, data: Contact }`
+
+- **DELETE /api/contact/:contact_id** - Delete contact (requires authentication)
+  - Response: `{ status: string, message: string }`
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 16+
+- npm or yarn
+- MongoDB instance (local or remote)
+
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/contact-api-ts.git
-   cd contact-api-ts
-   ```
-
-2. Install dependencies:
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Create a `.env` file in the root directory and add your environment variables:
+2. Create a `.env` file with the following variables:
    ```
    PORT=3000
    SECRET=your_jwt_secret
-   MONGO_DB_USERNAME=your_mongodb_username
-   MONGO_DB_PASSWORD=your_mongodb_password
+   MONGO_DB_USERNAME=mongodb_username
+   MONGO_DB_PASSWORD=mongodb_password
    MONGO_DB_HOST=localhost
    MONGO_DB_PORT=27017
-   MONGO_DB_DATABASE=contacts_db
+   MONGO_DB_DATABASE=contacts
    MONGO_DB_PARAMETERS=?authSource=admin
    ```
 
 ### Development
 
-Start the development server:
+Start the development server with hot reloading:
 ```bash
 npm run dev:watch
 ```
 
-### Build and Run Production
+### Building for Production
 
-Build the application:
+Build the TypeScript code:
 ```bash
 npm run build
 ```
@@ -62,53 +135,82 @@ Start the production server:
 npm start
 ```
 
+## Docker Support
+
+The API can be run in a Docker container. Build and run with:
+
+```bash
+docker build -t contacts-api .
+docker run -p 3000:3000 contacts-api
+```
+
+Or use docker-compose:
+```bash
+docker-compose up
+```
+
 ## API Documentation
 
-Swagger documentation is available at: `http://localhost:3000/api-docs`
+Swagger UI is available at `/api-docs` when the server is running.
 
-## API Endpoints
+## Authentication
 
-### Authentication
+This API uses JWT for authentication. To access protected endpoints:
 
-- `POST /api/user/authenticate` - Login and get JWT token
+1. Obtain a token by logging in via `/api/user/authenticate`
+2. Include the token in the Authorization header:
+   ```
+   Authorization: Bearer your_jwt_token
+   ```
 
-### Users
+## Error Handling
 
-- `GET /api/users` - Get all users (requires authentication)
-- `POST /api/users` - Create a new user
-- `GET /api/user/:id` - Get user by ID (requires authentication)
-- `PUT /api/user/:id` - Update user (requires authentication)
-- `DELETE /api/user/:id` - Delete user (requires authentication)
-- `PUT /api/user/changepassword/:id` - Change user password (requires authentication)
+The API follows a consistent error handling pattern:
 
-### Contacts
+- Success responses have status code 200 and follow the format:
+  ```json
+  {
+    "status": "success",
+    "message": "Operation successful",
+    "data": { ... }
+  }
+  ```
 
-- `GET /api/contacts` - Get all contacts (requires authentication)
-- `POST /api/contacts` - Create a new contact (requires authentication)
-- `GET /api/contact/:id` - Get contact by ID (requires authentication)
-- `PUT /api/contact/:id` - Update contact (requires authentication)
-- `DELETE /api/contact/:id` - Delete contact (requires authentication)
+- Error responses include appropriate status codes (400, 401, 404, 500) and follow the format:
+  ```json
+  {
+    "status": "error",
+    "message": "Error description"
+  }
+  ```
 
-## Project Structure
+## Models
 
+### User
+
+```typescript
+interface IUser extends Document {
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  token?: string;
+  email?: string;
+  mobile?: string;
+  create_date: Date;
+}
 ```
-contact-api-ts/
-├── dist/               # Compiled JavaScript files
-├── src/                # TypeScript source files
-│   ├── config/         # Configuration files
-│   ├── controllers/    # Route controllers
-│   ├── middlewares/    # Custom middlewares
-│   ├── models/         # Mongoose models
-│   ├── routes/         # Route definitions
-│   ├── utils/          # Utility functions
-│   └── server.ts       # Entry point
-├── .env                # Environment variables
-├── .gitignore          # Gitignore file
-├── package.json        # Dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-└── README.md           # Project documentation
+
+### Contact
+
+```typescript
+interface IContact extends Document {
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  email?: string;
+  city?: string;
+  postalCode?: string;
+  create_date: Date;
+}
 ```
-
-## License
-
-This project is licensed under the MIT License.

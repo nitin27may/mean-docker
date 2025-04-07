@@ -2,58 +2,44 @@
 
 This directory contains the Angular frontend application for the MEAN Stack Contacts System.
 
-## Technology Stack
+## Features
 
-- **Angular**: v19.0.3
-- **Bootstrap**: v5.3.2
-- **NgBootstrap**: v17.0.0
-- **Angular SSR**: Enabled for production builds
-- **Form Validation**: Custom error tailor module
-
-## Development Server
-
-### Local Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm start
-```
-
-The application will be available at `http://localhost:4200`. The app will automatically reload if you change any of the source files.
-
-### Combined Frontend and API
-
-```bash
-# Start both frontend and API
-npm run dev-server
-```
-
-This will start the frontend at `http://localhost:4200` and API at `http://localhost:3000`.
+- **Angular 19**: Latest version with performance improvements
+- **TypeScript**: For enhanced type safety and developer experience
+- **Bootstrap 5**: For responsive design and UI components
+- **JWT Authentication**: Secure user login and registration
+- **Lazy Loading**: For optimized module loading
+- **Angular SSR**: Server-side rendering for improved SEO and performance
+- **Reactive Forms**: With custom validation
+- **NgBootstrap**: Enhanced Bootstrap components for Angular
+- **Form Validation**: Custom error handling and display
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── @core/               # Core module (guards, interceptors, services)
-│   │   ├── components/      # Shared components
-│   │   ├── guards/          # Authentication guards
-│   │   ├── interceptors/    # HTTP interceptors
-│   │   ├── layout/          # Application layout components
-│   │   ├── models/          # Data models and interfaces
-│   │   └── services/        # Core services
-│   ├── feature/             # Feature modules
-│   │   ├── contact/         # Contact management feature
-│   │   └── user/            # User management feature
-│   ├── app.component.ts     # Root component
-│   ├── app.config.ts        # Application configuration
-│   └── app.routes.ts        # Main routing configuration
-├── assets/                  # Static assets
-├── environments/            # Environment configurations
-└── styles.css               # Global styles
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── @core/             # Core module (guards, interceptors, services)
+│   │   │   ├── components/    # Shared components
+│   │   │   ├── guards/        # Authentication guards
+│   │   │   ├── interceptors/  # HTTP interceptors
+│   │   │   ├── layout/        # Application layout components
+│   │   │   ├── models/        # Data models and interfaces
+│   │   │   └── services/      # Core services
+│   │   ├── feature/           # Feature modules
+│   │   │   ├── contact/       # Contact management feature
+│   │   │   └── user/          # User management feature
+│   │   ├── app.component.ts   # Root component
+│   │   ├── app.config.ts      # Application configuration
+│   │   └── app.routes.ts      # Main routing configuration
+│   ├── assets/                # Static assets
+│   ├── environments/          # Environment configurations
+│   └── styles.css             # Global styles
+├── Dockerfile                 # Docker configuration
+├── angular.json               # Angular configuration
+├── package.json               # Dependencies and scripts
+└── tsconfig.json              # TypeScript configuration
 ```
 
 ## Key Features
@@ -92,7 +78,33 @@ Responsive layout with Bootstrap 5:
 - Footer with links
 - Content area with responsive sizing
 
-## Building
+## Development
+
+### Prerequisites
+
+- Node.js 16+
+- npm or yarn
+
+### Installation
+
+Install dependencies:
+```bash
+npm install
+```
+
+### Running Development Server
+
+```bash
+# Development server with hot reload
+npm start
+
+# Development server with API proxy
+npm run serve
+```
+
+The application will be available at `http://localhost:4200`.
+
+### Building
 
 ```bash
 # Development build
@@ -108,61 +120,74 @@ Build artifacts will be stored in the `dist/` directory.
 
 ### Development Dockerfile
 
+For development with hot reloading:
+
 ```dockerfile
 FROM node:22-alpine
 
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install --legacy-peer-deps
-
 RUN npm install -g @angular/cli
-
 COPY . /app/
-
 EXPOSE 4200 49153
 ```
 
 ### Production Dockerfile
 
+For production builds with SSR:
+
 ```dockerfile
 FROM node:22-alpine as builder
-
 COPY package.json package-lock.json ./
-
 RUN npm install --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
-
 WORKDIR /app
-
 COPY . /app/
-
 RUN npm run build
 
 FROM node:22-alpine
 COPY --from=builder /app /app
-
 WORKDIR /app
 EXPOSE 4000
-
 USER node
-
 CMD ["node", "dist/contacts/server/server.mjs"]
 ```
 
-## Testing
+## Features in Detail
 
-```bash
-# Run unit tests
-npm test
-```
+### Core Module
 
-## Future Improvements
+The `@core` module contains:
 
-- Add service worker for offline support
-- Implement state management with NgRx
-- Increase test coverage
-- Add end-to-end testing with Cypress
+- **Guards**: Authentication protection for routes
+- **Interceptors**: HTTP request/response transformations
+- **Services**: Shared services like authentication and validation
+- **Layout**: Common layout components (header, footer)
+- **Models**: TypeScript interfaces for data models
+
+### Feature Modules
+
+Feature modules are organized by domain:
+
+- **Contact**: All components related to contact management
+- **User**: Components for user authentication and profile management
+
+### Routing Structure
+
+The application uses a modular routing approach:
+
+- Root routes define the basic application structure
+- Feature modules have their own route configurations
+- Lazy loading is used for feature modules
+
+### Form Validation
+
+Custom form validation is implemented using:
+
+- Reactive forms with validators
+- Custom validation service
+- Error tailor directives
+- Consistent error display
 
 ## Environment Configuration
 
@@ -197,3 +222,24 @@ During development, API calls are proxied to the backend using `proxy.conf.json`
   }
 }
 ```
+
+## Authentication Flow
+
+1. User submits login credentials
+2. LoginService makes API call to `/api/user/authenticate`
+3. On successful authentication, JWT token is stored in localStorage
+4. JwtInterceptor adds token to all subsequent API requests
+5. AuthGuard checks token validity for protected routes
+6. LogoutService removes token and redirects to login
+
+## Testing
+
+```bash
+# Run unit tests
+npm test
+```
+
+The testing framework uses:
+- Jasmine for test specification
+- Karma as the test runner
+- Angular TestBed for component testing
