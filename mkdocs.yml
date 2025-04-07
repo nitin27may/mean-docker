@@ -1,4 +1,5 @@
 site_name: MEAN Docker Documentation
+site_url: https://nitin27may.github.io/mean-docker/
 theme:
   name: material
   palette:
