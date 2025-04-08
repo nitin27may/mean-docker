@@ -20,9 +20,41 @@ color_scheme: light
 
 # Add spacing to fix title cropping issue
 heading_anchors: true
-spacing: 
-  padding-top: 20px
-  padding-bottom: 10px
+
+# Fixed spacing configuration
+callouts_level: quiet # or loud
+callouts:
+  highlight:
+    color: yellow
+  important:
+    color: blue
+  new:
+    color: green
+  note:
+    color: purple
+  warning:
+    color: red
+
+# Set the proper spacing (this is the correct format)
+kramdown:
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+  
+# Add custom CSS for spacing
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/nitin27may/mean-docker"
+gh_edit_branch: "master"
+gh_edit_view_mode: "tree"
+
+# Custom styling for the content
+sass:
+  style: compressed
+
+# Add custom styling
+custom_css:
+  - custom.scss
 
 # Enable navigation structure
 nav_external_links:
