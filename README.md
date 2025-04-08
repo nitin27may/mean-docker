@@ -32,7 +32,7 @@ A modern, full-stack TypeScript contact management system built with the MEAN st
 
 ### Prerequisites
 
-- [Docker](https://www.docker.com/products/docker-desktop) and Docker Compose
+- [Docker](https://www.docker.com/get-started/) and Docker Compose
 - [Git](https://git-scm.com/downloads)
 
 ```bash
