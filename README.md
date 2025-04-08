@@ -167,7 +167,14 @@ We're constantly improving! Here's what's coming:
 For details, see the [complete roadmap](/docs/roadmap.md).
 
 ## 🤝 Contributing
-We welcome contributions! Whether you're fixing a bug, improving documentation, or adding a feature, check out our [Contributing Guide](/CONTRIBUTING.md) to get started.
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Reporting Issues
+
+When reporting issues, please use our issue templates:
+- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
+- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
 
 ## 📝 Learn More
 This project demonstrates several modern web development best practices:
