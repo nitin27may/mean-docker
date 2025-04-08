@@ -1,6 +1,6 @@
 title: MEAN Stack Contacts Application
 description: A full-featured contact management system built with TypeScript-powered MEAN stack
-theme: just-the-docs
+remote_theme: pmarsceill/just-the-docs
 
 url: https://nitin27may.github.io/mean-docker
 
