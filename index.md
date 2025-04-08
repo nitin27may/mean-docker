@@ -11,7 +11,7 @@ permalink: /
 A full-stack TypeScript contact management application with comprehensive Docker integration.
 {: .fs-6 .fw-300 }
 
-[Get Started](docs/local-devlopment.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Get Started](#-getting-started-in-30-seconds){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/nitin27may/mean-docker){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
