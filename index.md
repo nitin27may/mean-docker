@@ -114,9 +114,9 @@ For more detailed information, explore these documentation pages:
 - [Local Development Guide](docs/local-devlopment.html)
 - [MongoDB Setup](docs/mongo-readme.html)
 - [Architecture Overview](docs/architecture.html)
-- [API (Expressjs)](docs/api-expressjs.html)
-- [Frontend (Angular)](docs/frontend-angular.html)
-- [Load Balancer (Nginx)](docs/loadbalancer-nginx.html)
+- [API (Expressjs)](api/README.html)
+- [Frontend (Angular)](frontend/README.html)
+- [Load Balancer (Nginx)](loadbalancer/README.html)
 - [Future Roadmap](docs/roadmap.html)
 
 ## 🤝 Contributing
