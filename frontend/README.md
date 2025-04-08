@@ -82,7 +82,7 @@ Responsive layout with Bootstrap 5:
 
 ### Prerequisites
 
-- Node.js 16+
+- Node.js 20+
 - npm or yarn
 
 ### Installation

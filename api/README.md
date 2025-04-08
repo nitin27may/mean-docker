@@ -93,7 +93,7 @@ api/
 
 ### Prerequisites
 
-- Node.js 16+
+- Node.js 20+
 - npm or yarn
 - MongoDB instance (local or remote)
 

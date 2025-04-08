@@ -14,7 +14,7 @@ COPY . .
 RUN npm run build
 
 # Create production image
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Set working directory
 WORKDIR /app
