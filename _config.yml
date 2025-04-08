@@ -1,6 +1,6 @@
 title: MEAN (Docker)
 description: A full-featured contact management application built with TypeScript-powered MEAN stack with Docker Support.
-remote_theme: pmarsceill/just-the-docs
+remote_theme: just-the-docs/just-the-docs
 
 url: https://nitin27may.github.io/mean-docker
 
