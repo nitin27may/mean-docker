@@ -5,14 +5,15 @@ nav_order: 1
 permalink: /
 ---
 
-# MEAN Stack with Docker Support (Sample Contacts Application) 
+# MEAN Stack with Docker
 {: .fs-9 }
 
-A full-featured contact management system built with TypeScript-powered MEAN stack.
+Sample Contact Application : A TypeScript-powered contact management application (Angular, Expressjs)  with complete Docker support.
 {: .fs-6 .fw-300 }
 
 [Get Started](docs/local-devlopment.html){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/nitin27may/mean-docker){: .btn .fs-5 .mb-4 .mb-md-0 }
+
 ---
 
 ## Overview
