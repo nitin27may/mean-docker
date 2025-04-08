@@ -1,4 +1,4 @@
-title: MEAN Stack with Docker (Sample App - Contacts Application)
+title:                  MEAN Stack with Docker (Sample App - Contacts Application)
 description: A full-featured contact management application built with TypeScript-powered MEAN stack  with Docker Support.
 remote_theme: pmarsceill/just-the-docs
 
@@ -47,14 +47,6 @@ gh_edit_link_text: "Edit this page on GitHub"
 gh_edit_repository: "https://github.com/nitin27may/mean-docker"
 gh_edit_branch: "master"
 gh_edit_view_mode: "tree"
-
-# Custom styling for the content
-sass:
-  style: compressed
-
-# Add custom styling
-custom_css:
-  - custom.scss
 
 # Enable navigation structure
 nav_external_links:
