@@ -40,14 +40,25 @@ A modern, full-stack TypeScript contact management system built with the MEAN st
 - [Docker](https://www.docker.com/products/docker-desktop){:target="_blank"} and Docker Compose
 - [Git](https://git-scm.com/downloads){:target="_blank"}
 
-```bash
-# Clone the repository
-git clone https://github.com/nitin27may/mean-docker.git
-cd mean-docker
+### Quick Start Commands
 
-# Create environment file
+Clone the repository:
+```bash
+git clone https://github.com/nitin27may/mean-docker.git
+```
+
+Navigate to project folder:
+```bash
+cd mean-docker
+```
+
+Create environment file:
+```bash
 cp .env.example .env
-# Start the application
+```
+
+Start the application:
+```bash
 docker-compose -f docker-compose.nginx.yml up
 ```
 
