@@ -21,16 +21,16 @@ This guide explains how to set up and run the MEAN Stack Contacts application lo
 
 Before getting started, make sure you have the following installed:
 
-1. **Node.js** (LTS version recommended): [Download Node.js](https://nodejs.org/)
+1. **Node.js** (LTS version recommended): [Download Node.js](https://nodejs.org/){:target="_blank"}
 2. **npm** (comes with Node.js)
-3. **MongoDB** (Community Edition): [Download MongoDB](https://www.mongodb.com/try/download/community)
+3. **MongoDB** (Community Edition): [Download MongoDB](https://www.mongodb.com/try/download/community){:target="_blank"}
 4. **Angular CLI** (optional but recommended): `npm install -g @angular/cli`
 
 ## MongoDB Setup
 
 ### Installation
 
-1. Install MongoDB Community Edition following the [official instructions](https://docs.mongodb.com/manual/installation/) for your operating system.
+1. Install MongoDB Community Edition following the [official instructions](https://docs.mongodb.com/manual/installation/){:target="_blank"} for your operating system.
 2. Start the MongoDB service:
    - Windows: The MongoDB service should start automatically
    - macOS: `brew services start mongodb-community`
@@ -187,8 +187,8 @@ The frontend will be available at `http://localhost:4200`.
    - Then open `chrome://inspect` in Chrome
 
 2. For real-time API testing, use tools like:
-   - [Postman](https://www.postman.com/)
-   - [Insomnia](https://insomnia.rest/)
+   - [Postman](https://www.postman.com/){:target="_blank"}
+   - [Insomnia](https://insomnia.rest/){:target="_blank"}
 
 ### Frontend Debugging
 
