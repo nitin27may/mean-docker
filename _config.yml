@@ -18,6 +18,12 @@ footer_content: "Copyright &copy; 2024 Nitin Singh. Distributed by an MIT licens
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
 
+# Add spacing to fix title cropping issue
+heading_anchors: true
+spacing: 
+  padding-top: 20px
+  padding-bottom: 10px
+
 # Enable navigation structure
 nav_external_links:
   - title: MEAN Stack Contacts on GitHub
