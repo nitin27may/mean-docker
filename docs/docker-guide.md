@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Docker Guide
-nav_order: 3
+nav_order: 2
 ---
 
 # Docker Guide

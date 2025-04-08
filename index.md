@@ -110,12 +110,13 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 
 For more detailed information, explore these documentation pages:
 
-- [Local Development Guide](docs/local-devlopment.html)
 - [Docker Guide](docs/docker-guide.html)
-- [Frontend Structure](docs/angular-frontend-structure.html)
-- [API Structure](docs/expressjs-api-structure.html)
-- [Architecture Overview](docs/architecture.html)
+- [Local Development Guide](docs/local-devlopment.html)
 - [MongoDB Setup](docs/mongo-readme.html)
+- [Architecture Overview](docs/architecture.html)
+- [API (Expressjs)](docs/api-expressjs.html)
+- [Frontend (Angular)](docs/frontend-angular.html)
+- [Load Balancer (Nginx)](docs/loadbalancer-nginx.html)
 - [Future Roadmap](docs/roadmap.html)
 
 ## 🤝 Contributing

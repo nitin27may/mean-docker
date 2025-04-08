@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Architecture
-nav_order: 6
+nav_order: 5
 has_children: true
 permalink: /docs/architecture
 ---
@@ -11,7 +11,7 @@ permalink: /docs/architecture
 
 This section describes the architectural design of the MEAN Stack Contacts application.
 
-![Architecture Overview](architecture.drawio)
+![Architecture Overview](screenshots/architecture.png)
 
 ## Components
 
