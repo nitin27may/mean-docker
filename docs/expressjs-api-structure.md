@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Express.js API Structure
-parent: Architecture
-nav_order: 2
+title: API Structure
+nav_order: 4
 ---
 
 # Express.js API Structure

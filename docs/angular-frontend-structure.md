@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Angular Frontend Structure
-parent: Architecture
-nav_order: 1
+title: Frontend Structure
+nav_order: 5
 ---
 
 # Angular Frontend Structure

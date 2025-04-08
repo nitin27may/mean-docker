@@ -1,8 +1,7 @@
 ---
 layout: default
-title: MongoDB Database
-parent: Architecture
-nav_order: 3
+title: MongoDB Setup
+nav_order: 7
 ---
 
 # MongoDB Database

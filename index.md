@@ -111,6 +111,7 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 For more detailed information, explore these documentation pages:
 
 - [Local Development Guide](docs/local-devlopment.html)
+- [Docker Guide](docs/docker-guide.html)
 - [Frontend Structure](docs/angular-frontend-structure.html)
 - [API Structure](docs/expressjs-api-structure.html)
 - [Architecture Overview](docs/architecture.html)
