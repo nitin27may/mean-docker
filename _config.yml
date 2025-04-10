@@ -63,3 +63,5 @@ collapse_inactive_chapters: true
 
 # Enable copy code button
 enable_copy_code_button: true
+
+google_analytics: G-HCTNE6XPS5 
