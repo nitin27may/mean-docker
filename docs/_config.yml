@@ -4,14 +4,6 @@ remote_theme: just-the-docs/just-the-docs
 
 url: https://nitin27may.github.io/mean-docker
 
-# Include additional files in the navigation
-includes_dir: _includes
-
-# Enable plugins
-plugins:
-  - jekyll-remote-theme
-  - jekyll-seo-tag
-  - jekyll-include-cache
 # Enable support for hyphenated search keywords
 search_tokenizer_separator: /[\s/]+/
 
