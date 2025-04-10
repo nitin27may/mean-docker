@@ -17,7 +17,7 @@ A full-stack TypeScript contact management application with comprehensive Docker
 ---
 
 <p align="center">
-  <img src="docs/screenshots/contact-list.png" alt="Contacts List" width="600">
+  <img src="screenshots/contact-list.png" alt="Contacts List" width="600">
 </p>
 
 A modern, full-stack TypeScript contact management system built with the MEAN stack (MongoDB, Express.js, Angular, Node.js) and containerized with Docker. Perfect for learning full-stack development or as a starting point for your own projects!
@@ -71,7 +71,7 @@ That's it! Visit [http://localhost](http://localhost) in your browser.
 ## 🏗️ System Architecture
 
 <p align="center">
-  <img src="docs/screenshots/architecture.png" alt="Architecture Diagram" width="600">
+  <img src="screenshots/architecture.png" alt="Architecture Diagram" width="600">
 </p>
 
 ### Single Entry Point Architecture
@@ -91,7 +91,7 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 ### User Authentication
 
 <p align="center">
-  <img src="docs/screenshots/login.png" alt="Login Screen" width="400">
+  <img src="screenshots/login.png" alt="Login Screen" width="400">
 </p>
 
 - JWT-based secure login and registration
