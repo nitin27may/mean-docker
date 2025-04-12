@@ -110,18 +110,24 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 
 For more detailed information, explore these documentation pages:
 
-- [Docker Guide](docs/docker-guide.html)
-- [Local Development Guide](docs/local-devlopment.html)
-- [MongoDB Setup](docs/mongo-readme.html)
-- [Architecture Overview](docs/architecture.html)
-- [API (Expressjs)](api/README.html)
-- [Frontend (Angular)](frontend/README.html)
-- [Load Balancer (Nginx)](loadbalancer/README.html)
-- [Future Roadmap](docs/roadmap.html)
+- [Docker Guide](docker-guide.html)
+- [Local Development Guide](local-devlopment.html)
+- [MongoDB Setup](mongo-readme.html)
+- [Architecture Overview](architecture.html)
+- [API (Expressjs)](../api/README.html)
+- [Frontend (Angular)](../frontend/README.html)
+- [Load Balancer (Nginx)](../loadbalancer/README.html)
+- [Future Roadmap](roadmap.html)
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.html) for details.
+We welcome contributions!
+
+If you'd like to contribute to this project:
+
+- For bug reports, please use our [Bug Report Template](https://github.com/nitin27may/mean-docker/issues/new?template=bug_report.md)
+- For feature requests, please use our [Feature Request Template](https://github.com/nitin27may/mean-docker/issues/new?template=feature_request.md)
+- For general issues or questions, please visit our [Issues page](https://github.com/nitin27may/mean-docker/issues)
 
 ## 📄 License
 
