@@ -4,7 +4,7 @@ This directory contains the Angular frontend application for the MEAN Stack Cont
 
 ## Features
 
-- **Angular 19**: Latest version with performance improvements
+- **Angular 21**: Latest version with zoneless change detection and performance improvements
 - **TypeScript**: For enhanced type safety and developer experience
 - **Bootstrap 5**: For responsive design and UI components
 - **JWT Authentication**: Secure user login and registration
@@ -202,9 +202,9 @@ Key configuration options:
 export const environment = {
   production: false,
   apiEndpoint: 'http://localhost:3000/api',
-  angular: 'Angular 19',
+  angular: 'Angular 21',
   bootstrap: 'Bootstrap 5',
-  expressjs: 'Express.js 4.17.1',
+  expressjs: 'Express.js 4.21',
   mongoDb: 'MongoDB 7.0',
 };
 ```

@@ -3,16 +3,22 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User, { IUser } from '../models/user';
 import env from '../config/env';
+import { Types } from 'mongoose';
 
 // Add these interfaces at the top of the file
 interface UserDocument {
-  _id: string;
+  _id: Types.ObjectId | string;
   email: string;
   password: string;
-  // ...other user properties
+  firstName: string;
+  lastName: string;
+  username: string;
+  token?: string;
+  mobile?: string;
+  create_date: Date;
 }
 
-type UserResponse = Omit<UserDocument, 'password'>;
+type UserResponse = Omit<UserDocument, 'password'> & { password: undefined };
 
 export class UserController {
   /**

@@ -20,7 +20,7 @@ A modern, full-stack TypeScript contact management system built with the MEAN st
 ## 🌟 What You'll Learn
 
 - **TypeScript** throughout the entire stack
-- **Angular 19** with reactive forms, guards, and SSR
+- **Angular 21** with reactive forms, guards, and SSR
 - **Express.js** with TypeScript for a robust API
 - **MongoDB** integration with Mongoose
 - **JWT Authentication** for secure user management
