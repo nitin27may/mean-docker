@@ -32,6 +32,7 @@
                                 <th scope="col">Last Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Mobile</th>
+                                <th scope="col" class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,10 +63,24 @@
                                             [term]="filter.value"
                                         />
                                     </td>
+                                    <td class="text-center">
+                                        <button 
+                                            class="btn btn-sm btn-outline-primary me-2" 
+                                            (click)="onEdit($event, contact)"
+                                            title="Edit Contact">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button 
+                                            class="btn btn-sm btn-outline-danger" 
+                                            (click)="onDelete($event, contact, deleteModal)"
+                                            title="Delete Contact">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             } @empty {
                                 <tr>
-                                    <td colspan="4" style="text-align: center">
+                                    <td colspan="5" style="text-align: center">
                                         No contacts found
                                     </td>
                                 </tr>
@@ -91,3 +106,23 @@
         </div>
     </div>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want to delete this contact?</p>
+        @if (contactToDelete) {
+            <p class="fw-bold">{{ contactToDelete.firstName }} {{ contactToDelete.lastName }}</p>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="confirmDelete(modal)">
+            <i class="fa fa-trash me-1"></i> Delete
+        </button>
+    </div>
+</ng-template>

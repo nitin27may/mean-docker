@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, TemplateRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { NgbHighlight, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbHighlight, NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { ContactService } from '../contact.service';
 
 @Component({
@@ -21,6 +22,8 @@ import { ContactService } from '../contact.service';
 export class ContactListComponent implements OnInit {
     private readonly contactService = inject(ContactService);
     private readonly router = inject(Router);
+    private readonly modalService = inject(NgbModal);
+    private readonly toastrService = inject(ToastrService);
 
     allContacts = signal<any[]>([]);
     page = signal(1);
@@ -34,6 +37,7 @@ export class ContactListComponent implements OnInit {
     });
 
     filter = new FormControl('', { nonNullable: true });
+    contactToDelete: any = null;
 
     getAll(): void {
         this.contactService.getAll().subscribe({
@@ -61,6 +65,36 @@ export class ContactListComponent implements OnInit {
 
     onSelect(selected: any): void {
         this.router.navigate(['/contacts/edit/' + selected._id]);
+    }
+
+    onEdit(event: Event, contact: any): void {
+        event.stopPropagation();
+        this.router.navigate(['/contacts/edit/' + contact._id]);
+    }
+
+    onDelete(event: Event, contact: any, modal: TemplateRef<any>): void {
+        event.stopPropagation();
+        this.contactToDelete = contact;
+        this.modalService.open(modal, { centered: true });
+    }
+
+    confirmDelete(modal: any): void {
+        if (this.contactToDelete) {
+            this.contactService.delete(this.contactToDelete._id).subscribe({
+                next: () => {
+                    this.toastrService.success('Contact deleted successfully');
+                    this.allContacts.update(contacts => 
+                        contacts.filter(c => c._id !== this.contactToDelete._id)
+                    );
+                    this.contactToDelete = null;
+                    modal.close();
+                },
+                error: () => {
+                    this.toastrService.error('Failed to delete contact');
+                    modal.close();
+                }
+            });
+        }
     }
 
     ngOnInit(): void {
