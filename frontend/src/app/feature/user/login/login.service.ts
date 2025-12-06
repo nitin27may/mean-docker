@@ -1,17 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
-import { map } from 'rxjs/operators';
-
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class LoginService {
-    constructor(
-        private http: HttpClient,
-        private router: Router
-    ) {}
+    private readonly http = inject(HttpClient);
+    private readonly router = inject(Router);
 
     login(username: string, password: string) {
         return this.http

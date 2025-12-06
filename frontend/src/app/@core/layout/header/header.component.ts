@@ -1,28 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from "../../services/user.service";
-import { CommonModule } from "@angular/common";
 import { LoginService } from "../../../feature/user/login/login.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'app-header',
     imports: [RouterModule, NgbDropdownModule, CommonModule],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
-    providers: [LoginService]
+  providers: [LoginService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit{
-  user: any;
-  constructor(private userService: UserService,
-private loginService: LoginService
-  ){}
-  logOut(){
-    this.loginService.logout();
+export class HeaderComponent implements OnInit {
+  private readonly userService = inject(UserService);
+  private readonly loginService = inject(LoginService);
 
-  }
-  ngOnInit(){
+  user: any;
+
+  logOut(): void {
+    this.loginService.logout();
+    }
+
+  ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
-    //this.user = {firstName: "John", lastName: "Doe"};
-  }
+    }
 }

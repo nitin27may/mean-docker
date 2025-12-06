@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../../@core/guards';
+import { authGuard } from '../../@core/guards';
 import { LayoutComponent } from '../../@core/layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -10,7 +10,7 @@ export default [
     {
         path: '',
         component: LayoutComponent,
-        canActivate: [AuthGuard],
+        canActivate: [authGuard],
         children: [
             {
                 path: '',

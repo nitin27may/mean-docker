@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import {
+    FormControl,
+    FormGroup,
     ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
     Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -10,71 +10,69 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../@core/services/user.service';
 import { ValidationService } from '../../../@core/services/validation.service';
 
+interface RegisterForm {
+    firstName: FormControl<string | null>;
+    lastName: FormControl<string | null>;
+    username: FormControl<string | null>;
+    password: FormControl<string | null>;
+    confirmPassword: FormControl<string | null>;
+}
+
 @Component({
     selector: 'app-register',
     imports: [RouterModule, ReactiveFormsModule],
     templateUrl: './register.component.html',
-    styleUrl: './register.component.css'
+    styleUrl: './register.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent implements OnInit {
-    loading = false;
-    registerForm: UntypedFormGroup;
-    constructor(
-        private formBuilder: UntypedFormBuilder,
-        private router: Router,
-        private userService: UserService,
-        private toastrService: ToastrService,
-        private validationService: ValidationService
-    ) {
-        this.registerForm = this.createForm();
-    }
+export class RegisterComponent {
+    private readonly router = inject(Router);
+    private readonly userService = inject(UserService);
+    private readonly toastrService = inject(ToastrService);
+    private readonly validationService = inject(ValidationService);
+
+    loading = signal(false);
+    registerForm = this.createForm();
 
     register(): void {
-        this.loading = true;
-        this.userService.create(this.registerForm.value).subscribe(
-            (data) => {
+        this.loading.set(true);
+        this.userService.create(this.registerForm.getRawValue() as any).subscribe({
+            next: (data) => {
                 this.toastrService.success('Registration successful');
                 this.router.navigate(['/login']);
                 console.log(data);
             },
-            (error) => {
-                this.loading = false;
+            error: () => {
+                this.loading.set(false);
             }
-        );
+        });
     }
 
-    createForm(): UntypedFormGroup {
-        return this.formBuilder.group(
+    createForm(): FormGroup<RegisterForm> {
+        return new FormGroup<RegisterForm>(
             {
-                firstName: [null, { validators: [Validators.required] }],
-                lastName: [null, { validators: [Validators.required] }],
-                username: [
-                    null,
-                    {
-                        validators: [
-                            Validators.required,
-                            this.validationService.emailValidator,
-                        ],
-                    },
-                ],
-                password: [
-                    null,
-                    {
-                        validators: [
-                            Validators.required,
-                            Validators.minLength(6),
-                        ],
-                    },
-                ],
-                confirmPassword: [null, { validators: [Validators.required] }],
+                firstName: new FormControl(null, { validators: [Validators.required] }),
+                lastName: new FormControl(null, { validators: [Validators.required] }),
+                username: new FormControl(null, {
+                    validators: [
+                        Validators.required,
+                        this.validationService.emailValidator,
+                    ],
+                }),
+                password: new FormControl(null, {
+                    validators: [
+                        Validators.required,
+                        Validators.minLength(6),
+                    ],
+                }),
+                confirmPassword: new FormControl(null, { validators: [Validators.required] }),
             },
             {
-                validator: this.validationService.MustMatch(
+                validators: this.validationService.MustMatch(
                     'password',
                     'confirmPassword'
                 ),
             }
         );
     }
-    ngOnInit(): void {}
 }

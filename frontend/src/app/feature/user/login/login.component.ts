@@ -1,71 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import {
+    FormControl,
+    FormGroup,
     ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from './login.service';
 
+interface LoginForm {
+    userName: FormControl<string>;
+    password: FormControl<string>;
+    rememberMe: FormControl<boolean>;
+}
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
     imports: [RouterModule, ReactiveFormsModule],
-    providers: [LoginService]
+    providers: [LoginService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
-    model: any = {};
-    loading = false;
-    returnUrl: string;
-    loginForm: UntypedFormGroup;
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    private readonly loginService = inject(LoginService);
+    private readonly toastrService = inject(ToastrService);
 
-    constructor(
-        private formBuilder: UntypedFormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private loginService: LoginService,
-        private toastrService: ToastrService
-    ) {}
+    loading = signal(false);
+    returnUrl = '';
+    loginForm: FormGroup<LoginForm>;
 
     ngOnInit(): void {
-        // reset login status
         this.createForm();
-
-        // get return url from route parameters or default to "/"
-        this.returnUrl = this.route.snapshot.queryParams[`returnUrl`] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     createForm(): void {
-        this.loginForm = this.formBuilder.group({
-            userName: ['', Validators.required],
-            password: ['', Validators.required],
-            rememberMe: [false],
+        this.loginForm = new FormGroup<LoginForm>({
+            userName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            rememberMe: new FormControl(false, { nonNullable: true }),
         });
     }
 
-    login(loginForm: UntypedFormGroup): void {
-        if (loginForm.valid) {
-            this.loading = true;
+    login(): void {
+        if (this.loginForm.valid) {
+            this.loading.set(true);
             this.loginService
                 .login(
-                    loginForm.controls.userName.value,
-                    loginForm.controls.password.value
+                    this.loginForm.controls.userName.value,
+                    this.loginForm.controls.password.value
                 )
                 .subscribe({
-                    next: (data) => {
-                        this.loading = false;
+                    next: () => {
+                        this.loading.set(false);
                         this.router.navigate([this.returnUrl]);
                     },
                     error: (error) => {
                         this.toastrService.error(error);
-                        this.loading = false;
+                        this.loading.set(false);
                     }
                 });
         } else {
-            this.toastrService.error('Please enter valid credentails');
+            this.toastrService.error('Please enter valid credentials');
         }
     }
 }

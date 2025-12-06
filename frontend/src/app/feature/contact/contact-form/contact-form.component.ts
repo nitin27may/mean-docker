@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
+    FormControl,
+    FormGroup,
     ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -12,50 +12,59 @@ import { ValidationService } from '../../../@core/services/validation.service';
 import { ContactService } from '../contact.service';
 import { errorTailorImports } from "../../../@core/components/validation";
 
+interface ContactForm {
+    _id: FormControl<string>;
+    firstName: FormControl<string>;
+    lastName: FormControl<string>;
+    email: FormControl<string>;
+    mobile: FormControl<string>;
+    city: FormControl<string>;
+    postalCode: FormControl<string>;
+}
+
 @Component({
     selector: 'app-contact-form',
     imports: [ReactiveFormsModule, RouterModule, CommonModule, errorTailorImports],
     templateUrl: './contact-form.component.html',
     styleUrl: './contact-form.component.css',
-    providers: [ContactService]
+    providers: [ContactService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactFormComponent implements OnInit {
-    contactForm: UntypedFormGroup;
-    constructor(
-        private formBuilder: UntypedFormBuilder,
-        private router: Router,
-        private validationService: ValidationService,
-        private contactService: ContactService,
-        private activatedRoute: ActivatedRoute,
-        private toastrService: ToastrService
-    ) {}
+    private readonly router = inject(Router);
+    private readonly validationService = inject(ValidationService);
+    private readonly contactService = inject(ContactService);
+    private readonly activatedRoute = inject(ActivatedRoute);
+    private readonly toastrService = inject(ToastrService);
+
+    contactForm: FormGroup<ContactForm>;
 
     createForm(): void {
-        this.contactForm = this.formBuilder.group({
-            _id: ['', []],
-            firstName: [
-                '',
-                [
+        this.contactForm = new FormGroup<ContactForm>({
+            _id: new FormControl('', { nonNullable: true }),
+            firstName: new FormControl('', {
+                nonNullable: true,
+                validators: [
                     Validators.required,
                     Validators.minLength(2),
                     Validators.maxLength(35),
                 ],
-            ],
-            lastName: [
-                '',
-                [
+            }),
+            lastName: new FormControl('', {
+                nonNullable: true,
+                validators: [
                     Validators.required,
                     Validators.minLength(2),
                     Validators.maxLength(35),
                 ],
-            ],
-            email: [
-                '',
-                [Validators.required, this.validationService.emailValidator],
-            ],
-            mobile: ['', [Validators.required]],
-            city: ['', [Validators.required]],
-            postalCode: ['', [Validators.required]],
+            }),
+            email: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required, this.validationService.emailValidator],
+            }),
+            mobile: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            city: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            postalCode: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
         });
     }
 

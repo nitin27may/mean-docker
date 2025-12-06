@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import {
+    FormControl,
+    FormGroup,
     ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
     Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,91 +11,104 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../@core/services/user.service';
 import { ValidationService } from '../../../@core/services/validation.service';
 
+interface ProfileForm {
+    _id: FormControl<string>;
+    firstName: FormControl<string>;
+    lastName: FormControl<string>;
+    email: FormControl<string>;
+    mobile: FormControl<string>;
+}
+
+interface PasswordForm {
+    username: FormControl<string>;
+    password: FormControl<string>;
+    confirmPassword: FormControl<string>;
+}
+
 @Component({
     selector: 'app-profile',
     imports: [NgbNavModule, ReactiveFormsModule],
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
+    private readonly router = inject(Router);
+    private readonly userService = inject(UserService);
+    private readonly validationService = inject(ValidationService);
+    private readonly toastrService = inject(ToastrService);
+
     active = 1;
     user: any;
-    profileForm: UntypedFormGroup;
-    passwordForm: UntypedFormGroup;
-    constructor(
-        private formBuilder: UntypedFormBuilder,
-        private router: Router,
-        private userService: UserService,
-        private validationService: ValidationService,
-        private toastrService: ToastrService
-    ) {
-        this.createProfileForm();
-        this.createPasswordForm();
+    profileForm = this.createProfileForm();
+    passwordForm = this.createPasswordForm();
+
+    createProfileForm(): FormGroup<ProfileForm> {
+        return new FormGroup<ProfileForm>({
+            _id: new FormControl('', { nonNullable: true }),
+            firstName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            lastName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            mobile: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] }),
+        });
     }
 
-    createProfileForm(): UntypedFormGroup {
-        return (this.profileForm = this.formBuilder.group({
-            _id: [''],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', Validators.required],
-            mobile: ['', [Validators.required, Validators.minLength(10)]],
-        }));
-    }
-    createPasswordForm() {
-        return (this.passwordForm = this.formBuilder.group(
+    createPasswordForm(): FormGroup<PasswordForm> {
+        return new FormGroup<PasswordForm>(
             {
-                username: ['', Validators.required],
-                password: ['', [Validators.required, Validators.minLength(6)]],
-                confirmPassword: ['', Validators.required],
+                username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+                password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] }),
+                confirmPassword: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
             },
             {
-                validator: this.validationService.MustMatch(
+                validators: this.validationService.MustMatch(
                     'password',
                     'confirmPassword'
                 ),
             }
-        ));
+        );
     }
 
-    resetProfileForm() {
+    resetProfileForm(): void {
         this.profileForm.reset();
         this.profileForm.patchValue(this.userService.getCurrentUser());
     }
-    updateProfile() {
-        this.userService.update(this.profileForm.value).subscribe(
-            (data) => {
-                this.toastrService.success('Profile updated successful');
+
+    updateProfile(): void {
+        this.userService.update(this.profileForm.getRawValue() as any).subscribe({
+            next: (data) => {
+                this.toastrService.success('Profile updated successfully');
                 const user = data;
                 user.token = this.user.token;
                 localStorage.setItem('currentUser', JSON.stringify(user));
             },
-            (error) => {}
-        );
+            error: () => { }
+        });
     }
 
-    resetPasswordForm() {
+    resetPasswordForm(): void {
         this.passwordForm.reset();
-        this.passwordForm.get('username').patchValue(this.user.username);
+        this.passwordForm.controls.username.patchValue(this.user.username);
     }
-    updatePassword() {
+
+    updatePassword(): void {
         this.userService
             .changePassword(
                 this.user._id,
-                this.passwordForm.get('password').value
+                this.passwordForm.controls.password.value
             )
-            .subscribe(
-                (data) => {
-                    this.toastrService.success('Profile updated successful');
+            .subscribe({
+                next: () => {
+                    this.toastrService.success('Password updated successfully');
                     this.router.navigate(['/login']);
                 },
-                (error) => {}
-            );
+                error: () => { }
+            });
     }
 
     ngOnInit(): void {
         this.user = this.userService.getCurrentUser();
         this.profileForm.patchValue(this.user);
-        this.passwordForm.get('username').patchValue(this.user.username);
+        this.passwordForm.controls.username.patchValue(this.user.username);
     }
 }

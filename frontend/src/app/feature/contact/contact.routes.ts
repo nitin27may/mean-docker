@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../../@core/guards';
+import { authGuard } from '../../@core/guards';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
@@ -9,7 +9,7 @@ export default [
     {
         path: '',
         component: LayoutComponent,
-        canActivate: [AuthGuard],
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -17,19 +17,19 @@ export default [
             },
             {
                 path: 'create',
-                canActivate: [AuthGuard],
+                canActivate: [authGuard],
                 component: ContactFormComponent,
             },
             {
                 path: 'edit/:contactId',
-                canActivate: [AuthGuard],
+                canActivate: [authGuard],
                 component: ContactFormComponent,
                 resolve: { contactDetails: ContactDetailsResolver },
             },
             {
                 path: 'details/:contactId',
                 component: ContactDetailsComponent,
-                canActivate: [AuthGuard],
+                canActivate: [authGuard],
                 resolve: { contactDetails: ContactDetailsResolver },
             },
         ],

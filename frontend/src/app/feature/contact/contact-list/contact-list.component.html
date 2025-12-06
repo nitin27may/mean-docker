@@ -36,7 +36,7 @@
                         </thead>
                         <tbody>
                             @for (
-                                contact of contacts ; track contact.email) {
+                                contact of contacts() ; track contact.email) {
                                 <tr style="cursor: pointer" (click)="onSelect(contact)">
                                     <td>
                                         <ngb-highlight
@@ -74,13 +74,14 @@
                     </table>
                     <div class="d-flex justify-content-between p-2">
                       <ngb-pagination
-                        [collectionSize]="collectionSize"
-                        [(page)]="page"
-                        [pageSize]="pageSize"
-                        (pageChange)="refreshContacts()"
+                        [collectionSize]="collectionSize()"
+                        [page]="page()"
+                        [pageSize]="pageSize()"
+                        (pageChange)="onPageChange($event)"
                       >
                       </ngb-pagination>
-                      <select class="form-select" style="width: auto; height: 40px;" [(ngModel)]="pageSize" (ngModelChange)="refreshContacts()">
+                    <select class="form-select" style="width: auto; height: 40px;" [ngModel]="pageSize()"
+                        (ngModelChange)="onPageSizeChange($event)">
                         <option [ngValue]="2">2 items per page</option>
                         <option [ngValue]="4">4 items per page</option>
                         <option [ngValue]="6">6 items per page</option>
