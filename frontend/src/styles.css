@@ -1,17 +1,214 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================
+   Global Styles - Contact Manager Application
+   ============================================ */
+
+/* CSS Variables */
+:root {
+  --primary-color: #1e3a5f;
+  --primary-light: #4da6ff;
+  --secondary-color: #0d1b2a;
+  --accent-color: #80d4ff;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --bg-light: #f8f9fa;
+  --border-color: #dee2e6;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.075);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  --transition: all 0.2s ease;
+}
+
+/* Form Validation Styles */
 .control-error {
   width: 100%;
   margin-top: 0.25rem;
-  font-size: 80%;
-  color: #dc3545;
+  font-size: 0.875rem;
+  color: var(--danger-color);
 }
 
-.on-submit.form-submitted .ng-touched.ng-invalid, form:not(.on-submit) .ng-touched.ng-invalid {
-  border-color: #dc3545;
+.on-submit.form-submitted .ng-touched.ng-invalid,
+form:not(.on-submit) .ng-touched.ng-invalid {
+  border-color: var(--danger-color);
   padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
-
+/* Table Row Cursor */
 tr[ng-reflect-router-link] {
   cursor: pointer;
+}
+
+/* Card Styles */
+.card {
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0 !important;
+}
+
+/* Button Enhancements */
+.btn {
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+  border-radius: var(--border-radius);
+  border-color: var(--border-color);
+  transition: var(--transition);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 0.2rem rgba(77, 166, 255, 0.25);
+}
+
+/* Table Styles */
+.table {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: var(--bg-light);
+  border-bottom: 2px solid var(--border-color);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.table tbody tr {
+  transition: var(--transition);
+}
+
+.table tbody tr:hover {
+  background-color: rgba(77, 166, 255, 0.05);
+}
+
+/* Badge Styles */
+.badge {
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: var(--border-radius);
+  border: none;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c9d0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8b1ba;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Page Title */
+.page-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Action Icons */
+.action-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.action-icon:hover {
+  transform: scale(1.1);
+}
+
+.action-icon.edit {
+  color: var(--primary-light);
+  background-color: rgba(77, 166, 255, 0.1);
+}
+
+.action-icon.edit:hover {
+  background-color: rgba(77, 166, 255, 0.2);
+}
+
+.action-icon.delete {
+  color: var(--danger-color);
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.action-icon.delete:hover {
+  background-color: rgba(220, 53, 69, 0.2);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Page Padding for Fixed Header */
+body {
+  padding-top: 70px;
 }

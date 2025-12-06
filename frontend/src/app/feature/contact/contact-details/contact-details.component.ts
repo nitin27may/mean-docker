@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ContactService } from "../contact.service";
@@ -15,14 +15,20 @@ import { ContactService } from "../contact.service";
 export class ContactDetailsComponent implements OnInit {
     private readonly activatedRoute = inject(ActivatedRoute);
     private readonly router = inject(Router);
+    private readonly cdr = inject(ChangeDetectorRef);
 
-    contact: any;
+    contact = signal<any>(null);
 
     edit(): void {
-        this.router.navigate(['/contacts/edit/' + this.contact._id]);
+        const contactData = this.contact();
+        if (contactData?._id) {
+            this.router.navigate(['/contacts/edit', contactData._id]);
+        }
     }
 
     ngOnInit(): void {
-        this.contact = this.activatedRoute.snapshot.data.contactDetails;
+        const data = this.activatedRoute.snapshot.data['contactDetails'];
+        this.contact.set(data);
+        this.cdr.markForCheck();
     }
 }

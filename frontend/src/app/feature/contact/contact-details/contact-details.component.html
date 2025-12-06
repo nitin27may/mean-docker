@@ -1,128 +1,83 @@
-<div class="container px-4 py-5">
-    <div class="row align-items-center">
-        <div
-            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 justify-content-center"
-        >
-            <div class="panel panel-default container px-4 py-5">
-                <div class="row wrapper border-bottom white-bg page-heading">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-4">
-                        <h2>Contact Details</h2>
-                    </div>
+<div class="container py-5">
+    @if (contact()) {
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-user-circle fa-lg me-2"></i>
+                    <h4 class="mb-0">Contact Details</h4>
                 </div>
-                <div>
-                    <div class="col-md-8 offset-md-3">
-                        <span class="anchor" id="formComplex"></span>
-                        <div class="my-5"></div>
-                        <h3>Details</h3>
-                        <!-- form complex example -->
-                        <form>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label
-                                        for="firstName"
-                                        class="col-sm-4 col-md-4 col-form-label"
-                                        >First Name:</label
-                                    >
-                                    <label
-                                        for="firstName"
-                                        class="col-sm-8 col-md-8 col-form-label"
-                                        >{{ contact.firstName }}</label
-                                    >
-                                </div>
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label
-                                        for="lastName"
-                                        class="col-sm-4 col-md-4 col-form-label"
-                                        >Last Name:</label
-                                    >
-                                    <label
-                                        for="lastName"
-                                        class="col-sm-8 col-md-8 col-form-label"
-                                        >{{ contact.lastName }}</label
-                                    >
-                                </div>
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="detail-item">
+                                <label class="text-muted small text-uppercase fw-semibold">First Name</label>
+                                <p class="fs-5 mb-0">{{ contact().firstName }}</p>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label
-                                        for="email"
-                                        class="col-sm-4 col-md-4 col-form-label"
-                                        >Email:</label
-                                    >
-                                    <label
-                                        for="email"
-                                        class="col-sm-8 col-md-8 col-form-label"
-                                        >{{ contact.email }}</label
-                                    >
-                                </div>
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label
-                                        for="mobile"
-                                        class="col-sm-4 col-md-4 col-form-label"
-                                        >Mobile:</label
-                                    >
-                                    <label
-                                        for="mobile"
-                                        class="col-sm-8 col-md-8 col-form-label"
-                                        >{{ contact.mobile }}</label
-                                    >
-                                </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="detail-item">
+                                <label class="text-muted small text-uppercase fw-semibold">Last Name</label>
+                                <p class="fs-5 mb-0">{{ contact().lastName }}</p>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label
-                                        for="city"
-                                        class="col-sm-4 col-md-4 col-form-label"
-                                        >City:</label
-                                    >
-                                    <label
-                                        for="city"
-                                        class="col-sm-8 col-md-8 col-form-label"
-                                        >{{ contact.city }}</label
-                                    >
-                                </div>
-                                <div class="form-group col-sm-6 col-md-6">
-                                    <label
-                                        for="postalCode"
-                                        class="col-sm-4 col-md-4 col-form-label"
-                                        >Postal Code:</label
-                                    >
-                                    <label
-                                        for="postalCode"
-                                        class="col-sm-8 col-md-8 col-form-label"
-                                        >{{ contact.postalCode }}</label
-                                    >
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-sm-6 col-md-6">
-                                    <a
-                                        href="javascript:void(0);"
-                                        [routerLink]="['/contacts']"
-                                        class="btn btn-primary"
-                                    >
-                                        <i class="fa fa-chevron-left"></i>
-                                        Back</a
-                                    >
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="btn-group float-end">
-                                        <span></span>
-                                        <button
-                                            class="btn btn-primary"
-                                            (click)="edit()"
-                                        >
-                                            Edit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                    <!-- </main> -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="detail-item">
+                                <label class="text-muted small text-uppercase fw-semibold">Email</label>
+                                <p class="fs-5 mb-0">
+                                    <a href="mailto:{{ contact().email }}" class="text-decoration-none">
+                                        <i class="fas fa-envelope me-1 text-primary"></i>{{ contact().email }}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="detail-item">
+                                <label class="text-muted small text-uppercase fw-semibold">Mobile</label>
+                                <p class="fs-5 mb-0">
+                                    <a href="tel:{{ contact().mobile }}" class="text-decoration-none">
+                                        <i class="fas fa-phone me-1 text-primary"></i>{{ contact().mobile }}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="detail-item">
+                                <label class="text-muted small text-uppercase fw-semibold">City</label>
+                                <p class="fs-5 mb-0">
+                                    <i class="fas fa-map-marker-alt me-1 text-primary"></i>{{ contact().city }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="detail-item">
+                                <label class="text-muted small text-uppercase fw-semibold">Postal Code</label>
+                                <p class="fs-5 mb-0">{{ contact().postalCode }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center py-3">
+                    <a [routerLink]="['/contacts']" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="button" class="btn btn-primary" (click)="edit()">
+                        <i class="fas fa-edit me-1"></i> Edit Contact
+                    </button>
                 </div>
             </div>
         </div>
+        </div>
+    } @else {
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 text-muted">Loading contact details...</p>
     </div>
+    }
 </div>

@@ -1,80 +1,49 @@
 .nga-footer {
-  background-color: #212121;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
   margin-top: auto;
-    /* This helps push it to the bottom */
   color: white;
 }
 
-.nga-footer a {
-  color: white;
-  text-decoration: none
+.text-primary-light {
+  color: #4da6ff !important;
 }
 
-.nga-footer a:hover,
-.nga-footer a:focus {
-  color: white;
-  text-decoration: underline;
+.footer-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
-.nga-footer .nga-hint {
-  background-color: #1976d2;
+.footer-link:hover {
+  color: #4da6ff;
+  text-decoration: none;
 }
 
-.nga-footer .nga-hint:hover {
-  opacity: 0.8;
+.nga-copyright {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nga-btn-social {
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  padding: 0;
-  margin: 10px;
-  overflow: hidden;
-  vertical-align: middle;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  width: 47px;
-  height: 47px
-}
-
-.nga-btn-social i {
-  font-size: 1.25rem;
-  line-height: 47px
-}
-
-.nga-btn-social i {
-  display: inline-block;
-  width: inherit;
+  background-color: rgba(255, 255, 255, 0.1);
   color: white;
-  text-align: center
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 .nga-btn-social:hover {
-  -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  background-color: #4da6ff;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(77, 166, 255, 0.3);
 }
 
-.nga-btn-social i:hover {
-  color: black;
-}
-
-.nga-btn-github {
-  background-color: #333;
-}
-
-.nga-btn-gitlab {
-  background-color: #ff4500;
-}
-
-.nga-btn-linkedin {
-  background-color: #0082ca;
-}
-
-.nga-btn-twitter {
-  background-color: #55acee;
+.nga-btn-social i {
+  font-size: 1rem;
 }

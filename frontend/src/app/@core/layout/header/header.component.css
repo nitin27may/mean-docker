@@ -1,37 +1,110 @@
-.nga-nav-link {
-  color: white;
-  border-top: 1px solid #09238d;
-  border-bottom: 1px solid #09238d;
-  font-weight: 500;
-}
-
-.nga-nav-link:hover {
-  color: yellow;
-  border-top: 1px solid yellow;
-  border-bottom: 1px solid yellow;
-}
-
-
 .nga-navbar {
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 11px 10px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 11px 10px 0 rgba(0, 0, 0, 0.12);
-  background-color: #09238d;
+  background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 0;
 }
 
 .nga-logo {
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+.navbar-brand:hover .nga-logo {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.nga-nav-link {
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 6px;
 }
 
-.nga-logo:hover {
-  color: rgba(255, 255, 255, 0.75);
+.nga-nav-link:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.nga-btn-navbar {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: #1976d2;
-  --bs-btn-border-color: #1976d2;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #0b5ed7;
-  --bs-btn-hover-border-color: #0a58ca;
+.nga-nav-link.active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.nga-nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background-color: #4da6ff;
+  border-radius: 3px 3px 0 0;
+}
+
+.nga-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.nga-user-btn {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nga-user-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nga-btn-login {
+  background-color: #4da6ff;
+  color: #fff !important;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.nga-btn-login:hover {
+  background-color: #3d96ef;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(77, 166, 255, 0.3);
+}
+
+.dropdown-menu {
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.dropdown-header {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item {
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f4f8;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #fff5f5;
 }
 

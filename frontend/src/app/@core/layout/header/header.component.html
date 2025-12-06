@@ -1,10 +1,11 @@
 <header class="navbar navbar-expand-lg navbar-dark fixed-top nga-navbar">
     <nav class="container" aria-label="Main navigation">
-        <a routerLink="/" class="navbar-brand" alt="Accueil">
-            <span class="nga-logo mx-1" aria-label="Contacts">Contacts System</span>
+        <a routerLink="/" class="navbar-brand d-flex align-items-center" alt="Home">
+            <i class="fas fa-address-book fa-lg me-2"></i>
+            <span class="nga-logo" aria-label="Contacts">Contact Manager</span>
         </a>
         <button
-            class="navbar-toggler"
+            class="navbar-toggler border-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarCollapse"
@@ -15,85 +16,84 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbarCollapse">
-            <ul class="navbar-nav mx-auto">
-                <!-- <li class="nav-item">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item" *ngIf="user">
                     <a
-                        class="nav-link nga-nav-link"
+                        class="nav-link nga-nav-link px-3"
                         aria-current="page"
                         routerLink="/"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}"
                     >
-                        <i class="fab fa-angular me-1"></i>Features</a
-                    >
-                </li> -->
-            </ul>
-            <ul class="navbar-nav me-auto">
-                <!-- <li class="nav-item">
+                        <i class="fas fa-home me-1"></i>Home
+                        </a>
+                        </li>
+                        <li class="nav-item" *ngIf="user">
                     <a
-                        class="nav-link nga-nav-link"
-                        aria-current="page"
-                        routerLink="/about"
-                    >
-                        <i class="far fa-question-circle me-1"></i>About</a
-                    >
-                </li> -->
-                <li class="nav-item">
-                    <a
-                        class="nav-link nga-nav-link"
+                        class="nav-link nga-nav-link px-3"
                         aria-current="page"
                         routerLink="/contacts"
+                        routerLinkActive="active"
                     >
-                        <i class="fas fa-envelope me-1"></i>Contacts</a
-                    >
+                        <i class="fas fa-users me-1"></i>Contacts
+                        </a>
                 </li>
                 <li class="nav-item">
                     <a
-                        class="nav-link nga-nav-link"
+                        class="nav-link nga-nav-link px-3"
                         aria-current="page"
                         target="_blank"
                         href="https://github.com/nitin27may"
-
                     >
-                        <i class="fab fa-github me-1"></i>Github
+                        <i class="fab fa-github me-1"></i>GitHub
                     </a>
                 </li>
-                <li class="nav-item dropdown" ngbDropdown *ngIf="user">
+                <li class="nav-item dropdown ms-2" ngbDropdown *ngIf="user">
                     <a
                         href="javascript:void(0)"
-                        id="basic-link"
-                        class="nav-link dropdown-toggle"
+                        id="user-dropdown"
+                        class="nav-link dropdown-toggle nga-user-btn d-flex align-items-center"
                         ngbDropdownToggle
                     >
-                        <i class="fa fa-user"></i> {{user?.firstName}} {{user?.lastName}}
-                        <b class="caret"></b>
+                        <div class="nga-avatar me-2">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="d-none d-md-inline">{{user?.firstName}} {{user?.lastName}}</span>
                     </a>
                     <div
-                        id="basic-link-dropdown"
-                        class="dropdown-menu dropdown-menu-right"
+                        id="user-dropdown-menu"
+                        class="dropdown-menu dropdown-menu-end shadow-sm"
                         ngbDropdownMenu
                     >
+                        <div class="dropdown-header px-3 py-2 border-bottom">
+                            <small class="text-muted">Signed in as</small>
+                            <p class="mb-0 fw-semibold">{{user?.email}}</p>
+                        </div>
                         <a
-                            class="dropdown-item"
+                            class="dropdown-item py-2"
                             [routerLink]="['/profile']"
                             routerLinkActive="router-link-active"
                             ngbDropdownItem
                         >
-                            <i class="fa fa-fw fa-user"></i> Profile
+                            <i class="fas fa-user-cog me-2 text-muted"></i> My Profile
                         </a>
+                        <div class="dropdown-divider"></div>
                         <a
                             href="javascript:void(0);"
-                            class="dropdown-item"
+                            class="dropdown-item py-2 text-danger"
                             (click)="logOut()"
                             ngbDropdownItem
                         >
-                            <i class="fa fa-fw fa-power-off"></i>Log Out
+                            <i class="fas fa-sign-out-alt me-2"></i> Sign Out
                         </a>
                     </div>
                 </li>
+                <li class="nav-item ms-2" *ngIf="!user">
+                    <a class="btn nga-btn-login" routerLink="/login">
+                        <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                    </a>
+                </li>
             </ul>
-            <form class="d-flex" *ngIf="!user">
-
-
-            </form>
         </div>
     </nav>
 </header>

@@ -64,7 +64,7 @@ export class ContactListComponent implements OnInit {
     }
 
     onSelect(selected: any): void {
-        this.router.navigate(['/contacts/edit/' + selected._id]);
+        this.router.navigate(['/contacts/details/' + selected._id]);
     }
 
     onEdit(event: Event, contact: any): void {
@@ -83,7 +83,7 @@ export class ContactListComponent implements OnInit {
             this.contactService.delete(this.contactToDelete._id).subscribe({
                 next: () => {
                     this.toastrService.success('Contact deleted successfully');
-                    this.allContacts.update(contacts => 
+                    this.allContacts.update(contacts =>
                         contacts.filter(c => c._id !== this.contactToDelete._id)
                     );
                     this.contactToDelete = null;
