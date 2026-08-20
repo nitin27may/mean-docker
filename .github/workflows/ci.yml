@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
 
       - name: Build the images
         run: docker compose -f docker-compose.nginx.yml build
