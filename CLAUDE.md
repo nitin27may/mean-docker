@@ -100,7 +100,8 @@ Copy `.env.example` to `.env`, then **set a real `SECRET`** — the API refuses 
 - **`[class]` on a component host replaces the classes the component sets itself.** This is how the
   toast ended up invisible; use `[class.foo]` bindings.
 - **Mongo seeding runs once.** `mongo/init-db.d/init-mongo.sh` executes only against an empty data
-  volume. To reseed: `sudo rm -rf mongo/db` and bring the stack back up.
+  volume. To reseed: `docker compose -f <file> down -v` and bring the stack back up. Data lives in
+  the `mongo-data` named volume, not a bind mount, so nothing root-owned lands in your working tree.
 - **`docker-compose.hub.yml` pulls from Docker Hub**, and those images are only as fresh as the last
   successful CI publish. For anything version-sensitive, build locally.
 - **Healthchecks use `127.0.0.1`, not `localhost`.** The nginx images listen on IPv4 only, and

@@ -237,9 +237,12 @@ services:
       - MONGO_DB=${MONGO_DB_DATABASE}
       - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
     volumes:
-      # init scripts run only against an empty data volume — rm -rf mongo/db to reseed
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
+      # Seed scripts are read-only from the repo. The data itself lives in a
+      # named volume rather than a bind mount, so it does not leave root-owned
+      # files in your working tree. Seeding runs only against an empty volume —
+      # `docker compose ... down -v` to reseed.
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/:ro
+      - mongo-data:/data/db
     ports:
       - "${MONGO_DB_PORT:-27017}:27017"
     healthcheck:
@@ -250,6 +253,9 @@ services:
       start_period: 20s
     networks:
       - mean
+
+volumes:
+  mongo-data:
 
 networks:
   mean:
@@ -309,9 +315,12 @@ services:
       - MONGO_DB=${MONGO_DB_DATABASE}
       - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
     volumes:
-      # init scripts run only against an empty data volume — rm -rf mongo/db to reseed
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
+      # Seed scripts are read-only from the repo. The data itself lives in a
+      # named volume rather than a bind mount, so it does not leave root-owned
+      # files in your working tree. Seeding runs only against an empty volume —
+      # `docker compose ... down -v` to reseed.
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/:ro
+      - mongo-data:/data/db
     # No host port: in this mode MongoDB is reachable only from the internal
     # network, which is what makes the "single entry point" claim true.
     healthcheck:
@@ -337,6 +346,9 @@ services:
         condition: service_healthy
     networks:
       - mean
+
+volumes:
+  mongo-data:
 
 networks:
   mean:
@@ -408,9 +420,12 @@ services:
       - MONGO_DB=${MONGO_DB_DATABASE}
       - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
     volumes:
-      # init scripts run only against an empty data volume — rm -rf mongo/db to reseed
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
+      # Seed scripts are read-only from the repo. The data itself lives in a
+      # named volume rather than a bind mount, so it does not leave root-owned
+      # files in your working tree. Seeding runs only against an empty volume —
+      # `docker compose ... down -v` to reseed.
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/:ro
+      - mongo-data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
       interval: 10s
@@ -440,6 +455,9 @@ services:
       start_period: 10s
     networks:
       - mean
+
+volumes:
+  mongo-data:
 
 networks:
   mean:

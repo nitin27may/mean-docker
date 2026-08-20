@@ -115,6 +115,7 @@ For more detailed information, explore these documentation pages:
 - [MongoDB Setup](mongo-readme.html)
 - [Architecture Overview](architecture.html)
 - [Future Roadmap](roadmap.html)
+- [Audit (August 2026)](audit-2026-08.html) — what state this repo was in before the last maintenance pass, and why
 
 The per-component READMEs live outside `docs/`, so Jekyll never publishes them.
 They are linked to GitHub directly:

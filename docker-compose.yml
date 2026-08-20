@@ -55,9 +55,12 @@ services:
       - MONGO_DB=${MONGO_DB_DATABASE}
       - MONGO_INITDB_DATABASE=${MONGO_DB_DATABASE}
     volumes:
-      # init scripts run only against an empty data volume — rm -rf mongo/db to reseed
-      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/
-      - ./mongo/db:/data/db
+      # Seed scripts are read-only from the repo. The data itself lives in a
+      # named volume rather than a bind mount, so it does not leave root-owned
+      # files in your working tree. Seeding runs only against an empty volume —
+      # `docker compose ... down -v` to reseed.
+      - ./mongo/init-db.d/:/docker-entrypoint-initdb.d/:ro
+      - mongo-data:/data/db
     ports:
       - "${MONGO_DB_PORT:-27017}:27017"
     healthcheck:
@@ -68,6 +71,9 @@ services:
       start_period: 20s
     networks:
       - mean
+
+volumes:
+  mongo-data:
 
 networks:
   mean:

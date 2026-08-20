@@ -239,6 +239,7 @@ only on the internal network — Nginx is the single entry point.
 | [Load Balancer](loadbalancer/README.md) | Nginx routing configuration |
 | [Local Development](docs/local-development.md) | Running without Docker |
 | [Docker Guide](docs/docker-guide.md) | Container setup and configuration |
+| [Audit (Aug 2026)](docs/audit-2026-08.md) | State of the repo before the last maintenance pass |
 
 ---
 

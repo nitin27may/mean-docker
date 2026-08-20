@@ -1,5 +1,3 @@
-data
-mongo/db
 .env
 
 # Claude Code local overrides
