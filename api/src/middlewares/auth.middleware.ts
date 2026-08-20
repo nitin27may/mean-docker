@@ -13,13 +13,13 @@ declare global {
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Get token from header
+    // Bearer header only. Tokens were previously also accepted from
+    // req.query.token, which leaks JWTs into access logs, browser history and
+    // Referer headers.
     let token = '';
-    
+
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
-    } else if (req.query && req.query.token) {
-      token = req.query.token as string;
     }
 
     // Check if token exists

@@ -1,33 +1,33 @@
-FROM node:22-alpine as builder
+# Stage 1: compile TypeScript
+FROM node:24-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Dependencies are installed from the lockfile on their own layer so a source
+# change does not invalidate the install.
 COPY package*.json ./
 RUN npm ci
 
-# Copy source code
 COPY . .
-
-# Build TypeScript code
 RUN npm run build
 
-# Create production image
-FROM node:22-alpine
+# Stage 2: runtime — production dependencies and compiled output only
+FROM node:24-alpine
 
-# Set working directory
 WORKDIR /app
+ENV NODE_ENV=production
 
-# Copy package files and install production dependencies only
 COPY package*.json ./
-RUN npm ci --production
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Expose the port
+# Drop privileges: the node image ships an unprivileged "node" user
+USER node
+
 EXPOSE 3000
 
-# Start the server
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD node -e "const p=process.env.PORT||3000;fetch('http://localhost:'+p+'/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+
 CMD ["node", "dist/server.js"]

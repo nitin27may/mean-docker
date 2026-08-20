@@ -4,3 +4,4 @@ mongo/db
 
 # Claude Code local overrides
 .claude/settings.local.json
+manifest/secret.yaml

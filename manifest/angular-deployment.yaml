@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: mean
-  creationTimestamp: null
   labels:
     io.kompose.service: angular
   name: angular
@@ -11,22 +10,38 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: angular
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: angular
     spec:
       containers:
-        - env:
-            - name: NODE_ENV
-              value: dev
+        - name: mean-angular
           image: nitin27may/mean-angular:latest
           imagePullPolicy: IfNotPresent
-          name: mean-angular
           ports:
             - containerPort: 4000
-          resources: {}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4000
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
       restartPolicy: Always
-status: {}

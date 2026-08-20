@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 import mongoose from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -15,10 +17,40 @@ import apiRoutes from "./routes/api.routes";
 // Initialize express app
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Behind the nginx load balancer, so trust exactly one proxy hop. Without
+// this, rate limiting would see every request as coming from the proxy.
+app.set('trust proxy', 1);
+
+// Security headers. Swagger UI needs inline styles and scripts, so it is
+// served without the default CSP rather than weakening the policy globally.
+const securityHeaders = helmet();
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api-docs')) {
+    return helmet({ contentSecurityPolicy: false })(req, res, next);
+  }
+  return securityHeaders(req, res, next);
+});
+
+// CORS: an explicit allowlist when CORS_ORIGINS is set. Otherwise same-origin
+// only in production (everything goes through nginx there) and permissive in
+// development, where Angular on :4000 calls the API on :3000.
+app.use(cors({
+  origin: env.corsOrigins.length > 0 ? env.corsOrigins : env.env !== 'production',
+  credentials: true
+}));
+
+// Blanket rate limit. Generous enough not to interfere with normal browsing.
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 300,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  // The healthcheck polls continuously and must never be throttled.
+  skip: (req) => req.path === '/health'
+}));
+
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 // Define Swagger options
 const swaggerOptions = {

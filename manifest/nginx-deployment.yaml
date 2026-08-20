@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: mean
-  creationTimestamp: null
   labels:
     io.kompose.service: nginx
   name: nginx
@@ -11,19 +10,38 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: nginx
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: nitin27may/mean-nginx
+        - name: mean-nginx
+          image: nitin27may/mean-nginx:latest
           imagePullPolicy: IfNotPresent
-          name: mean-nginx
           ports:
-            - containerPort: 80
-          resources: {}
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
       restartPolicy: Always
-status: {}
