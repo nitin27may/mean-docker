@@ -18,7 +18,7 @@ const authLimiter = rateLimit({
 });
 
 // Default API response
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   res.json({
     status: 'API is working',
     message: 'Welcome to the Contact Management API!'

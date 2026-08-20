@@ -4,11 +4,13 @@ export interface AppError extends Error {
   statusCode?: number;
 }
 
+// Express identifies error handlers by arity, so all four parameters must
+// stay even though two are unused.
 export const errorHandler = (
   err: AppError,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   const statusCode = err.statusCode || 500;
   
@@ -20,7 +22,7 @@ export const errorHandler = (
 };
 
 // Not found middleware
-export const notFound = (req: Request, res: Response, next: NextFunction) => {
+export const notFound = (req: Request, _res: Response, next: NextFunction) => {
   const error = new Error(`Not Found - ${req.originalUrl}`) as AppError;
   error.statusCode = 404;
   next(error);

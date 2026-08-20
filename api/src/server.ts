@@ -3,13 +3,14 @@ import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
-import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 // env loads .env as a side effect, so it must be imported before anything
 // that reads configuration.
 import env from './config/env';
 import { connectDB } from './config/database';
+import swaggerSpec from './config/swagger';
+import { errorHandler, notFound } from './middlewares/error.middleware';
 
 // Import routes
 import apiRoutes from "./routes/api.routes";
@@ -52,52 +53,20 @@ app.use(rateLimit({
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
-// Define Swagger options
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Contact API',
-      version: '1.0.0',
-      description: 'Contact Management API documentation',
-    },
-    servers: [
-      {
-        url: `http://localhost:${env.port}`,
-        description: 'Development server',
-      },
-    ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        }
-      }
-    },
-    security: [{
-      bearerAuth: []
-    }]
-  },
-  apis: ['./src/controllers/*.ts', './src/routes/*.ts'],
-};
-
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 
 app.use('/api', apiRoutes);
 
 // Default route
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Contact API is running');
 });
 
 // Liveness/readiness probe for Docker and Kubernetes. Reports unhealthy while
 // Mongo is disconnected so orchestrators stop routing traffic here.
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   const dbConnected = mongoose.connection.readyState === 1;
   res.status(dbConnected ? 200 : 503).json({
     status: dbConnected ? 'ok' : 'degraded',
@@ -105,6 +74,11 @@ app.get('/health', (req, res) => {
     uptime: process.uptime()
   });
 });
+
+// Anything that did not match a route above is a 404, and every error funnels
+// through one handler so responses stay in the same JSON shape.
+app.use(notFound);
+app.use(errorHandler);
 
 // Start server only once Mongo is reachable, so the container does not sit
 // there accepting traffic it cannot serve. connectDB exits on failure and
@@ -116,6 +90,10 @@ const start = async (): Promise<void> => {
   });
 };
 
-start();
+// Only self-start when run as the entry point, so tests can import the app
+// without opening a database connection or binding a port.
+if (require.main === module) {
+  start();
+}
 
 export default app;
