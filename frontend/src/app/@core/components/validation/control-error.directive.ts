@@ -52,22 +52,22 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   @Input() controlErrorsOnBlur: boolean | undefined;
   @Input() controlErrorsOnChange: boolean | undefined;
   @Input() controlErrorsOnStatusChange: boolean | undefined;
-  @Input() controlErrorAnchor: ControlErrorAnchorDirective;
+  @Input() controlErrorAnchor!: ControlErrorAnchorDirective;
 
-  private ref: ComponentRef<ControlErrorComponent>;
-  private submit$: Observable<Event>;
-  private reset$: Observable<Event>;
-  private control: AbstractControl;
+  private ref: ComponentRef<ControlErrorComponent> | null = null;
+  private submit$: Observable<Event | null>;
+  private reset$: Observable<Event | null>;
+  private control!: AbstractControl;
   private destroy = new Subject<void>();
   private mergedConfig: ErrorTailorConfig = {};
-  private customAnchorDestroyFn: () => void;
+  private customAnchorDestroyFn: (() => void) | null = null;
   private host: HTMLElement;
 
   constructor(
     private vcr: ViewContainerRef,
     elementRef: ElementRef,
     @Inject(ErrorTailorConfigProvider) private config: ErrorTailorConfig,
-    @Inject(FORM_ERRORS) private globalErrors,
+    @Inject(FORM_ERRORS) private globalErrors: ErrorsMap,
     @Optional() private controlErrorAnchorParent: ControlErrorAnchorDirective,
     @Optional() private form: FormActionDirective,
     @Optional() @Self() private ngControl: NgControl,
@@ -81,7 +81,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   ngOnInit() {
     this.mergedConfig = this.buildConfig();
 
-    this.control = (this.controlContainer || this.ngControl).control;
+    this.control = (this.controlContainer || this.ngControl).control!;
     const hasAsyncValidator = !!this.control.asyncValidator;
 
     const statusChanges$ = this.control.statusChanges.pipe(distinctUntilChanged());
@@ -104,21 +104,21 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
       }
     }
 
-    if (this.mergedConfig.controlErrorsOn.async && hasAsyncValidator) {
+    if (this.mergedConfig.controlErrorsOn?.async && hasAsyncValidator) {
       // hasAsyncThenUponStatusChange
       changesOnAsync$ = statusChanges$;
     }
 
-    if (this.isInput && this.mergedConfig.controlErrorsOn.change) {
+    if (this.isInput && this.mergedConfig.controlErrorsOn?.change) {
       // on each change
       changesOnChange$ = valueChanges$;
     }
 
-    if (this.mergedConfig.controlErrorsOn.status) {
+    if (this.mergedConfig.controlErrorsOn?.status) {
       changesOnStatusChange$ = statusChanges$;
     }
 
-    if (this.isInput && this.mergedConfig.controlErrorsOn.blur) {
+    if (this.isInput && this.mergedConfig.controlErrorsOn?.blur) {
       const blur$ = fromEvent(this.host, 'focusout');
       // blurFirstThenUponChange
       changesOnBlur$ = blur$.pipe(switchMap(() => valueChanges$.pipe(startWith(true))));
@@ -152,18 +152,20 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
       });
   }
 
-  private setError(text: string, error?: ValidationErrors) {
+  private setError(text: string | null, error?: ValidationErrors) {
     if (this.mergedConfig.controlClassOnly) {
       return;
     }
 
-    this.ref ??= this.resolveAnchor().createComponent<ControlErrorComponent>(this.mergedConfig.controlErrorComponent);
+    this.ref ??= this.resolveAnchor().createComponent<ControlErrorComponent>(
+      this.mergedConfig.controlErrorComponent!
+    );
     const instance = this.ref.instance;
 
-    if (this.controlErrorsTpl) {
-      instance.createTemplate(this.controlErrorsTpl, error, text);
+    if (this.controlErrorsTpl && instance.createTemplate) {
+      instance.createTemplate(this.controlErrorsTpl, error ?? {}, text ?? '');
     } else {
-      instance.text = text;
+      instance.text = text ?? '';
     }
 
     if (this.controlErrorsClass) {
@@ -173,7 +175,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     if (!this.controlErrorAnchor && this.mergedConfig.controlErrorComponentAnchorFn) {
       this.customAnchorDestroyFn = this.mergedConfig.controlErrorComponentAnchorFn(
         this.host,
-        (this.ref.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement,
+        (this.ref!.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement,
       );
     }
   }
@@ -221,7 +223,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   }
 
   private get isInput() {
-    return this.mergedConfig.blurPredicate(this.host);
+    return this.mergedConfig.blurPredicate!(this.host);
   }
 
   private clearRefs(): void {
@@ -266,7 +268,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
 
   private addCustomClass() {
     if (this.isInput) {
-      this.host.parentElement.classList.add(errorTailorClass);
+      this.host.parentElement?.classList.add(errorTailorClass);
       if (this.controlCustomClass) {
         this.host.classList.add(...this.customClasses);
       }
@@ -275,7 +277,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
 
   private removeCustomClass() {
     if (this.isInput) {
-      this.host.parentElement.classList.remove(errorTailorClass);
+      this.host.parentElement?.classList.remove(errorTailorClass);
       if (this.controlCustomClass) {
         this.host.classList.remove(...this.customClasses);
       }

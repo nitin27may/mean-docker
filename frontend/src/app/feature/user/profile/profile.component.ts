@@ -7,7 +7,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../../@core/services/notification.service';
+import { User } from '../../../@core/models/user.interface';
 import { UserService } from '../../../@core/services/user.service';
 import { ValidationService } from '../../../@core/services/validation.service';
 
@@ -36,10 +37,10 @@ export class ProfileComponent implements OnInit {
     private readonly router = inject(Router);
     private readonly userService = inject(UserService);
     private readonly validationService = inject(ValidationService);
-    private readonly toastrService = inject(ToastrService);
+    private readonly notificationService = inject(NotificationService);
 
     active = 1;
-    user: any;
+    user: User | null = null;
     profileForm = this.createProfileForm();
     passwordForm = this.createPasswordForm();
 
@@ -71,27 +72,48 @@ export class ProfileComponent implements OnInit {
 
     resetProfileForm(): void {
         this.profileForm.reset();
-        this.profileForm.patchValue(this.userService.getCurrentUser());
+
+        const currentUser = this.userService.getCurrentUser();
+        if (currentUser) {
+            this.profileForm.patchValue(currentUser);
+        }
     }
 
     updateProfile(): void {
-        this.userService.update(this.profileForm.getRawValue() as any).subscribe({
-            next: (data) => {
-                this.toastrService.success('Profile updated successfully');
-                const user = data;
-                user.token = this.user.token;
+        const currentUser = this.user;
+
+        if (!currentUser) {
+            return;
+        }
+
+        this.userService.update(this.profileForm.getRawValue()).subscribe({
+            next: (updated) => {
+                this.notificationService.success('Profile updated successfully');
+                // The update response does not carry the JWT, so preserve the
+                // one the session is already authenticated with.
+                const user: User = { ...updated, token: currentUser.token };
+                this.user = user;
                 localStorage.setItem('currentUser', JSON.stringify(user));
             },
-            error: () => { }
+            error: () => {
+                this.notificationService.error('Failed to update profile');
+            }
         });
     }
 
     resetPasswordForm(): void {
         this.passwordForm.reset();
-        this.passwordForm.controls.username.patchValue(this.user.username);
+
+        if (this.user) {
+            this.passwordForm.controls.username.patchValue(this.user.username);
+        }
     }
 
     updatePassword(): void {
+        if (!this.user) {
+            return;
+        }
+
         this.userService
             .changePassword(
                 this.user._id,
@@ -99,15 +121,23 @@ export class ProfileComponent implements OnInit {
             )
             .subscribe({
                 next: () => {
-                    this.toastrService.success('Password updated successfully');
+                    this.notificationService.success('Password updated successfully');
                     this.router.navigate(['/login']);
                 },
-                error: () => { }
+                error: () => {
+                    this.notificationService.error('Failed to update password');
+                }
             });
     }
 
     ngOnInit(): void {
         this.user = this.userService.getCurrentUser();
+
+        if (!this.user) {
+            this.router.navigate(['/login']);
+            return;
+        }
+
         this.profileForm.patchValue(this.user);
         this.passwordForm.controls.username.patchValue(this.user.username);
     }

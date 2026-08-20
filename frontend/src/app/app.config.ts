@@ -1,20 +1,22 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideToastr } from 'ngx-toastr';
+import {
+    provideHttpClient,
+    withInterceptors,
+    withXhr,
+} from '@angular/common/http';
+import { provideErrorTailorConfig } from './@core/components/validation';
+import { errorInterceptor } from './@core/interceptors/error.interceptor';
+import { jwtInterceptor } from './@core/interceptors/jwtToken.Interceptor';
 import { routes } from './app.routes';
-import { provideErrorTailorConfig } from "./@core/components/validation";
-import { errorInterceptor } from "./@core/interceptors/error.interceptor";
-import { jwtInterceptor } from "./@core/interceptors/jwtToken.Interceptor";
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideZonelessChangeDetection(),
         provideRouter(routes),
         provideAnimations(), // required animations providers
-        provideToastr(), // Toastr providers
         provideErrorTailorConfig({
             errors: {
                 useFactory() {
@@ -35,6 +37,9 @@ export const appConfig: ApplicationConfig = {
             //controlErrorComponent: CustomControlErrorComponent, // Uncomment to see errors being rendered using a custom component
             //controlErrorComponentAnchorFn: controlErrorComponentAnchorFn // Uncomment to see errors being positioned differently
         }),
-        provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor])),
+        provideHttpClient(
+            withXhr(),
+            withInterceptors([jwtInterceptor, errorInterceptor])
+        ),
     ],
 };

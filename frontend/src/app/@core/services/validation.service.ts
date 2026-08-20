@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class ValidationService {
@@ -45,26 +45,28 @@ export class ValidationService {
             return null;
         }
     }
-    MustMatch(controlName: string, matchingControlName: string) {
-        return (formGroup: UntypedFormGroup) => {
+    MustMatch(controlName: string, matchingControlName: string): ValidatorFn {
+        return (formGroup: AbstractControl): ValidationErrors | null => {
             const control = formGroup.get(controlName);
             const matchingControl = formGroup.get(matchingControlName);
 
-            if (!(control.value && matchingControl.value)) {
-                // return if any of control does not have value
-                return;
+            if (!control || !matchingControl) {
+                return null;
             }
 
-            if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            if (!(control.value && matchingControl.value)) {
+                // return if any of control does not have value
+                return null;
+            }
+
+            if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
                 // return if another validator has already found an error on the matchingControl
-                return;
+                return null;
             }
 
             // set error on matchingControl if validation fails
             if (control.value !== matchingControl.value) {
-                formGroup
-                    .get(matchingControlName)
-                    .setErrors({ passwordMustMatch: true });
+                matchingControl.setErrors({ passwordMustMatch: true });
                 return { passwordMustMatch: true };
             } else {
                 return null;

@@ -1,0 +1,12 @@
+<div class="toast-container position-fixed top-0 end-0 p-3" aria-live="polite" aria-atomic="true">
+    @for (notification of notifications(); track notification.id) {
+        <ngb-toast
+            [class]="classFor(notification)"
+            [autohide]="true"
+            [delay]="notification.delay"
+            (hidden)="onHidden(notification)"
+        >
+            {{ notification.message }}
+        </ngb-toast>
+    }
+</div>

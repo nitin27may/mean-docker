@@ -7,10 +7,10 @@
                 <div class="row wrapper border-bottom white-bg page-heading">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-4">
-                        <h2 *ngIf="!contactForm.get('_id').value">
+                        <h2 *ngIf="!contactForm.get('_id')?.value">
                             Add Contact
                         </h2>
-                        <h2 *ngIf="contactForm.get('_id').value">
+                        <h2 *ngIf="contactForm.get('_id')?.value">
                             Update Contact
                         </h2>
                     </div>

@@ -43,7 +43,7 @@ export interface ControlErrorComponent {
 export class DefaultControlErrorComponent implements ControlErrorComponent {
   errorText: string | null = null;
   errorTemplate: ErrorComponentTemplate | undefined;
-  errorContext: { $implicit: ValidationErrors; text: string };
+  errorContext!: { $implicit: ValidationErrors; text: string };
   hideError = true;
 
   private cdr = inject(ChangeDetectorRef);

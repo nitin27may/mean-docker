@@ -2,8 +2,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "app/*": ["./src/app/*"]
+    },
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
