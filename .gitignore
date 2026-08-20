@@ -1,3 +1,6 @@
 data
 mongo/db
 .env
+
+# Claude Code local overrides
+.claude/settings.local.json
