@@ -23,8 +23,8 @@ This guide explains how to set up and run the MEAN Stack Contacts application lo
 
 Before getting started, make sure you have the following installed:
 
-1. **Node.js** (LTS version (22+) recommended): [Download Node.js](https://nodejs.org/){:target="_blank"}
-2. **npm** (comes with Node.js)
+1. **Node.js 24+** (the current Active LTS, and what the images ship): [Download Node.js](https://nodejs.org/){:target="_blank"}
+2. **pnpm 11+** — run `corepack enable`, which ships with Node. Both workspaces use pnpm; npm will produce a lockfile the Docker build rejects.
 3. **MongoDB** (Community Edition): [Download MongoDB](https://www.mongodb.com/try/download/community){:target="_blank"}
 4. **Angular CLI** (optional but recommended): `pnpm add -g @angular/cli`
 

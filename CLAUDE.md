@@ -90,8 +90,8 @@ Copy `.env.example` to `.env`, then **set a real `SECRET`** — the API refuses 
 - **CI minutes are scarce.** Verify locally; do not push to see what happens. Publish workflows are
   gated on `github.repository` so forks do not burn their own minutes, arm64 builds run on native
   ARM runners rather than QEMU, and every workflow cancels superseded runs.
-- **README badges resolve by workflow name** — "Angular Build", "Expressjs Build", "Nginx Build".
-  Renaming a workflow breaks the badges silently.
+- **README badges resolve by workflow *file*** (`ci.yml`, `release.yml`), not by name. Renaming
+  either file breaks a badge silently. A badge 404s until its workflow file exists on `master`.
 - **MongoDB is pinned to `8.2`, not `8.0`.** 8.0 refuses to start on Linux kernel 6.19+
   (SERVER-121912), which rules it out on current distributions.
 - **The frontend is zoneless.** State that the view depends on must live in a signal. A `subscribe()`

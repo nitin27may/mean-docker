@@ -2,15 +2,20 @@
 
 This directory contains the TypeScript-based Express.js REST API for the MEAN Stack Contacts Application.
 
-## Features
+## Stack
 
-- **TypeScript** for enhanced type safety and code quality
-- **JWT Authentication** for secure user management
-- **MongoDB Integration** using Mongoose
-- **RESTful API Design** following best practices
-- **Swagger Documentation** for API endpoints
-- **Error Handling** with consistent response formats
-- **Environment Configuration** for different deployment scenarios
+| | |
+|---|---|
+| Runtime | Node 24 (Active LTS) |
+| Framework | Express 5 |
+| Database | MongoDB 8.2 via Mongoose 9 |
+| Language | TypeScript 6, `strict: true` |
+| Auth | JWT, `Authorization: Bearer` only |
+| Hardening | Helmet, rate limiting, CORS allowlist |
+| Docs | Swagger at `/api-docs` |
+| Tests | Vitest |
+| Lint | ESLint flat config |
+| Package manager | pnpm 11 |
 
 ## Directory Structure
 
@@ -93,7 +98,7 @@ api/
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 24+
 - pnpm 11+ (`corepack enable` ships it with Node)
 - MongoDB instance (local or remote)
 
@@ -104,23 +109,40 @@ api/
    pnpm install
    ```
 
-2. Create a `.env` file with the following variables:
+2. Create a `.env` file:
    ```
    PORT=3000
-   SECRET=your_jwt_secret
+   NODE_ENV=development
+   SECRET=<at least 32 characters — openssl rand -base64 48>
+   CORS_ORIGINS=
    MONGO_DB_USERNAME=mongodb_username
    MONGO_DB_PASSWORD=mongodb_password
    MONGO_DB_HOST=localhost
    MONGO_DB_PORT=27017
-   MONGO_DB_DATABASE=contacts
+   MONGO_DB_DATABASE=contact_db
    MONGO_DB_PARAMETERS=?authSource=admin
    ```
+
+   **`SECRET` is required.** The API refuses to start when it is missing, still
+   the `.env.example` placeholder, or shorter than 32 characters. There is no
+   fallback on purpose — the previous default was published in this repository,
+   which meant every deployment that followed the README shared a signing key.
+
+   Set `MONGODB_URI` instead of the discrete `MONGO_DB_*` variables to point at
+   a managed MongoDB; it takes precedence.
 
 ### Development
 
 Start the development server with hot reloading:
 ```bash
 pnpm run dev:watch
+```
+
+### Testing and Linting
+
+```bash
+pnpm test          # Vitest
+pnpm run lint      # ESLint
 ```
 
 ### Building for Production
@@ -144,24 +166,45 @@ docker build -t contacts-api .
 docker run -p 3000:3000 contacts-api
 ```
 
-Or use docker-compose:
+Or bring up the whole stack from the repository root, which is usually what
+you want since the API needs MongoDB:
+
 ```bash
-docker-compose up
+docker compose up --build
 ```
 
 ## API Documentation
 
-Swagger UI is available at `/api-docs` when the server is running.
+Swagger UI is available at `/api-docs` when the server is running. The spec is
+assembled in `src/config/swagger.ts` from JSDoc annotations on the routes.
+
+## Health Check
+
+`GET /health` returns 200 when MongoDB is connected and **503 when it is not**,
+so a container is only reported healthy when it can actually serve a request.
+It is exempt from rate limiting and backs both the Docker healthcheck and the
+Kubernetes probes.
+
+```json
+{ "status": "ok", "database": "connected", "uptime": 12.07 }
+```
 
 ## Authentication
 
-This API uses JWT for authentication. To access protected endpoints:
+JWT. To reach a protected endpoint:
 
-1. Obtain a token by logging in via `/api/user/authenticate`
-2. Include the token in the Authorization header:
+1. Obtain a token from `POST /api/user/authenticate`.
+2. Send it as a header:
    ```
    Authorization: Bearer your_jwt_token
    ```
+
+Tokens are accepted **only** from that header. Passing `?token=` used to work
+and no longer does — query strings end up in access logs, browser history and
+`Referer` headers.
+
+Authentication is rate limited to 10 attempts per 15 minutes per IP; the rest
+of the API allows 300 requests per 15 minutes.
 
 ## Error Handling
 

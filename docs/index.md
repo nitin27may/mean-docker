@@ -114,6 +114,7 @@ For more detailed information, explore these documentation pages:
 - [Local Development Guide](local-development.html)
 - [MongoDB Setup](mongo-readme.html)
 - [Architecture Overview](architecture.html)
+- [Troubleshooting](troubleshooting.html) — first-run failures and how to get past them
 - [Future Roadmap](roadmap.html)
 - [Audit (August 2026)](audit-2026-08.html) — what state this repo was in before the last maintenance pass, and why
 

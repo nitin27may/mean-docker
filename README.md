@@ -6,9 +6,10 @@
 
 **MongoDB** | **Express.js** | **Angular 22** | **Node.js** | **Docker**
 
-[![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
-[![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
-[![Nginx Build](https://github.com/nitin27may/mean-docker/workflows/Nginx%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
+[![CI](https://github.com/nitin27may/mean-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/nitin27may/mean-docker/actions/workflows/ci.yml)
+[![Docker Images](https://github.com/nitin27may/mean-docker/actions/workflows/release.yml/badge.svg)](https://github.com/nitin27may/mean-docker/actions/workflows/release.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/nitin27may/mean-angular?label=docker%20pulls)](https://hub.docker.com/r/nitin27may/mean-angular)
+[![License: MIT](https://img.shields.io/github/license/nitin27may/mean-docker)](LICENSE)
 
 <br/>
 
@@ -16,9 +17,10 @@
 
 <br/>
 
-**A modern, containerized contact management system demonstrating best practices in full-stack TypeScript development**
+**A containerized contact management system, kept current and honest — every
+claim below is verifiable from the source in under a minute.**
 
-[Get Started](#getting-started) | [Documentation](https://nitinksingh.com/mean-docker/) | [Report Bug](https://github.com/nitin27may/mean-docker/issues/new?template=bug_report.md)
+[Get Started](#getting-started) | [Documentation](https://nitinksingh.com/mean-docker/) | [What's Different](#why-this-repo) | [Report Bug](https://github.com/nitin27may/mean-docker/issues/new?template=bug_report.md)
 
 </div>
 
@@ -26,6 +28,7 @@
 
 ## Table of Contents
 
+- [Why This Repo](#why-this-repo)
 - [Overview](#overview)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
@@ -36,6 +39,25 @@
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
+
+---
+
+## Why This Repo
+
+There is no shortage of MEAN starters. Most were accurate the week they were
+published. This one is maintained against a specific standard:
+
+| | |
+|---|---|
+| **The quick start actually works** | Every release is verified by bringing the stack up from a cold clone and exercising login and contact CRUD in a browser — not just "it compiled" |
+| **The README is checkable** | Version numbers here match `package.json`, the compose files and `environment.ts`. If they ever disagree, that is a bug — please file it |
+| **Secure defaults that fail closed** | The API refuses to boot without a real JWT secret rather than falling back to a shared one. Containers run non-root. MongoDB is not published to the host in the Nginx mode |
+| **Lint, build and test all pass** | In both workspaces, on every PR. Not aspirational scripts that error on a fresh clone |
+| **The maintenance is documented** | [The audit](docs/audit-2026-08.md) that drove the last pass is published in full, including what was broken and why. So is the [changelog](CHANGELOG.md) |
+| **Current, deliberately** | Angular 22, Express 5, Node 24 LTS, MongoDB 8.2 — pinned, not floating, so what you read is what you run |
+
+Maintenance is a pass roughly twice a year, and the roadmap is undated on
+purpose — a quarterly plan on a semi-annual repo just lapses.
 
 ---
 
@@ -239,6 +261,7 @@ only on the internal network — Nginx is the single entry point.
 | [Load Balancer](loadbalancer/README.md) | Nginx routing configuration |
 | [Local Development](docs/local-development.md) | Running without Docker |
 | [Docker Guide](docs/docker-guide.md) | Container setup and configuration |
+| [Troubleshooting](docs/troubleshooting.md) | Every first-run failure we know about, and the fix |
 | [Audit (Aug 2026)](docs/audit-2026-08.md) | State of the repo before the last maintenance pass |
 
 ---

@@ -11,9 +11,14 @@ mechanical checks. Report what actually changed, not what should be true.
 gh run list --repo nitin27may/mean-docker --limit 10
 ```
 
-Every workflow should be green. The three README badges resolve by workflow
-**name** ("Angular Build", "Expressjs Build", "Nginx Build") — renaming a
-workflow silently breaks them.
+Every workflow should be green. The README badges resolve by workflow **file**
+(`ci.yml`, `release.yml`) — renaming either file breaks a badge silently. Check
+the badges actually render, rather than assuming:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' \
+  https://github.com/nitin27may/mean-docker/actions/workflows/ci.yml/badge.svg
+```
 
 ## Docker Hub freshness
 

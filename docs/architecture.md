@@ -9,36 +9,70 @@ permalink: /architecture.html
 # Architecture
 {: .no_toc }
 
-This section describes the architectural design of the MEAN Stack Contacts application.
+How the containers fit together, and what talks to what.
 
 ![Architecture Overview](screenshots/architecture.png)
 
 ## Components
 
-The application consists of the following main components:
+| Container | Image | Responsibility |
+|---|---|---|
+| `nginx` | built from `loadbalancer/` | The gateway. The only container published to the host in production mode |
+| `angular` | built from `frontend/` | Nginx serving the compiled Angular bundle. Not a Node server — there is no SSR |
+| `express` | built from `api/` | The REST API. Node 24, Express 5, TypeScript |
+| `database` | `mongo:8.2` | MongoDB, reachable only from `express` in production mode |
 
-1. **MongoDB Database**: Stores user and contact data
-2. **Express.js API**: Provides RESTful endpoints for the frontend
-3. **Angular Frontend**: User interface for the application
-4. **Nginx**: Serves as a reverse proxy and load balancer (in production setup)
+## Deployment Modes
 
-## Container Structure
+There are three, and they differ only in what is built and what is published:
 
-The application can be deployed in two configurations:
+| Mode | File | Containers | Published to the host |
+|---|---|---|---|
+| Development | `docker-compose.yml` | 3 (no gateway) | `:4000` frontend, `:3000` API, `:27017` MongoDB |
+| Production-shaped | `docker-compose.nginx.yml` | 4 | `http://localhost` only |
+| Prebuilt images | `docker-compose.hub.yml` | 4 | `http://localhost` only |
 
-### 2-Container Setup
-- Frontend and API combined in one container
-- MongoDB in a separate container
+Development mode publishes each service so you can call the API directly with
+curl or point a MongoDB client at the database. The other two put everything
+behind the gateway, which is what makes the "single entry point" property real
+rather than aspirational.
 
-### 4-Container Setup (Production Recommended)
-- Angular frontend container
-- Express.js API container
-- MongoDB container
-- Nginx load balancer container
+## Request Flow
 
-## Communication Flow
+In the Nginx modes, everything arrives on port 80:
 
-1. Client requests are received by Nginx (in production setup)
-2. Nginx routes requests to either the Angular frontend or the Express.js API
-3. The Angular frontend makes API calls to the Express.js backend
-4. The Express.js API interacts with the MongoDB database for data operations
+1. The browser requests `http://localhost/`. Nginx proxies it to the `angular`
+   container, which returns the SPA shell and its assets.
+2. The SPA runs in the browser and calls the API at `/api/...` — the same
+   origin, so no CORS is involved.
+3. Nginx matches the `/api` prefix and proxies to `express:3000`.
+4. Express queries MongoDB over the internal network and returns JSON.
+
+Nginx resolves both upstreams through Docker's DNS on each request rather than
+once at startup, so recreating a backend container does not leave the gateway
+pointing at an address that no longer exists.
+
+## Two Nginx Configs
+
+They are different files and are easy to confuse:
+
+| File | Listens on | Role |
+|---|---|---|
+| `loadbalancer/nginx.conf` | 8080 | The gateway: routes `/api` to Express, everything else to the frontend |
+| `frontend/nginx.conf` | 4000 | Inside the Angular image: serves static files with an SPA fallback to `index.html` |
+
+Both containers run as an unprivileged user, which is why the gateway listens on
+8080 rather than 80 — binding a port below 1024 as a non-root user needs an
+extra capability. Compose publishes `80:8080`, so nothing changes for the user.
+
+## Startup Order
+
+Containers do not start in an arbitrary order. Each service declares a
+healthcheck, and `depends_on` waits on it:
+
+```
+database (mongosh ping) -> express (GET /health) -> angular (GET /) -> nginx
+```
+
+Express also waits for its own MongoDB connection before it begins listening, so
+a container reporting healthy is one that can actually serve a request.
