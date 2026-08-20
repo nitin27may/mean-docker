@@ -1,7 +1,10 @@
 <div class="toast-container position-fixed top-0 end-0 p-3" aria-live="polite" aria-atomic="true">
     @for (notification of notifications(); track notification.id) {
         <ngb-toast
-            [class]="classFor(notification)"
+            [class.bg-success]="notification.type === 'success'"
+            [class.bg-danger]="notification.type === 'error'"
+            [class.bg-info]="notification.type === 'info'"
+            [class.text-light]="true"
             [autohide]="true"
             [delay]="notification.delay"
             (hidden)="onHidden(notification)"

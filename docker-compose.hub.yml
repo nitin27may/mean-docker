@@ -9,7 +9,7 @@ services:
       express:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4000/"]
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:4000/"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -35,7 +35,7 @@ services:
       database:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -74,14 +74,15 @@ services:
     container_name: ${ID_PROJECT:-mean}_nginx
     restart: always
     ports:
-      - "80:80"
+      # The container listens on 8080 because it runs unprivileged.
+      - "80:8080"
     depends_on:
       angular:
         condition: service_healthy
       express:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:8080/"]
       interval: 30s
       timeout: 5s
       retries: 3

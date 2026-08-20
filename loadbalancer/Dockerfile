@@ -1,11 +1,19 @@
-# Use the standard Nginx image from Docker Hub
-FROM nginx
-# Copy the configuration file from the current directory and paste
-# it inside the container to use it as Nginx's default config.
-COPY nginx.conf /etc/nginx/nginx.conf
-# Port 80 of the container is exposed and mapped to port 80 of the host
-# via Compose, so the whole stack is reachable at http://localhost.
-EXPOSE 80
+FROM nginx:1.29-alpine
 
-# Start Nginx when the container has provisioned.
+# This config replaces the whole nginx.conf, not a server block in conf.d.
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Run as the image's unprivileged nginx user. That means binding 8080 rather
+# than 80 (ports below 1024 need a capability), so compose and the Kubernetes
+# service publish 80 -> 8080.
+RUN touch /tmp/nginx.pid \
+    && chown -R nginx:nginx /tmp/nginx.pid /var/cache/nginx
+
+USER nginx
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --spider -q http://127.0.0.1:8080/ || exit 1
+
 CMD ["nginx", "-g", "daemon off;"]

@@ -64,7 +64,8 @@ services:
     container_name: ${ID_PROJECT:-mean}_nginx
     restart: always
     ports:
-      - "80:80"
+      # The container listens on 8080 because it runs unprivileged.
+      - "80:8080"
     depends_on:
       angular:
         condition: service_healthy

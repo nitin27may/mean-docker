@@ -17,15 +17,4 @@ export class NotificationContainerComponent {
     onHidden(notification: Notification): void {
         this.notificationService.remove(notification);
     }
-
-    classFor(notification: Notification): string {
-        switch (notification.type) {
-            case 'success':
-                return 'bg-success text-light';
-            case 'error':
-                return 'bg-danger text-light';
-            default:
-                return 'bg-info text-light';
-        }
-    }
 }
