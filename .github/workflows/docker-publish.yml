@@ -90,7 +90,7 @@ jobs:
 
       - name: Docker metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.image }}
           # latest tracks master; version tags come from git tags; every build
