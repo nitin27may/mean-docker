@@ -23,7 +23,7 @@ RUN sed -i "s|apiEndpoint: '[^']*'|apiEndpoint: '$API_URL'|g" src/environments/e
 RUN pnpm run build
 
 # Stage 2: serve the static bundle
-FROM nginx:1.29-alpine
+FROM nginx:1.30-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/contacts/browser /usr/share/nginx/html
