@@ -3,9 +3,8 @@ FROM nginx
 # Copy the configuration file from the current directory and paste
 # it inside the container to use it as Nginx's default config.
 COPY nginx.conf /etc/nginx/nginx.conf
-# Port 8080 of the container will be exposed and then mapped to port
-# 8080 of our host machine via Compose. This way we'll be able to
-# access the server via localhost:8080 on our host.
+# Port 80 of the container is exposed and mapped to port 80 of the host
+# via Compose, so the whole stack is reachable at http://localhost.
 EXPOSE 80
 
 # Start Nginx when the container has provisioned.

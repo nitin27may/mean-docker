@@ -43,10 +43,11 @@ export class ContactListComponent implements OnInit {
         this.contactService.getAll().subscribe({
             next: (data) => {
                 data.sort((a: any, b: any) => new Date(b.create_date).getTime() - new Date(a.create_date).getTime());
-                console.log(data);
                 this.allContacts.set(data);
             },
-            error: () => { }
+            error: () => {
+                this.toastrService.error('Failed to load contacts');
+            }
         });
     }
 
