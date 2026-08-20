@@ -29,7 +29,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # There is no package.json at the repository root, so point the action at
+      # the workspace's own — that is where the pinned packageManager lives.
       - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: ${{ matrix.workspace }}/package.json
 
       - uses: actions/setup-node@v6
         with:
