@@ -6,7 +6,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../../@core/services/notification.service';
 import { LoginService } from './login.service';
 
 interface LoginForm {
@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     private readonly router = inject(Router);
     private readonly loginService = inject(LoginService);
-    private readonly toastrService = inject(ToastrService);
+    private readonly notificationService = inject(NotificationService);
 
     loading = signal(false);
     returnUrl = '';
-    loginForm: FormGroup<LoginForm>;
+    loginForm!: FormGroup<LoginForm>;
 
     ngOnInit(): void {
         this.createForm();
@@ -60,12 +60,12 @@ export class LoginComponent implements OnInit {
                         this.router.navigate([this.returnUrl]);
                     },
                     error: (error) => {
-                        this.toastrService.error(error);
+                        this.notificationService.error(error);
                         this.loading.set(false);
                     }
                 });
         } else {
-            this.toastrService.error('Please enter valid credentials');
+            this.notificationService.error('Please enter valid credentials');
         }
     }
 }

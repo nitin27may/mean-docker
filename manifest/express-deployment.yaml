@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: mean
-  creationTimestamp: null
   labels:
     io.kompose.service: express
   name: express
@@ -11,33 +10,71 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: express
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: express
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
-        - env:
+        - name: mean-express
+          image: nitin27may/mean-expressjs:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PORT
+              value: "3000"
+            - name: NODE_ENV
+              value: production
             - name: MONGO_DB_DATABASE
               value: mean-contacts
             - name: MONGO_DB_HOST
               value: database
+            - name: MONGO_DB_PORT
+              value: "27017"
             - name: MONGO_DB_PARAMETERS
               value: ?authSource=admin
-            - name: MONGO_DB_PASSWORD
-              value: admin-password
-            - name: MONGO_DB_PORT
             - name: MONGO_DB_USERNAME
-              value: admin-user
+              valueFrom:
+                secretKeyRef:
+                  name: mean-secrets
+                  key: mongo-username
+            - name: MONGO_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mean-secrets
+                  key: mongo-password
             - name: SECRET
-              value: Thisismysecret
-          image: nitin27may/mean-expressjs:latest
-          imagePullPolicy: IfNotPresent
-          name: mean-express
+              valueFrom:
+                secretKeyRef:
+                  name: mean-secrets
+                  key: jwt-secret
           ports:
-            - containerPort: 4100
-          resources: {}
+            # The API listens on 3000; this said 4100, which matched nothing.
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
       restartPolicy: Always
-status: {}

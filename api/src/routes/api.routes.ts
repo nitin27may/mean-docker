@@ -1,12 +1,24 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import UserController from '../controllers/UserController';
 import ContactController from '../controllers/ContactController';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
 
+// Credential checking gets a much tighter budget than the rest of the API,
+// so a stolen username cannot be paired with an unlimited password guess.
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: { status: 'error', message: 'Too many login attempts, please try again later' }
+});
+
 // Default API response
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   res.json({
     status: 'API is working',
     message: 'Welcome to the Contact Management API!'
@@ -48,7 +60,7 @@ router.route('/user/changepassword/:user_id')
  *         description: Authentication successful
  */
 router.route('/user/authenticate')
-  .post(UserController.authenticate);
+  .post(authLimiter, UserController.authenticate);
 
 /**
  * @swagger

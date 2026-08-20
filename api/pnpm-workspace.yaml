@@ -1,0 +1,7 @@
+# pnpm 11 reads dependency build policy from here, not package.json.
+#
+# pnpm blocks install scripts by default, which is the right default.
+# @scarf/scarf is analytics pulled in transitively by swagger-ui-dist; its
+# install script is declined explicitly rather than left pending.
+allowBuilds:
+  '@scarf/scarf': false

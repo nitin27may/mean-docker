@@ -11,105 +11,177 @@ The Nginx load balancer serves two primary purposes in this application:
 
 ## Configuration
 
-The core configuration is defined in `nginx.conf`:
+`nginx.conf` replaces the image's entire `/etc/nginx/nginx.conf`, not just a
+server block in `conf.d`. This file is the source of truth:
 
 ```nginx
+worker_processes auto;
+
+# Running unprivileged, so the pid and every temp path must live somewhere the
+# nginx user can write.
+pid /tmp/nginx.pid;
+
 events {
   worker_connections 1024;
 }
+
 http {
-  upstream frontend {
-    # Reference to the Angular container
-    server angular:4000;
-  } 
-  upstream backend {
-    # Reference to the Express.js container
-    server express:3000;
+  include       /etc/nginx/mime.types;
+  default_type  application/octet-stream;
+
+  client_body_temp_path /tmp/client_temp;
+  proxy_temp_path       /tmp/proxy_temp;
+  fastcgi_temp_path     /tmp/fastcgi_temp;
+  uwsgi_temp_path       /tmp/uwsgi_temp;
+  scgi_temp_path        /tmp/scgi_temp;
+
+  sendfile on;
+  tcp_nopush on;
+  server_tokens off;
+
+  # Contact payloads are small; this stops a large body from reaching the API.
+  client_max_body_size 2m;
+
+  gzip on;
+  gzip_vary on;
+  gzip_min_length 1024;
+  gzip_proxied any;
+  gzip_types text/plain text/css application/json application/javascript
+             text/xml application/xml application/xml+rss text/javascript
+             image/svg+xml;
+
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
   }
-  
+
   server {
-    listen 80;
-    server_name frontend;
-    server_name backend;
+    listen 8080;
+    server_name _;
+
+    # Docker's embedded DNS, re-resolved on a timer. The upstream address goes
+    # through a variable deliberately: with a literal proxy_pass, nginx resolves
+    # the name once at startup and keeps pointing at a stale IP after the
+    # backend container is recreated.
+    resolver 127.0.0.11 valid=10s ipv6=off;
+
+    proxy_http_version 1.1;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host  $host;
+    proxy_set_header Upgrade           $http_upgrade;
+    proxy_set_header Connection        $connection_upgrade;
+
+    location /api {
+      set $api_upstream http://express:3000;
+      proxy_pass $api_upstream;
+    }
 
     location / {
-       resolver 127.0.0.11 valid=30s;
-       proxy_pass http://frontend;
-       proxy_set_header Host $host;
-    }
-    location /api {
-       resolver 127.0.0.11 valid=30s;
-       proxy_pass http://backend;
-       proxy_set_header Host $host;
+      set $app_upstream http://angular:4000;
+      proxy_pass $app_upstream;
     }
   }
 }
 ```
 
-### Key Components
+### Two Details Worth Understanding
 
-- **`upstream` Blocks**: Define the backend server groups
-- **`location` Directives**:
-  - `/`: Routes all root requests to the Angular frontend
-  - `/api`: Routes all API requests to the Express.js backend
-- **`resolver`**: Used for Docker's internal DNS resolution
-- **`proxy_pass`**: Forwards requests to the appropriate upstream server
-- **`proxy_set_header`**: Preserves the original host information
+**Upstreams resolve per request.** The address goes through a variable
+(`set $api_upstream ...; proxy_pass $api_upstream;`) rather than a literal. With
+a literal `proxy_pass`, Nginx resolves the hostname once at startup and keeps
+sending traffic to that IP — so recreating the Express container leaves the
+gateway pointing at an address that no longer exists. The variable form forces a
+lookup against Docker's DNS on each request.
+
+**It listens on 8080, not 80.** The container runs as the unprivileged `nginx`
+user, and binding a port below 1024 as a non-root user needs an extra
+capability. Compose publishes `80:8080`, so the user still visits
+`http://localhost`. The `pid` and temp paths point at `/tmp` for the same
+reason.
+
+## Forwarded Headers
+
+Every proxied request carries:
+
+| Header | Why |
+|---|---|
+| `Host` | Preserves the host the client asked for |
+| `X-Real-IP` / `X-Forwarded-For` | The client's address. Without these the API sees every request as coming from the proxy, which would make its rate limiting useless |
+| `X-Forwarded-Proto` / `X-Forwarded-Host` | Lets the API reconstruct the original URL |
+| `Upgrade` / `Connection` | WebSocket upgrades pass through |
+
+The API sets `trust proxy` to exactly one hop to match.
+
+Also enabled: gzip for text responses, a 2 MB body limit, and
+`server_tokens off` so the version is not advertised.
 
 ## Dockerfile
 
-The Nginx container is built using the following Dockerfile:
-
 ```dockerfile
-FROM nginx
+FROM nginx:1.29-alpine
 
+# This config replaces the whole nginx.conf, not a server block in conf.d.
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+# Run as the image's unprivileged nginx user. That means binding 8080 rather
+# than 80 (ports below 1024 need a capability), so compose and the Kubernetes
+# service publish 80 -> 8080.
+RUN touch /tmp/nginx.pid \
+    && chown -R nginx:nginx /tmp/nginx.pid /var/cache/nginx
+
+USER nginx
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --spider -q http://127.0.0.1:8080/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
 ## Usage
 
-The load balancer is configured in the `docker-compose.nginx.yml` file at the root of the project:
+Defined in `docker-compose.nginx.yml` at the repository root:
 
 ```yaml
-nginx:
-  build: loadbalancer
-  container_name: ${ID_PROJECT:-mean}_nginx
-  restart: always
-  ports:
-    - "80:80"
-  links:
-    - express
-    - angular
+  nginx:
+    build: loadbalancer
+    container_name: ${ID_PROJECT:-mean}_nginx
+    restart: always
+    ports:
+      # The container listens on 8080 because it runs unprivileged.
+      - "80:8080"
+    depends_on:
+      angular:
+        condition: service_healthy
+      express:
+        condition: service_healthy
 ```
+
+`depends_on` waits on healthchecks, so the gateway does not start accepting
+traffic before its upstreams can serve it.
 
 ## Request Flow
 
-When a user makes a request to the application:
-
-1. The request is received by Nginx on port 80
-2. Nginx examines the URL path:
-   - If it starts with `/api`, the request is forwarded to the Express.js container
-   - For all other paths, the request is forwarded to the Angular container
-3. The appropriate service processes the request and sends a response
-4. Nginx forwards the response back to the client
-
-## HTTP Headers
-
-The following headers are set for proxied requests:
-
-- `Host`: Set to the original host requested by the client
+1. The request arrives at Nginx on port 80 (8080 inside the container).
+2. Paths starting with `/api` go to `express:3000`; everything else goes to
+   `angular:4000`.
+3. The response is returned to the client.
 
 ## Accessing Services
 
-With the load balancer in place, you can access services through these URLs:
+| | Nginx mode | Development mode |
+|---|---|---|
+| Frontend + API | `http://localhost` | — |
+| Frontend directly | not published | `http://localhost:4000` |
+| API directly | not published | `http://localhost:3000` |
+| MongoDB | not published | `localhost:27017` |
 
-- **Frontend + API**: `http://localhost` 
-- **Frontend directly**: `http://localhost:4000`
-- **API directly**: `http://localhost:3000`
+In the Nginx modes only port 80 is published. That is the point of the mode —
+it is what makes the "single entry point" claim true rather than decorative.
 
 ## Advanced Configuration Options
 

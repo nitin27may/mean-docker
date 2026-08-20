@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Contact, { IContact } from '../models/contact';
+import Contact from '../models/contact';
 
 export class ContactController {
   /**
@@ -16,7 +16,7 @@ export class ContactController {
    *       400:
    *         description: Bad request
    */
-  public async getAllContacts(req: Request, res: Response): Promise<void> {
+  public async getAllContacts(_req: Request, res: Response): Promise<void> {
     try {
       const contacts = await Contact.find();
       

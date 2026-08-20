@@ -6,7 +6,8 @@ import {
     Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../../@core/services/notification.service';
+import { NewUser } from '../../../@core/models/user.interface';
 import { UserService } from '../../../@core/services/user.service';
 import { ValidationService } from '../../../@core/services/validation.service';
 
@@ -28,7 +29,7 @@ interface RegisterForm {
 export class RegisterComponent {
     private readonly router = inject(Router);
     private readonly userService = inject(UserService);
-    private readonly toastrService = inject(ToastrService);
+    private readonly notificationService = inject(NotificationService);
     private readonly validationService = inject(ValidationService);
 
     loading = signal(false);
@@ -36,16 +37,34 @@ export class RegisterComponent {
 
     register(): void {
         this.loading.set(true);
-        this.userService.create(this.registerForm.getRawValue() as any).subscribe({
-            next: (data) => {
-                this.toastrService.success('Registration successful');
+        this.userService.create(this.buildPayload()).subscribe({
+            next: () => {
+                this.notificationService.success('Registration successful');
                 this.router.navigate(['/login']);
-                console.log(data);
             },
             error: () => {
+                this.notificationService.error('Registration failed');
                 this.loading.set(false);
             }
         });
+    }
+
+    /**
+     * The form carries a confirmPassword the API has no field for, and the API
+     * needs an email it derives from the username. Map explicitly rather than
+     * casting the raw form value.
+     */
+    private buildPayload(): NewUser {
+        const { firstName, lastName, username, password } = this.registerForm.getRawValue();
+
+        return {
+            firstName: firstName ?? '',
+            lastName: lastName ?? '',
+            username: username ?? '',
+            email: username ?? '',
+            mobile: '',
+            password: password ?? ''
+        };
     }
 
     createForm(): FormGroup<RegisterForm> {

@@ -1,0 +1,118 @@
+# The first PR-triggered CI this repo has had. Kept deliberately cheap:
+# path-filtered, concurrency-cancelled, and with the pnpm store cached, because
+# Actions minutes are a real constraint here.
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # This job is the CI half of the /verify chain in .claude/commands/verify.md.
+  # The two are meant to stay identical: if a step is added here, add it there.
+  verify:
+    name: verify (${{ matrix.workspace }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace: [api, frontend]
+    defaults:
+      run:
+        working-directory: ${{ matrix.workspace }}
+    steps:
+      - uses: actions/checkout@v5
+
+      # There is no package.json at the repository root, so point the action at
+      # the workspace's own — that is where the pinned packageManager lives.
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: ${{ matrix.workspace }}/package.json
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: ${{ matrix.workspace }}/pnpm-lock.yaml
+
+      # --frozen-lockfile fails the build if the lockfile is out of date with
+      # package.json, rather than quietly resolving something else.
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run lint
+
+      - run: pnpm run build
+
+      - run: pnpm test
+
+  # The other half of /verify: the images build, and the stack actually serves
+  # traffic. A workspace that lints and tests can still ship a broken image.
+  verify-stack:
+    name: verify (stack)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build the images
+        run: docker compose -f docker-compose.nginx.yml build
+
+      - name: Start the stack
+        run: |
+          cp .env.example .env
+          sed -i "s|^SECRET=.*|SECRET=$(openssl rand -base64 48)|" .env
+          docker compose -f docker-compose.nginx.yml up -d
+
+      # Same acceptance test a visitor runs, and the same one /verify describes:
+      # containers healthy, the app served, login works, contacts come back, and
+      # no credentials in the logs.
+      - name: Smoke test
+        run: |
+          set -euo pipefail
+
+          for i in $(seq 1 40); do
+            if ! docker compose -f docker-compose.nginx.yml ps --format '{{.Status}}' | grep -qv healthy; then
+              break
+            fi
+            sleep 5
+          done
+          docker compose -f docker-compose.nginx.yml ps
+
+          test "$(curl -sf -o /dev/null -w '%{http_code}' http://localhost/)" = "200"
+          echo "app served"
+
+          TOKEN=$(curl -sf -X POST http://localhost/api/user/authenticate \
+            -H 'Content-Type: application/json' \
+            -d '{"username":"nitin27may@gmail.com","password":"P@ssword#321"}' \
+            | python3 -c 'import sys,json; print(json.load(sys.stdin)["data"]["token"])')
+          test -n "$TOKEN"
+          echo "login works"
+
+          COUNT=$(curl -sf http://localhost/api/contacts -H "Authorization: Bearer $TOKEN" \
+            | python3 -c 'import sys,json; print(len(json.load(sys.stdin)["data"]))')
+          test "$COUNT" -gt 0
+          echo "contacts returned: $COUNT"
+
+          test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost/api/contacts?token=$TOKEN")" = "401"
+          echo "query-string tokens rejected"
+
+          if docker compose -f docker-compose.nginx.yml logs express | grep -qiE 'mongodb://[^ ]*:[^ ]*@'; then
+            echo "::error::a credential-bearing connection string was logged"
+            exit 1
+          fi
+          echo "no credentials in logs"
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose -f docker-compose.nginx.yml logs
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f docker-compose.nginx.yml down -v

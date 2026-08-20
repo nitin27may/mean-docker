@@ -20,7 +20,7 @@ export interface ErrorsUseFactory extends FactorySansProvider {
 
 export type ErrorsProvider = ErrorsUseValue | ErrorsUseFactory;
 
-export type ErrorTailorConfig = {
+export interface ErrorTailorConfig {
   errors?: ErrorsProvider;
   blurPredicate?: (element: Element) => boolean;
   controlErrorsClass?: string | string[] | undefined;
@@ -34,7 +34,7 @@ export type ErrorTailorConfig = {
     change?: boolean;
     status?: boolean;
   };
-};
+}
 
 export const ErrorTailorConfigProvider = new InjectionToken<ErrorTailorConfig>('ErrorTailorConfigProvider');
 

@@ -2,6 +2,8 @@
 layout: default
 title: Local Development
 nav_order: 3
+redirect_from:
+  - /local-devlopment.html
 ---
 
 # Local Development
@@ -21,10 +23,10 @@ This guide explains how to set up and run the MEAN Stack Contacts application lo
 
 Before getting started, make sure you have the following installed:
 
-1. **Node.js** (LTS version (22+) recommended): [Download Node.js](https://nodejs.org/){:target="_blank"}
-2. **npm** (comes with Node.js)
+1. **Node.js 24+** (the current Active LTS, and what the images ship): [Download Node.js](https://nodejs.org/){:target="_blank"}
+2. **pnpm 11+** — run `corepack enable`, which ships with Node. Both workspaces use pnpm; npm will produce a lockfile the Docker build rejects.
 3. **MongoDB** (Community Edition): [Download MongoDB](https://www.mongodb.com/try/download/community){:target="_blank"}
-4. **Angular CLI** (optional but recommended): `npm install -g @angular/cli`
+4. **Angular CLI** (optional but recommended): `pnpm add -g @angular/cli`
 
 ## MongoDB Setup
 
@@ -107,7 +109,7 @@ Before getting started, make sure you have the following installed:
 
 2. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Create a `.env` file based on `.env.example`:
@@ -129,7 +131,7 @@ Before getting started, make sure you have the following installed:
 
 4. Start the API in development mode:
    ```bash
-   npm run dev:watch
+   pnpm run dev:watch
    ```
 
 The API will be available at `http://localhost:3000/api`.
@@ -146,21 +148,21 @@ The API will be available at `http://localhost:3000/api`.
    export const environment = {
     production: false,
     apiEndpoint: 'http://localhost:3000/api',  // updating this
-    angular: 'Angular 21',
+    angular: 'Angular 22',
     bootstrap: 'Bootstrap 5',
-    expressjs: 'Express.js 4.21',
-    mongoDb: 'MongoDB 7.0',
+    expressjs: 'Express.js 5',
+    mongoDb: 'MongoDB 8.2',
 };
 
    ```
 3. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 
 4. Start the development server:
    ```bash
-   npm run serve
+   pnpm run serve
    ```
 
 The frontend will be available at `http://localhost:4200`.
@@ -231,14 +233,14 @@ If authentication fails:
 
 ```bash
 cd mean-docker/api
-npm run build
+pnpm run build
 ```
 
 ### Frontend
 
 ```bash
 cd mean-docker/frontend
-npm run build:prod
+pnpm run build:prod
 ```
 
 The frontend build will create a production-ready bundle in the `dist/` directory, which can be deployed to any static hosting service or server.

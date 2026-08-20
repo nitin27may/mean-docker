@@ -16,7 +16,7 @@ spec:
     - nodePort: 32306
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
   selector:
     io.kompose.service: nginx
   sessionAffinity: None

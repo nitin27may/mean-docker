@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, T
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgbHighlight, NgbModal, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../../@core/services/notification.service';
+import { Contact } from '../contact.interface';
 import { ContactService } from '../contact.service';
 
 @Component({
@@ -23,9 +24,9 @@ export class ContactListComponent implements OnInit {
     private readonly contactService = inject(ContactService);
     private readonly router = inject(Router);
     private readonly modalService = inject(NgbModal);
-    private readonly toastrService = inject(ToastrService);
+    private readonly notificationService = inject(NotificationService);
 
-    allContacts = signal<any[]>([]);
+    allContacts = signal<Contact[]>([]);
     page = signal(1);
     pageSize = signal(4);
     collectionSize = computed(() => this.allContacts().length);
@@ -37,16 +38,17 @@ export class ContactListComponent implements OnInit {
     });
 
     filter = new FormControl('', { nonNullable: true });
-    contactToDelete: any = null;
+    contactToDelete: Contact | null = null;
 
     getAll(): void {
         this.contactService.getAll().subscribe({
             next: (data) => {
-                data.sort((a: any, b: any) => new Date(b.create_date).getTime() - new Date(a.create_date).getTime());
-                console.log(data);
+                data.sort((a, b) => new Date(b.create_date ?? 0).getTime() - new Date(a.create_date ?? 0).getTime());
                 this.allContacts.set(data);
             },
-            error: () => { }
+            error: () => {
+                this.notificationService.error('Failed to load contacts');
+            }
         });
     }
 
@@ -63,34 +65,36 @@ export class ContactListComponent implements OnInit {
         this.pageSize.set(newSize);
     }
 
-    onSelect(selected: any): void {
+    onSelect(selected: Contact): void {
         this.router.navigate(['/contacts/details/' + selected._id]);
     }
 
-    onEdit(event: Event, contact: any): void {
+    onEdit(event: Event, contact: Contact): void {
         event.stopPropagation();
         this.router.navigate(['/contacts/edit/' + contact._id]);
     }
 
-    onDelete(event: Event, contact: any, modal: TemplateRef<any>): void {
+    onDelete(event: Event, contact: Contact, modal: TemplateRef<unknown>): void {
         event.stopPropagation();
         this.contactToDelete = contact;
         this.modalService.open(modal, { centered: true });
     }
 
-    confirmDelete(modal: any): void {
-        if (this.contactToDelete) {
-            this.contactService.delete(this.contactToDelete._id).subscribe({
+    confirmDelete(modal: { close: () => void }): void {
+        const contactToDelete = this.contactToDelete;
+
+        if (contactToDelete) {
+            this.contactService.delete(contactToDelete._id).subscribe({
                 next: () => {
-                    this.toastrService.success('Contact deleted successfully');
+                    this.notificationService.success('Contact deleted successfully');
                     this.allContacts.update(contacts =>
-                        contacts.filter(c => c._id !== this.contactToDelete._id)
+                        contacts.filter(c => c._id !== contactToDelete._id)
                     );
                     this.contactToDelete = null;
                     modal.close();
                 },
                 error: () => {
-                    this.toastrService.error('Failed to delete contact');
+                    this.notificationService.error('Failed to delete contact');
                     modal.close();
                 }
             });

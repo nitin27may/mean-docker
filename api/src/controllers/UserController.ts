@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/user';
+import User from '../models/user';
 import env from '../config/env';
 import { Types } from 'mongoose';
 
@@ -35,7 +35,7 @@ export class UserController {
    *       400:
    *         description: Bad request
    */
-  public async getAllUsers(req: Request, res: Response): Promise<void> {
+  public async getAllUsers(_req: Request, res: Response): Promise<void> {
     try {
       const users = await User.find().select('-password');
       
@@ -44,7 +44,7 @@ export class UserController {
         message: 'Users retrieved successfully',
         data: users
       });
-    } catch (error) {
+    } catch {
       res.status(400).json({
         status: 'error',
         error: 'Bad Request'

@@ -28,6 +28,7 @@ const swaggerOptions = {
         }
       }
     },
+    security: [{ bearerAuth: [] }],
     tags: [
       {
         name: 'Auth',
@@ -43,7 +44,8 @@ const swaggerOptions = {
       }
     ]
   },
-  apis: ['./src/controllers/*.ts'] // Path to the API docs
+  // Swagger annotations live in JSDoc comments on the controllers and routes.
+  apis: ['./src/controllers/*.ts', './src/routes/*.ts']
 };
 
 const swaggerSpec = swaggerJsDoc(swaggerOptions);

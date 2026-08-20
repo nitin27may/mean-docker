@@ -35,7 +35,7 @@ For feature requests, please include:
 
 ## Development Setup
 
-Please refer to our [Local Development Guide](docs/local-devlopment.html) for details on setting up your development environment.
+Please refer to our [Local Development Guide](docs/local-development.md) for details on setting up your development environment.
 
 ## Code Style
 
@@ -46,3 +46,51 @@ Please refer to our [Local Development Guide](docs/local-devlopment.html) for de
 ## Questions?
 
 If you have any questions, feel free to open an issue with the "question" label.
+## Working With AI Coding Agents
+
+This repository carries `CLAUDE.md` and a `.claude/` folder so an agent pointed
+at a fresh clone is productive without being told the layout. None of it is
+required to contribute.
+
+### Repository slash commands
+
+| Command | What it does |
+|---|---|
+| `/verify` | The full definition of done: lint, build and test both workspaces, build the images, bring the stack up and exercise it |
+| `/bump-deps` | The semi-annual dependency pass, including the version strings that drift |
+| `/audit` | Re-runs the mechanical checks from the 2026 audit |
+
+### Project MCP servers
+
+`.mcp.json` declares two optional servers. Claude Code prompts before starting
+either, and declining costs you nothing:
+
+- **chrome-devtools** — drives the running app at `http://localhost`. Worth
+  having: the app is zoneless, and the failure mode there is a UI that silently
+  stops updating, which no unit test catches.
+- **mongodb** — inspects the seeded `contact_db` directly. Its connection
+  string is expanded from your local `.env`; no credentials are in the file,
+  and none should ever be added to it.
+
+### Recommended plugins
+
+These install into your own Claude Code, not into this repository:
+
+```
+/plugin marketplace add anthropics/claude-code
+/plugin install security-guidance
+/plugin install pr-review-toolkit
+```
+
+`security-guidance` is the one that maps most directly onto how this repo has
+failed before — secret logging, a hardcoded JWT fallback, tokens in query
+strings.
+
+### Ground rules
+
+- Never put a secret in `.claude/settings.json`, `.mcp.json` or any committed
+  file. Use `.env`, which is gitignored.
+- Run `/verify` before opening a PR, or at minimum `./scripts/setup.sh --reset`
+  plus lint/build/test in both workspaces. "The code is written" is not "it works".
+- CI minutes on this repository are limited. Verify locally rather than pushing
+  to see what happens.

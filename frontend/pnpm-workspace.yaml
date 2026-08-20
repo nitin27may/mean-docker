@@ -1,0 +1,11 @@
+# pnpm 11 reads dependency build policy from here, not package.json.
+#
+# pnpm blocks install scripts by default, which is the right default. These
+# four need theirs: esbuild, lmdb and msgpackr-extract unpack or compile
+# platform binaries the Angular build depends on, and @parcel/watcher backs
+# the file watching in `ng serve`. Without them the build fails outright.
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true

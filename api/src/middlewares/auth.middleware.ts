@@ -2,8 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import env from '../config/env';
 
-// Extend Request interface to include user property
+// Augment Express's Request so downstream handlers can read req.user.
+// A namespace is the only way to do this — the eslint rule preferring module
+// syntax does not apply to declaration merging.
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       user?: { id: string };
@@ -13,13 +16,13 @@ declare global {
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Get token from header
+    // Bearer header only. Tokens were previously also accepted from
+    // req.query.token, which leaks JWTs into access logs, browser history and
+    // Referer headers.
     let token = '';
-    
+
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
-    } else if (req.query && req.query.token) {
-      token = req.query.token as string;
     }
 
     // Check if token exists
@@ -37,7 +40,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     req.user = { id: decoded.sub };
     
     next();
-  } catch (error) {
+  } catch {
     return res.status(401).json({
       status: 'error',
       message: 'Token is not valid'

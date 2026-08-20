@@ -101,11 +101,11 @@ COPY init-db.d /docker-entrypoint-initdb.d
 The Docker Compose configuration maps the following volumes:
 
 1. `./mongo/init-db.d/:/docker-entrypoint-initdb.d/`: Initialization scripts
-2. `./mongo/db:/data/db`: Data persistence
+2. `mongo-data:/data/db`: data persistence, in a named volume
 
 ## Data Persistence
 
-The MongoDB data is persisted in the `./mongo/db` directory. This ensures that your data is not lost when the container is stopped or restarted.
+MongoDB data is persisted in the `mongo-data` named volume, so it survives `docker compose down` and container restarts. A named volume is used rather than a bind mount so the database does not leave root-owned files in your working tree.
 
 ## Connecting to MongoDB
 
@@ -117,9 +117,11 @@ Other containers can connect to MongoDB using the following connection string:
 mongodb://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@database:27017/${MONGO_DB_DATABASE}?authSource=admin
 ```
 
-### From Host Machine
+### From the Host Machine
 
-You can connect to MongoDB from your host machine using:
+Only in the development mode (`docker compose up`), which publishes 27017. The
+Nginx modes deliberately do not — MongoDB is reachable only on the internal
+network there.
 
 ```
 mongodb://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@localhost:27017/${MONGO_DB_DATABASE}?authSource=admin
@@ -139,12 +141,15 @@ To connect using GUI tools like MongoDB Compass or Robo 3T:
 
 ## Troubleshooting
 
-### Permission Issues
+### Resetting the seed data
 
-If you encounter permission issues with the MongoDB data directory, run:
+`mongo/init-db.d/init-mongo.sh` runs only against an empty data volume, so
+editing it has no effect on a database that already exists. Drop the volume and
+bring the stack back up:
 
 ```bash
-sudo chown -R $USER:$USER ./mongo/db
+docker compose -f docker-compose.nginx.yml down -v
+docker compose -f docker-compose.nginx.yml up --build
 ```
 
 ### Connection Issues
@@ -171,6 +176,6 @@ To modify the seed data:
 1. Edit the `init-mongo.sh` file in the `init-db.d` directory
 2. Rebuild and restart the containers:
    ```bash
-   docker-compose down
-   docker-compose -f docker-compose.nginx.yml up --build
+   docker compose down
+   docker compose -f docker-compose.nginx.yml up --build
    ```

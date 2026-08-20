@@ -6,7 +6,6 @@ import {
   ElementRef,
   TemplateRef,
   inject,
-  signal,
 } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
@@ -43,7 +42,7 @@ export interface ControlErrorComponent {
 export class DefaultControlErrorComponent implements ControlErrorComponent {
   errorText: string | null = null;
   errorTemplate: ErrorComponentTemplate | undefined;
-  errorContext: { $implicit: ValidationErrors; text: string };
+  errorContext!: { $implicit: ValidationErrors; text: string };
   hideError = true;
 
   private cdr = inject(ChangeDetectorRef);

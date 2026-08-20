@@ -1,38 +1,45 @@
-# Stage 1: Build the Angular application
-FROM node:22-alpine AS builder
+# Stage 1: build the Angular application
+FROM node:24-alpine AS builder
 
-# Copy dependency definitions
-COPY package.json package-lock.json ./
+# corepack ships with Node and pins pnpm to the version in package.json, so the
+# image does not depend on whatever pnpm happens to be latest at build time.
+RUN corepack enable
 
-## Installing and storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN npm install --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
-
-# Change directory so that our commands run inside this new directory
 WORKDIR /app
 
-# Get all the code needed to run the app
-COPY . /app/
+# Dependencies install from the lockfile on their own layer, so a source change
+# does not reinstall them. --frozen-lockfile fails rather than silently
+# resolving something new, which is what makes the build reproducible.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 
-# Define build argument with default value (for direct API access)
+COPY . .
+
+# Which API origin the browser bundle talks to: "/api" behind the nginx load
+# balancer, or an absolute URL when the API is published separately.
 ARG API_URL="/api"
-
-RUN echo "Replacing API endpoint with: $API_URL"
 RUN sed -i "s|apiEndpoint: '[^']*'|apiEndpoint: '$API_URL'|g" src/environments/environment.ts
-RUN cat src/environments/environment.ts
 
-# Build the Angular app (browser-only, no SSR)
-RUN npm run build
+RUN pnpm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine
+# Stage 2: serve the static bundle
+FROM nginx:1.29-alpine
 
-# Copy custom nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy built Angular app to nginx html directory
 COPY --from=builder /app/dist/contacts/browser /usr/share/nginx/html
 
-# Expose port 4000 to match previous configuration
+# Run as the image's unprivileged nginx user. Port 4000 is above 1024, so no
+# capability is needed to bind it.
+RUN touch /var/run/nginx.pid \
+    && chown -R nginx:nginx /var/run/nginx.pid /var/cache/nginx /usr/share/nginx/html
+
+USER nginx
+
 EXPOSE 4000
+
+# 127.0.0.1, not localhost: nginx listens on IPv4 only here and localhost
+# resolves to ::1 first, which would fail against a healthy container.
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --spider -q http://127.0.0.1:4000/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]

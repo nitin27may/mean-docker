@@ -1,5 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnInit,
+} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -7,10 +11,11 @@ import {
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { errorTailorImports } from '../../../@core/components/validation';
+import { NotificationService } from '../../../@core/services/notification.service';
 import { ValidationService } from '../../../@core/services/validation.service';
+import { Contact, NewContact } from '../contact.interface';
 import { ContactService } from '../contact.service';
-import { errorTailorImports } from "../../../@core/components/validation";
 
 interface ContactForm {
     _id: FormControl<string>;
@@ -24,20 +29,20 @@ interface ContactForm {
 
 @Component({
     selector: 'app-contact-form',
-    imports: [ReactiveFormsModule, RouterModule, CommonModule, errorTailorImports],
+    imports: [ReactiveFormsModule, RouterModule, errorTailorImports],
     templateUrl: './contact-form.component.html',
     styleUrl: './contact-form.component.css',
     providers: [ContactService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactFormComponent implements OnInit {
     private readonly router = inject(Router);
     private readonly validationService = inject(ValidationService);
     private readonly contactService = inject(ContactService);
     private readonly activatedRoute = inject(ActivatedRoute);
-    private readonly toastrService = inject(ToastrService);
+    private readonly notificationService = inject(NotificationService);
 
-    contactForm: FormGroup<ContactForm>;
+    contactForm!: FormGroup<ContactForm>;
 
     createForm(): void {
         this.contactForm = new FormGroup<ContactForm>({
@@ -60,11 +65,23 @@ export class ContactFormComponent implements OnInit {
             }),
             email: new FormControl('', {
                 nonNullable: true,
-                validators: [Validators.required, this.validationService.emailValidator],
+                validators: [
+                    Validators.required,
+                    this.validationService.emailValidator,
+                ],
             }),
-            mobile: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-            city: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-            postalCode: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            mobile: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
+            city: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
+            postalCode: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
         });
     }
 
@@ -77,40 +94,44 @@ export class ContactFormComponent implements OnInit {
         }
     }
     submit(): void {
-        const contact = this.contactForm.value;
+        // getRawValue() rather than value: every control is nonNullable, so
+        // this is the full Contact shape rather than a Partial.
+        const contact = this.contactForm.getRawValue();
+
         if (contact._id) {
             this.update(contact);
         } else {
-            delete contact._id;
-            this.save(contact);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- drops the empty _id
+            const { _id, ...newContact } = contact;
+            this.save(newContact);
         }
     }
 
-    save(contact: any): void {
-        this.contactService.create(contact).subscribe(
-            (data) => {
-                this.toastrService.success(
-                    'Contact created successfully',
-                    'Success'
+    save(contact: NewContact): void {
+        this.contactService.create(contact).subscribe({
+            next: () => {
+                this.notificationService.success(
+                    'Contact created successfully'
                 );
                 this.router.navigate(['/contacts']);
             },
-
-            (error) => {}
-        );
+            error: () => {
+                this.notificationService.error('Failed to create contact');
+            },
+        });
     }
-    update(contact: any): void {
-        this.contactService.update(contact).subscribe(
-            (data) => {
-                this.toastrService.success(
-                    'Contact updated successfully',
-                    'Success'
+    update(contact: Contact): void {
+        this.contactService.update(contact).subscribe({
+            next: () => {
+                this.notificationService.success(
+                    'Contact updated successfully'
                 );
                 this.router.navigate(['/contacts']);
             },
-
-            (error) => {}
-        );
+            error: () => {
+                this.notificationService.error('Failed to update contact');
+            },
+        });
     }
     ngOnInit(): void {
         this.createForm();

@@ -1,89 +1,99 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 import mongoose from 'mongoose';
-import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+
+// env loads .env as a side effect, so it must be imported before anything
+// that reads configuration.
+import env from './config/env';
+import { connectDB } from './config/database';
+import swaggerSpec from './config/swagger';
+import { errorHandler, notFound } from './middlewares/error.middleware';
 
 // Import routes
 import apiRoutes from "./routes/api.routes";
-// import contactRoutes from './routes/contactRoutes';
-
-// Load environment variables
-dotenv.config();
 
 // Initialize express app
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Behind the nginx load balancer, so trust exactly one proxy hop. Without
+// this, rate limiting would see every request as coming from the proxy.
+app.set('trust proxy', 1);
 
-// Connect to MongoDB
-const username = process.env.MONGO_DB_USERNAME;
-const password = process.env.MONGO_DB_PASSWORD;
-const host = process.env.MONGO_DB_HOST;
-const port = process.env.MONGO_DB_PORT;
-const database = process.env.MONGO_DB_DATABASE;
-const parameters = process.env.MONGO_DB_PARAMETERS || '';
+// Security headers. Swagger UI needs inline styles and scripts, so it is
+// served without the default CSP rather than weakening the policy globally.
+const securityHeaders = helmet();
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api-docs')) {
+    return helmet({ contentSecurityPolicy: false })(req, res, next);
+  }
+  return securityHeaders(req, res, next);
+});
 
-const MONGODB_URI = process.env.MONGODB_URI || 
-`mongodb://${username}:${password}@${host}:${port}/${database}${parameters}`;
+// CORS: an explicit allowlist when CORS_ORIGINS is set. Otherwise same-origin
+// only in production (everything goes through nginx there) and permissive in
+// development, where Angular on :4000 calls the API on :3000.
+app.use(cors({
+  origin: env.corsOrigins.length > 0 ? env.corsOrigins : env.env !== 'production',
+  credentials: true
+}));
 
-console.log('Connecting to MongoDB...');
-console.log(MONGODB_URI);
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// Blanket rate limit. Generous enough not to interfere with normal browsing.
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 300,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  // The healthcheck polls continuously and must never be throttled.
+  skip: (req) => req.path === '/health'
+}));
 
-// Define Swagger options
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Contact API',
-      version: '1.0.0',
-      description: 'Contact Management API documentation',
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Development server',
-      },
-    ],
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-        }
-      }
-    },
-    security: [{
-      bearerAuth: []
-    }]
-  },
-  apis: ['./src/controllers/*.ts', './src/routes/*.ts'],
-};
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 
 app.use('/api', apiRoutes);
 
 // Default route
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Contact API is running');
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Liveness/readiness probe for Docker and Kubernetes. Reports unhealthy while
+// Mongo is disconnected so orchestrators stop routing traffic here.
+app.get('/health', (_req, res) => {
+  const dbConnected = mongoose.connection.readyState === 1;
+  res.status(dbConnected ? 200 : 503).json({
+    status: dbConnected ? 'ok' : 'degraded',
+    database: dbConnected ? 'connected' : 'disconnected',
+    uptime: process.uptime()
+  });
 });
+
+// Anything that did not match a route above is a 404, and every error funnels
+// through one handler so responses stay in the same JSON shape.
+app.use(notFound);
+app.use(errorHandler);
+
+// Start server only once Mongo is reachable, so the container does not sit
+// there accepting traffic it cannot serve. connectDB exits on failure and
+// the restart policy brings us back around.
+const start = async (): Promise<void> => {
+  await connectDB();
+  app.listen(env.port, () => {
+    console.log(`Server is running on port ${env.port}`);
+  });
+};
+
+// Only self-start when run as the entry point, so tests can import the app
+// without opening a database connection or binding a port.
+if (require.main === module) {
+  start();
+}
 
 export default app;

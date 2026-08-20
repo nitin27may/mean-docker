@@ -1,11 +1,10 @@
-
 node_modules
-npm-debug.log
-Dockerfile*
-docker-compose*
-.dockerignore
+dist
+.angular
 .git
 .gitignore
 README.md
 LICENSE
 .vscode
+Dockerfile*
+.dockerignore

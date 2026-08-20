@@ -1,5 +1,5 @@
 <div class="container py-5">
-    @if (contact()) {
+    @if (contact(); as contact) {
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm border-0">
@@ -11,34 +11,34 @@
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3">
                             <div class="detail-item">
-                                <label class="text-muted small text-uppercase fw-semibold">First Name</label>
-                                <p class="fs-5 mb-0">{{ contact().firstName }}</p>
+                                <span class="d-block text-muted small text-uppercase fw-semibold">First Name</span>
+                                <p class="fs-5 mb-0">{{ contact.firstName }}</p>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="detail-item">
-                                <label class="text-muted small text-uppercase fw-semibold">Last Name</label>
-                                <p class="fs-5 mb-0">{{ contact().lastName }}</p>
+                                <span class="d-block text-muted small text-uppercase fw-semibold">Last Name</span>
+                                <p class="fs-5 mb-0">{{ contact.lastName }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3">
                             <div class="detail-item">
-                                <label class="text-muted small text-uppercase fw-semibold">Email</label>
+                                <span class="d-block text-muted small text-uppercase fw-semibold">Email</span>
                                 <p class="fs-5 mb-0">
-                                    <a href="mailto:{{ contact().email }}" class="text-decoration-none">
-                                        <i class="fas fa-envelope me-1 text-primary"></i>{{ contact().email }}
+                                    <a href="mailto:{{ contact.email }}" class="text-decoration-none">
+                                        <i class="fas fa-envelope me-1 text-primary"></i>{{ contact.email }}
                                     </a>
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="detail-item">
-                                <label class="text-muted small text-uppercase fw-semibold">Mobile</label>
+                                <span class="d-block text-muted small text-uppercase fw-semibold">Mobile</span>
                                 <p class="fs-5 mb-0">
-                                    <a href="tel:{{ contact().mobile }}" class="text-decoration-none">
-                                        <i class="fas fa-phone me-1 text-primary"></i>{{ contact().mobile }}
+                                    <a href="tel:{{ contact.mobile }}" class="text-decoration-none">
+                                        <i class="fas fa-phone me-1 text-primary"></i>{{ contact.mobile }}
                                     </a>
                                 </p>
                             </div>
@@ -47,16 +47,16 @@
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3">
                             <div class="detail-item">
-                                <label class="text-muted small text-uppercase fw-semibold">City</label>
+                                <span class="d-block text-muted small text-uppercase fw-semibold">City</span>
                                 <p class="fs-5 mb-0">
-                                    <i class="fas fa-map-marker-alt me-1 text-primary"></i>{{ contact().city }}
+                                    <i class="fas fa-map-marker-alt me-1 text-primary"></i>{{ contact.city }}
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="detail-item">
-                                <label class="text-muted small text-uppercase fw-semibold">Postal Code</label>
-                                <p class="fs-5 mb-0">{{ contact().postalCode }}</p>
+                                <span class="d-block text-muted small text-uppercase fw-semibold">Postal Code</span>
+                                <p class="fs-5 mb-0">{{ contact.postalCode }}</p>
                             </div>
                         </div>
                     </div>
