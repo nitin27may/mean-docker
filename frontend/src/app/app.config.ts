@@ -3,7 +3,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { provideErrorTailorConfig } from "./@core/components/validation";
@@ -14,7 +13,6 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
-        provideClientHydration(),
         provideAnimations(), // required animations providers
         provideToastr(), // Toastr providers
         provideErrorTailorConfig({
