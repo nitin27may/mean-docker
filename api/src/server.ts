@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -60,6 +61,17 @@ app.use('/api', apiRoutes);
 // Default route
 app.get('/', (req, res) => {
   res.send('Contact API is running');
+});
+
+// Liveness/readiness probe for Docker and Kubernetes. Reports unhealthy while
+// Mongo is disconnected so orchestrators stop routing traffic here.
+app.get('/health', (req, res) => {
+  const dbConnected = mongoose.connection.readyState === 1;
+  res.status(dbConnected ? 200 : 503).json({
+    status: dbConnected ? 'ok' : 'degraded',
+    database: dbConnected ? 'connected' : 'disconnected',
+    uptime: process.uptime()
+  });
 });
 
 // Start server only once Mongo is reachable, so the container does not sit
