@@ -47,6 +47,10 @@ inside the Angular image (listens on 4000).
 Both workspaces use **pnpm** (`corepack enable` ships it with Node).
 
 ```bash
+# One command: checks prerequisites, generates a JWT secret, waits for healthy.
+# Takes dev | hub | --reset. This is what the README tells users to run.
+./scripts/setup.sh
+
 # Production-shaped: 4 containers behind Nginx. Everything on http://localhost
 docker compose -f docker-compose.nginx.yml up --build
 

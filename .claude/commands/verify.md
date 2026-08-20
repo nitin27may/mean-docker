@@ -33,15 +33,15 @@ docker compose -f docker-compose.nginx.yml build
 
 ## 4. The stack actually works
 
-This is the check that matters — it is the one every visitor runs.
+This is the check that matters — it is the one every visitor runs, and it is
+mirrored by the `verify (stack)` job in `.github/workflows/ci.yml`. **If you
+change one, change the other.**
 
 ```bash
-cp .env.example .env
-sed -i "s|^SECRET=.*|SECRET=$(openssl rand -base64 48)|" .env
-docker compose -f docker-compose.nginx.yml up -d --build
+./scripts/setup.sh --reset
 ```
 
-Then confirm:
+The script exits non-zero if anything fails to reach healthy. Then confirm:
 
 - All four containers reach `healthy` (`docker compose -f docker-compose.nginx.yml ps`).
 - `http://localhost` serves the app, and logging in with

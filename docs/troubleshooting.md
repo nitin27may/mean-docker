@@ -184,6 +184,12 @@ cd frontend && pnpm run serve       # http://localhost:4200, proxies /api to :30
 ## Everything is broken and I want to start over
 
 ```bash
+./scripts/setup.sh --reset
+```
+
+Or by hand:
+
+```bash
 docker compose -f docker-compose.nginx.yml down -v --remove-orphans
 docker compose -f docker-compose.nginx.yml up --build
 ```

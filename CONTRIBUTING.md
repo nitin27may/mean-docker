@@ -90,6 +90,7 @@ strings.
 
 - Never put a secret in `.claude/settings.json`, `.mcp.json` or any committed
   file. Use `.env`, which is gitignored.
-- Run `/verify` before opening a PR. "The code is written" is not "it works".
+- Run `/verify` before opening a PR, or at minimum `./scripts/setup.sh --reset`
+  plus lint/build/test in both workspaces. "The code is written" is not "it works".
 - CI minutes on this repository are limited. Verify locally rather than pushing
   to see what happens.

@@ -178,34 +178,41 @@ flowchart TB
 ### Quick Start
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/nitin27may/mean-docker.git
 cd mean-docker
-
-# 2. Create the environment file
-cp .env.example .env
-
-# 3. Set a JWT signing key. The API refuses to start on the placeholder value,
-#    which is deliberate — the old default was published in this repository.
-sed -i "s|^SECRET=.*|SECRET=$(openssl rand -base64 48)|" .env
-
-# 4. Start the application
-docker compose -f docker-compose.nginx.yml up --build
+./scripts/setup.sh
 ```
+
+That is the whole thing. The script checks your Docker install, generates a JWT
+signing key, starts the stack and waits until every container reports healthy.
+It is safe to re-run and will not overwrite a key you already have.
 
 Open [http://localhost](http://localhost). Nginx is the only published port.
 
-### Fastest start: prebuilt images
-
-Skips the build entirely by pulling the published images from Docker Hub:
+<details>
+<summary>Prefer to do it by hand?</summary>
 
 ```bash
 cp .env.example .env
+
+# The API refuses to start on the placeholder value. That is deliberate — the
+# old default was a key published in this repository.
 sed -i "s|^SECRET=.*|SECRET=$(openssl rand -base64 48)|" .env
-docker compose -f docker-compose.hub.yml up
+
+docker compose -f docker-compose.nginx.yml up --build
 ```
 
-Pin a release with `IMAGE_TAG=2.0.0` instead of tracking `latest`.
+</details>
+
+### Other modes
+
+```bash
+./scripts/setup.sh dev        # ports published individually (4000 / 3000 / 27017)
+./scripts/setup.sh hub        # prebuilt images from Docker Hub, no local build
+./scripts/setup.sh --reset    # drop the database volume and reseed
+```
+
+Pin a release with `IMAGE_TAG=2.0.0` in `.env` instead of tracking `latest`.
 
 ### Default Login
 
