@@ -35,7 +35,7 @@ For feature requests, please include:
 
 ## Development Setup
 
-Please refer to our [Local Development Guide](docs/local-devlopment.html) for details on setting up your development environment.
+Please refer to our [Local Development Guide](docs/local-development.md) for details on setting up your development environment.
 
 ## Code Style
 

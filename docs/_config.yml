@@ -2,7 +2,11 @@ title: MEAN (Docker)
 description: A full-featured contact management application built with TypeScript-powered MEAN stack with Docker Support.
 remote_theme: just-the-docs/just-the-docs
 
-url: https://nitin27may.github.io/mean-docker
+plugins:
+  # Keeps the old /local-devlopment.html URL working after the spelling fix.
+  - jekyll-redirect-from
+
+url: https://nitinksingh.com/mean-docker
 
 # Enable support for hyphenated search keywords
 search_tokenizer_separator: /[\s/]+/
@@ -13,7 +17,7 @@ aux_links:
     - "//github.com/nitin27may/mean-docker"
 
 # Footer content
-footer_content: "Copyright &copy; 2025 Nitin Singh. Distributed by an MIT license."
+footer_content: "Copyright &copy; 2026 Nitin Singh. Distributed by an MIT license."
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light

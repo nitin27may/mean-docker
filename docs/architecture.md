@@ -3,7 +3,7 @@ layout: default
 title: Architecture
 nav_order: 5
 has_children: true
-permalink: /docs/architecture
+permalink: /architecture.html
 ---
 
 # Architecture

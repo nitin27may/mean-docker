@@ -4,7 +4,7 @@
 
 ### Production-Ready Full-Stack Application
 
-**MongoDB** | **Express.js** | **Angular 21** | **Node.js** | **Docker**
+**MongoDB** | **Express.js** | **Angular 22** | **Node.js** | **Docker**
 
 [![Angular Build](https://github.com/nitin27may/mean-docker/workflows/Angular%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
 [![Express Build](https://github.com/nitin27may/mean-docker/workflows/Expressjs%20Build/badge.svg)](https://github.com/nitin27may/mean-docker/actions)
@@ -18,7 +18,7 @@
 
 **A modern, containerized contact management system demonstrating best practices in full-stack TypeScript development**
 
-[Get Started](#getting-started) | [View Demo](http://localhost) | [Documentation](#documentation) | [Report Bug](https://github.com/nitin27may/mean-docker/issues/new?template=bug_report.md)
+[Get Started](#getting-started) | [Documentation](https://nitinksingh.com/mean-docker/) | [Report Bug](https://github.com/nitin27may/mean-docker/issues/new?template=bug_report.md)
 
 </div>
 
@@ -41,15 +41,19 @@
 
 ## Overview
 
+> Looking for the .NET equivalent? See
+> [clean-architecture-docker-dotnet-angular](https://github.com/nitin27may/clean-architecture-docker-dotnet-angular)
+> for the same idea with a .NET API.
+
 This project demonstrates a production-ready MEAN stack application with modern development practices including TypeScript across the entire stack, JWT authentication, and Docker containerization. It serves as both a learning resource and a foundation for building scalable web applications.
 
 ### Key Highlights
 
 | Feature | Technology |
 |---------|------------|
-| Frontend | Angular 21 with TypeScript and Bootstrap 5 |
-| Backend | Express.js with TypeScript |
-| Database | MongoDB with Mongoose ODM |
+| Frontend | Angular 22 with TypeScript and Bootstrap 5 |
+| Backend | Express.js 5 with TypeScript |
+| Database | MongoDB 8.2 with Mongoose 9 |
 | Authentication | JWT-based secure authentication |
 | Containerization | Docker and Docker Compose |
 | Load Balancer | Nginx reverse proxy |
@@ -77,7 +81,7 @@ flowchart TB
 
         subgraph Services["APPLICATION LAYER"]
             direction LR
-            angular["ANGULAR 21<br/>Frontend<br/>:4000"]
+            angular["ANGULAR 22<br/>Frontend<br/>:4000"]
             express["EXPRESS.JS<br/>REST API<br/>:3000"]
         end
 
@@ -112,7 +116,7 @@ flowchart TB
 | Layer | Component | Responsibility |
 |:-----:|-----------|----------------|
 | **Gateway** | Nginx | Single entry point on port 80. Routes traffic and serves as reverse proxy |
-| **Frontend** | Angular 21 | Serves the user interface with reactive components and Bootstrap 5 styling |
+| **Frontend** | Angular 22 | Serves the user interface with reactive components and Bootstrap 5 styling |
 | **Backend** | Express.js | Handles API requests, authentication, and business logic |
 | **Data** | MongoDB | Persists user accounts and contact information |
 
@@ -122,53 +126,23 @@ flowchart TB
 |:-------------|:----------|:------------|
 | `/*` | Angular :4000 | Static frontend assets and SPA routes |
 | `/api/*` | Express :3000 | REST API endpoints |
-| Database | MongoDB :27017 | Data persistence (internal only) |
+| Database | MongoDB :27017 | Data persistence. Not published to the host in the Nginx mode |
 
 ---
 
 ## Tech Stack
 
-<table>
-<tr>
-<td width="25%" valign="top">
+| Layer | Stack |
+|:------|:------|
+| **Frontend** | Angular 22 (standalone components, signals, zoneless change detection), TypeScript 6, Bootstrap 5, ng-bootstrap, RxJS, router guards |
+| **Backend** | Node.js 24, Express 5, TypeScript 6 (strict), Mongoose 9, JWT auth, Helmet, rate limiting |
+| **Database** | MongoDB 8.2 with seeded demo data |
+| **Tooling** | pnpm 11, ESLint, Vitest (both workspaces) |
+| **DevOps** | Docker multi-stage builds, Docker Compose, Nginx, GitHub Actions |
 
-### Frontend
-- Angular 21
-- TypeScript
-- Bootstrap 5
-- RxJS
-- Router Guards
-
-</td>
-<td width="25%" valign="top">
-
-### Backend
-- Node.js
-- Express.js
-- TypeScript
-- Mongoose ODM
-- JWT Auth
-
-</td>
-<td width="25%" valign="top">
-
-### Database
-- MongoDB 7.0
-- Mongoose
-- Data Seeding
-
-</td>
-<td width="25%" valign="top">
-
-### DevOps
-- Docker
-- Docker Compose
-- Nginx
-- GitHub Actions
-
-</td>
-</tr>
-</table>
+> Versions here are kept in sync with `docs/index.md` and
+> `frontend/src/environments/environment.ts`. If they disagree, the code wins —
+> please open an issue.
 
 ---
 
@@ -186,14 +160,30 @@ flowchart TB
 git clone https://github.com/nitin27may/mean-docker.git
 cd mean-docker
 
-# 2. Create environment file
+# 2. Create the environment file
 cp .env.example .env
 
-# 3. Start the application
-docker-compose -f docker-compose.nginx.yml up
+# 3. Set a JWT signing key. The API refuses to start on the placeholder value,
+#    which is deliberate — the old default was published in this repository.
+sed -i "s|^SECRET=.*|SECRET=$(openssl rand -base64 48)|" .env
+
+# 4. Start the application
+docker compose -f docker-compose.nginx.yml up --build
 ```
 
-> **Ready in under 2 minutes!** Open [http://localhost](http://localhost) in your browser.
+Open [http://localhost](http://localhost). Nginx is the only published port.
+
+### Fastest start: prebuilt images
+
+Skips the build entirely by pulling the published images from Docker Hub:
+
+```bash
+cp .env.example .env
+sed -i "s|^SECRET=.*|SECRET=$(openssl rand -base64 48)|" .env
+docker compose -f docker-compose.hub.yml up
+```
+
+Pin a release with `IMAGE_TAG=2.0.0` instead of tracking `latest`.
 
 ### Default Login
 
@@ -206,72 +196,32 @@ Password: P@ssword#321
 
 ## Deployment Modes
 
-<table>
-<tr>
-<td width="50%">
+| Mode | Command | Containers | Published on the host |
+|:-----|:--------|:-----------|:----------------------|
+| **Development** | `docker compose up --build` | 3 | Frontend `:4000`, API `:3000`, MongoDB `:27017` |
+| **Production-shaped** | `docker compose -f docker-compose.nginx.yml up --build` | 4 | `http://localhost` only |
+| **Prebuilt images** | `docker compose -f docker-compose.hub.yml up` | 4 | `http://localhost` only |
 
-### Development Mode
-
-3 containers running on separate ports.
-
-```bash
-docker-compose up
-```
-
-| Service | URL |
-|---------|-----|
-| Frontend | http://localhost:4000 |
-| API | http://localhost:3000 |
-| Database | localhost:27017 |
-
-</td>
-<td width="50%">
-
-### Production Mode
-
-4 containers with Nginx gateway.
-
-```bash
-docker-compose -f docker-compose.nginx.yml up
-```
-
-| Service | URL |
-|---------|-----|
-| Application | http://localhost |
-| Database | localhost:27017 |
-
-</td>
-</tr>
-</table>
+In the Nginx modes, the Angular, Express and MongoDB containers are reachable
+only on the internal network — Nginx is the single entry point.
 
 ---
 
 ## Features
 
-<table>
-<tr>
-<td width="50%">
+**Authentication**
 
-### Authentication
+- JWT login and registration, with the signing key required at boot
+- Protected routes via Angular guards, `Authorization: Bearer` only
+- Rate limiting on the authenticate route
+- Password change
 
-- JWT-based secure login and registration
-- Protected routes with Angular guards
-- Token-based API authorization
-- Password change functionality
+**Contact management**
 
-</td>
-<td width="50%">
-
-### Contact Management
-
-- Create, read, update, and delete contacts
-- Responsive design for mobile and desktop
+- Create, read, update and delete contacts
 - Form validation with custom error messages
-- Search, sort, and paginate contacts
-
-</td>
-</tr>
-</table>
+- Search, sort and paginate
+- Responsive layout
 
 <p align="center">
   <img src="docs/screenshots/login.png" alt="Login Screen" width="400">
@@ -287,21 +237,29 @@ docker-compose -f docker-compose.nginx.yml up
 | [Backend API](api/README.md) | Express.js endpoints and middleware |
 | [Database](docs/mongo-readme.md) | MongoDB schemas and data models |
 | [Load Balancer](loadbalancer/README.md) | Nginx routing configuration |
-| [Local Development](docs/local-devlopment.md) | Running without Docker |
+| [Local Development](docs/local-development.md) | Running without Docker |
 | [Docker Guide](docs/docker-guide.md) | Container setup and configuration |
 
 ---
 
-## Roadmap 2026
+## Roadmap
 
-| Quarter | Focus Area | Goals |
-|:-------:|:-----------|:------|
-| Q1 | Testing & Quality | Unit tests, E2E tests with Cypress, code coverage reporting |
-| Q2 | UI Modernization | Angular Material integration, dark/light theme, responsive redesign |
-| Q3 | Security & Access | Role-based access control (Admin, Manager, User), OAuth 2.0 support |
-| Q4 | Performance & Scale | Redis caching, API rate limiting, Kubernetes deployment configs |
+Undated on purpose: this repo gets a maintenance pass roughly twice a year, so
+a quarterly roadmap lapses faster than it gets updated.
 
-See the [complete roadmap](docs/roadmap.md) for details.
+**Planned**
+
+- Role-based access control (admin, manager, user)
+- Redis caching on the read paths
+- End-to-end tests in CI
+
+**Not planned**
+
+- Server-side rendering. The architecture here is an Nginx-served SPA, and the
+  leftover SSR files were removed in the 2026 pass.
+- Switching away from Bootstrap.
+
+See [`docs/roadmap.md`](docs/roadmap.md) for detail.
 
 ---
 

@@ -171,6 +171,6 @@ To modify the seed data:
 1. Edit the `init-mongo.sh` file in the `init-db.d` directory
 2. Rebuild and restart the containers:
    ```bash
-   docker-compose down
-   docker-compose -f docker-compose.nginx.yml up --build
+   docker compose down
+   docker compose -f docker-compose.nginx.yml up --build
    ```

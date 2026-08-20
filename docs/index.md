@@ -25,7 +25,7 @@ A modern, full-stack TypeScript contact management system built with the MEAN st
 ## 🌟 What You'll Learn
 
 - **TypeScript** throughout the entire stack
-- **Angular 19** with reactive forms, guards, and SSR
+- **Angular 22** with standalone components, signals and zoneless change detection
 - **Express.js** with TypeScript for a robust API
 - **MongoDB** integration with Mongoose
 - **JWT Authentication** for secure user management
@@ -59,7 +59,7 @@ cp .env.example .env
 
 Start the application:
 ```bash
-docker-compose -f docker-compose.nginx.yml up
+docker compose -f docker-compose.nginx.yml up
 ```
 
 That's it! Visit [http://localhost](http://localhost) in your browser.
@@ -111,13 +111,17 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 For more detailed information, explore these documentation pages:
 
 - [Docker Guide](docker-guide.html)
-- [Local Development Guide](local-devlopment.html)
+- [Local Development Guide](local-development.html)
 - [MongoDB Setup](mongo-readme.html)
 - [Architecture Overview](architecture.html)
-- [API (Expressjs)](../api/README.html)
-- [Frontend (Angular)](../frontend/README.html)
-- [Load Balancer (Nginx)](../loadbalancer/README.html)
 - [Future Roadmap](roadmap.html)
+
+The per-component READMEs live outside `docs/`, so Jekyll never publishes them.
+They are linked to GitHub directly:
+
+- [API (Express.js)](https://github.com/nitin27may/mean-docker/blob/master/api/README.md)
+- [Frontend (Angular)](https://github.com/nitin27may/mean-docker/blob/master/frontend/README.md)
+- [Load Balancer (Nginx)](https://github.com/nitin27may/mean-docker/blob/master/loadbalancer/README.md)
 
 ## 🤝 Contributing
 

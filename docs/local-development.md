@@ -2,6 +2,8 @@
 layout: default
 title: Local Development
 nav_order: 3
+redirect_from:
+  - /local-devlopment.html
 ---
 
 # Local Development
@@ -146,10 +148,10 @@ The API will be available at `http://localhost:3000/api`.
    export const environment = {
     production: false,
     apiEndpoint: 'http://localhost:3000/api',  // updating this
-    angular: 'Angular 21',
+    angular: 'Angular 22',
     bootstrap: 'Bootstrap 5',
-    expressjs: 'Express.js 4.21',
-    mongoDb: 'MongoDB 7.0',
+    expressjs: 'Express.js 5',
+    mongoDb: 'MongoDB 8.2',
 };
 
    ```
