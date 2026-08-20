@@ -6,7 +6,6 @@ import {
   ElementRef,
   TemplateRef,
   inject,
-  signal,
 } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 

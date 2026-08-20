@@ -3,6 +3,13 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { User } from '../../../@core/models/user.interface';
+
+interface AuthResponse {
+    status: string;
+    message: string;
+    data: User & { token: string };
+}
 
 @Injectable()
 export class LoginService {
@@ -11,7 +18,7 @@ export class LoginService {
 
     login(username: string, password: string) {
         return this.http
-            .post<any>(environment.apiEndpoint + '/user/authenticate', {
+            .post<AuthResponse>(environment.apiEndpoint + '/user/authenticate', {
                 username: username,
                 password: password,
             })

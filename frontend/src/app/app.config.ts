@@ -24,12 +24,10 @@ export const appConfig: ApplicationConfig = {
                         required: 'This field is required',
                         minlength: ({ requiredLength, actualLength }) =>
                             `Expect ${requiredLength} but got ${actualLength}`,
-                        invalidEmailAddress: (error) =>
-                            `Email Address is not valid`,
-                        invalidMobile: (error) => `Invalid Mobile number`,
-                        invalidPassword: (error) => `Password is weak`,
-                        passwordMustMatch: (error) =>
-                            `Password is not matching`,
+                        invalidEmailAddress: () => `Email Address is not valid`,
+                        invalidMobile: () => `Invalid Mobile number`,
+                        invalidPassword: () => `Password is weak`,
+                        passwordMustMatch: () => `Password is not matching`,
                     };
                 },
                 deps: [],

@@ -1,5 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnInit,
+} from '@angular/core';
 import {
     FormControl,
     FormGroup,
@@ -7,11 +11,11 @@ import {
     Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { errorTailorImports } from '../../../@core/components/validation';
 import { NotificationService } from '../../../@core/services/notification.service';
 import { ValidationService } from '../../../@core/services/validation.service';
 import { Contact, NewContact } from '../contact.interface';
 import { ContactService } from '../contact.service';
-import { errorTailorImports } from "../../../@core/components/validation";
 
 interface ContactForm {
     _id: FormControl<string>;
@@ -25,11 +29,11 @@ interface ContactForm {
 
 @Component({
     selector: 'app-contact-form',
-    imports: [ReactiveFormsModule, RouterModule, CommonModule, errorTailorImports],
+    imports: [ReactiveFormsModule, RouterModule, errorTailorImports],
     templateUrl: './contact-form.component.html',
     styleUrl: './contact-form.component.css',
     providers: [ContactService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactFormComponent implements OnInit {
     private readonly router = inject(Router);
@@ -61,11 +65,23 @@ export class ContactFormComponent implements OnInit {
             }),
             email: new FormControl('', {
                 nonNullable: true,
-                validators: [Validators.required, this.validationService.emailValidator],
+                validators: [
+                    Validators.required,
+                    this.validationService.emailValidator,
+                ],
             }),
-            mobile: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-            city: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-            postalCode: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+            mobile: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
+            city: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
+            postalCode: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
         });
     }
 
@@ -85,6 +101,7 @@ export class ContactFormComponent implements OnInit {
         if (contact._id) {
             this.update(contact);
         } else {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- drops the empty _id
             const { _id, ...newContact } = contact;
             this.save(newContact);
         }
@@ -93,23 +110,27 @@ export class ContactFormComponent implements OnInit {
     save(contact: NewContact): void {
         this.contactService.create(contact).subscribe({
             next: () => {
-                this.notificationService.success('Contact created successfully');
+                this.notificationService.success(
+                    'Contact created successfully'
+                );
                 this.router.navigate(['/contacts']);
             },
             error: () => {
                 this.notificationService.error('Failed to create contact');
-            }
+            },
         });
     }
     update(contact: Contact): void {
         this.contactService.update(contact).subscribe({
             next: () => {
-                this.notificationService.success('Contact updated successfully');
+                this.notificationService.success(
+                    'Contact updated successfully'
+                );
                 this.router.navigate(['/contacts']);
             },
             error: () => {
                 this.notificationService.error('Failed to update contact');
-            }
+            },
         });
     }
     ngOnInit(): void {

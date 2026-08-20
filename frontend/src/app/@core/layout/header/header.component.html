@@ -1,6 +1,10 @@
 <header class="navbar navbar-expand-lg navbar-dark fixed-top nga-navbar">
     <nav class="container" aria-label="Main navigation">
-        <a routerLink="/" class="navbar-brand d-flex align-items-center" alt="Home">
+        <a
+            routerLink="/"
+            class="navbar-brand d-flex align-items-center"
+            alt="Home"
+        >
             <i class="fas fa-address-book fa-lg me-2"></i>
             <span class="nga-logo" aria-label="Contacts">Contact Manager</span>
         </a>
@@ -17,27 +21,31 @@
         </button>
         <div class="navbar-collapse collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item" *ngIf="user">
-                    <a
-                        class="nav-link nga-nav-link px-3"
-                        aria-current="page"
-                        routerLink="/"
-                        routerLinkActive="active"
-                        [routerLinkActiveOptions]="{exact: true}"
-                    >
-                        <i class="fas fa-home me-1"></i>Home
+                @if (user) {
+                    <li class="nav-item">
+                        <a
+                            class="nav-link nga-nav-link px-3"
+                            aria-current="page"
+                            routerLink="/"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                        >
+                            <i class="fas fa-home me-1"></i>Home
                         </a>
-                        </li>
-                        <li class="nav-item" *ngIf="user">
-                    <a
-                        class="nav-link nga-nav-link px-3"
-                        aria-current="page"
-                        routerLink="/contacts"
-                        routerLinkActive="active"
-                    >
-                        <i class="fas fa-users me-1"></i>Contacts
+                    </li>
+                }
+                @if (user) {
+                    <li class="nav-item">
+                        <a
+                            class="nav-link nga-nav-link px-3"
+                            aria-current="page"
+                            routerLink="/contacts"
+                            routerLinkActive="active"
+                        >
+                            <i class="fas fa-users me-1"></i>Contacts
                         </a>
-                </li>
+                    </li>
+                }
                 <li class="nav-item">
                     <a
                         class="nav-link nga-nav-link px-3"
@@ -48,51 +56,64 @@
                         <i class="fab fa-github me-1"></i>GitHub
                     </a>
                 </li>
-                <li class="nav-item dropdown ms-2" ngbDropdown *ngIf="user">
-                    <a
-                        href="javascript:void(0)"
-                        id="user-dropdown"
-                        class="nav-link dropdown-toggle nga-user-btn d-flex align-items-center"
-                        ngbDropdownToggle
-                    >
-                        <div class="nga-avatar me-2">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span class="d-none d-md-inline">{{user?.firstName}} {{user?.lastName}}</span>
-                    </a>
-                    <div
-                        id="user-dropdown-menu"
-                        class="dropdown-menu dropdown-menu-end shadow-sm"
-                        ngbDropdownMenu
-                    >
-                        <div class="dropdown-header px-3 py-2 border-bottom">
-                            <small class="text-muted">Signed in as</small>
-                            <p class="mb-0 fw-semibold">{{user?.email}}</p>
-                        </div>
+                @if (user) {
+                    <li class="nav-item dropdown ms-2" ngbDropdown>
                         <a
-                            class="dropdown-item py-2"
-                            [routerLink]="['/profile']"
-                            routerLinkActive="router-link-active"
-                            ngbDropdownItem
+                            href="javascript:void(0)"
+                            id="user-dropdown"
+                            class="nav-link dropdown-toggle nga-user-btn d-flex align-items-center"
+                            ngbDropdownToggle
                         >
-                            <i class="fas fa-user-cog me-2 text-muted"></i> My Profile
+                            <div class="nga-avatar me-2">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="d-none d-md-inline"
+                                >{{ user?.firstName }}
+                                {{ user?.lastName }}</span
+                            >
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a
-                            href="javascript:void(0);"
-                            class="dropdown-item py-2 text-danger"
-                            (click)="logOut()"
-                            ngbDropdownItem
+                        <div
+                            id="user-dropdown-menu"
+                            class="dropdown-menu dropdown-menu-end shadow-sm"
+                            ngbDropdownMenu
                         >
-                            <i class="fas fa-sign-out-alt me-2"></i> Sign Out
+                            <div
+                                class="dropdown-header px-3 py-2 border-bottom"
+                            >
+                                <small class="text-muted">Signed in as</small>
+                                <p class="mb-0 fw-semibold">
+                                    {{ user?.email }}
+                                </p>
+                            </div>
+                            <a
+                                class="dropdown-item py-2"
+                                [routerLink]="['/profile']"
+                                routerLinkActive="router-link-active"
+                                ngbDropdownItem
+                            >
+                                <i class="fas fa-user-cog me-2 text-muted"></i>
+                                My Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a
+                                href="javascript:void(0);"
+                                class="dropdown-item py-2 text-danger"
+                                (click)="logOut()"
+                                ngbDropdownItem
+                            >
+                                <i class="fas fa-sign-out-alt me-2"></i> Sign
+                                Out
+                            </a>
+                        </div>
+                    </li>
+                }
+                @if (!user) {
+                    <li class="nav-item ms-2">
+                        <a class="btn nga-btn-login" routerLink="/login">
+                            <i class="fas fa-sign-in-alt me-1"></i> Sign In
                         </a>
-                    </div>
-                </li>
-                <li class="nav-item ms-2" *ngIf="!user">
-                    <a class="btn nga-btn-login" routerLink="/login">
-                        <i class="fas fa-sign-in-alt me-1"></i> Sign In
-                    </a>
-                </li>
+                    </li>
+                }
             </ul>
         </div>
     </nav>

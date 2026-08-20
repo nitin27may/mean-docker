@@ -3,9 +3,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class ValidationService {
-    constructor() {}
-
-    emailValidator(control: any) {
+    emailValidator(control: AbstractControl): ValidationErrors | null {
         // RFC 2822 compliant regex
         if (
             control.value &&
@@ -19,7 +17,7 @@ export class ValidationService {
         }
     }
 
-    mobileValidator(control: any) {
+    mobileValidator(control: AbstractControl): ValidationErrors | null {
         // RFC 2822 compliant regex
         if (
             control.value &&
@@ -32,7 +30,7 @@ export class ValidationService {
             return null;
         }
     }
-    passwordValidator(control: any) {
+    passwordValidator(control: AbstractControl): ValidationErrors | null {
         // RFC 2822 compliant regex
         if (
             control.value &&
