@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2026-08-20
 
 The 2026 modernization pass. See the audit in
 [`.claude/plans/2026-modernization.md`](.claude/plans/2026-modernization.md)
@@ -46,6 +46,11 @@ and the tracking issue for the full picture.
   `api/.eslintrc` was in a format ESLint 9+ cannot read.
 - `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CODEOWNERS`, a PR template and this
   changelog.
+- `scripts/setup.sh` — one command to check prerequisites, generate a signing
+  key, start the stack and wait for healthy.
+- `docs/troubleshooting.md` and `docs/audit-2026-08.md`.
+- `CLAUDE.md`, a repo-local `.claude/` with `/verify`, `/bump-deps` and
+  `/audit`, and an optional `.mcp.json`.
 
 ### Changed
 
@@ -85,10 +90,15 @@ and the tracking issue for the full picture.
 - Deleted two orphan files: the root `dockerfile` (Node 20, EOL) and
   `api/docker-compose.yml` (mounted paths that do not exist).
 
+## [Unreleased]
+
+Nothing yet.
+
 ## [1.0.0]
 
 Initial release: MEAN stack contact manager with Docker Compose, JWT auth and
 an Nginx gateway.
 
-[Unreleased]: https://github.com/nitin27may/mean-docker/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/nitin27may/mean-docker/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/nitin27may/mean-docker/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/nitin27may/mean-docker/releases/tag/v1.0.0
