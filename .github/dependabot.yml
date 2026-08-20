@@ -1,9 +1,9 @@
-# Weekly dependency updates. Minor and patch bumps are grouped into a single PR
+# Weekly dependency updates. Both workspaces use pnpm. Minor and patch bumps are grouped into a single PR
 # per ecosystem so a semi-annually-maintained repo does not drown in them;
 # majors arrive separately because they need a human to read the changelog.
 version: 2
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: pnpm
     directory: /api
     schedule:
       interval: weekly
@@ -14,7 +14,7 @@ updates:
       api-minor-and-patch:
         update-types: [minor, patch]
 
-  - package-ecosystem: npm
+  - package-ecosystem: pnpm
     directory: /frontend
     schedule:
       interval: weekly

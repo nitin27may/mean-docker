@@ -30,9 +30,9 @@ The Angular frontend uses a multi-stage build process to create a small, optimiz
 FROM node:22-alpine as builder
 # Copy dependency definitions
 COPY package.json package-lock.json ./
-## installing and Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+## installing and Storing node modules on a separate layer will prevent unnecessary installs at each build
 ## --legacy-peer-deps as ngx-bootstrap still depends on Angular 14
-RUN npm install --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
+RUN pnpm install --frozen-lockfile
 # Change directory so that our commands run inside this new directory
 WORKDIR /app
 # Get all the code needed to run the app
@@ -43,7 +43,7 @@ RUN echo "Replacing API endpoint with: $API_URL"
 RUN sed -i "s|apiEndpoint: '[^']*'|apiEndpoint: '$API_URL'|g" src/environments/environment.ts
 RUN cat src/environments/environment.ts
 # Build server side bundles
-RUN npm run build
+RUN pnpm run build
 FROM node:22-alpine
 ## From 'builder' copy published folder
 COPY --from=builder /app /app
@@ -73,11 +73,11 @@ WORKDIR /app
 # Install app dependencies by copying package.json and package-lock.json
 COPY package*.json ./
 # Install dependencies
-RUN npm install
+RUN pnpm install
 # Bundle app source
 COPY . .
 # Build TypeScript to JavaScript
-RUN npm run build
+RUN pnpm run build
 # Expose port for API
 EXPOSE 3000
 # Set non-root user for security

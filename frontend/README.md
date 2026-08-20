@@ -83,23 +83,23 @@ Responsive layout with Bootstrap 5:
 ### Prerequisites
 
 - Node.js 20+
-- npm or yarn
+- pnpm 11+ (`corepack enable` ships it with Node)
 
 ### Installation
 
 Install dependencies:
 ```bash
-npm install
+pnpm install
 ```
 
 ### Running Development Server
 
 ```bash
 # Development server with hot reload
-npm start
+pnpm start
 
 # Development server with API proxy
-npm run serve
+pnpm run serve
 ```
 
 The application will be available at `http://localhost:4200`.
@@ -108,10 +108,10 @@ The application will be available at `http://localhost:4200`.
 
 ```bash
 # Development build
-npm run build
+pnpm run build
 
 # Production build with SSR
-npm run build:prod
+pnpm run build:prod
 ```
 
 Build artifacts will be stored in the `dist/` directory.
@@ -127,8 +127,8 @@ FROM node:22-alpine
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --legacy-peer-deps
-RUN npm install -g @angular/cli
+RUN pnpm install --frozen-lockfile
+RUN pnpm add -g @angular/cli
 COPY . /app/
 EXPOSE 4200 49153
 ```
@@ -140,10 +140,10 @@ For production builds with SSR:
 ```dockerfile
 FROM node:22-alpine as builder
 COPY package.json package-lock.json ./
-RUN npm install --legacy-peer-deps && mkdir /app && mv ./node_modules ./app
+RUN pnpm install --frozen-lockfile
 WORKDIR /app
 COPY . /app/
-RUN npm run build
+RUN pnpm run build
 
 FROM node:22-alpine
 COPY --from=builder /app /app
@@ -236,7 +236,7 @@ During development, API calls are proxied to the backend using `proxy.conf.json`
 
 ```bash
 # Run unit tests
-npm test
+pnpm test
 ```
 
 The testing framework uses:

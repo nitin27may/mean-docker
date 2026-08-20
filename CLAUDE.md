@@ -54,9 +54,9 @@ docker compose up --build
 docker compose -f docker-compose.hub.yml up
 
 # Backend
-cd api && npm ci && npm run build && npm start     # dev: npm run dev:watch
+cd api && pnpm install --frozen-lockfile && pnpm run build && pnpm start     # dev: pnpm run dev:watch
 # Frontend
-cd frontend && npm ci && npm start                  # ng serve on :4200
+cd frontend && pnpm install --frozen-lockfile && pnpm start                  # ng serve on :4200
 ```
 
 Seeded login: `nitin27may@gmail.com` / `P@ssword#321`. Swagger: `http://localhost:3000/api-docs`.

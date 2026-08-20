@@ -1,14 +1,17 @@
 # Stage 1: build the Angular application
 FROM node:24-alpine AS builder
 
+# corepack ships with Node and pins pnpm to the version in package.json, so the
+# image does not depend on whatever pnpm happens to be latest at build time.
+RUN corepack enable
+
 WORKDIR /app
 
 # Dependencies install from the lockfile on their own layer, so a source change
-# does not reinstall them. npm ci (not npm install --legacy-peer-deps): with
-# @ng-bootstrap on a stable release the peer graph resolves, so the committed
-# lockfile is honoured and builds are reproducible.
-COPY package.json package-lock.json ./
-RUN npm ci
+# does not reinstall them. --frozen-lockfile fails rather than silently
+# resolving something new, which is what makes the build reproducible.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
@@ -17,7 +20,7 @@ COPY . .
 ARG API_URL="/api"
 RUN sed -i "s|apiEndpoint: '[^']*'|apiEndpoint: '$API_URL'|g" src/environments/environment.ts
 
-RUN npm run build
+RUN pnpm run build
 
 # Stage 2: serve the static bundle
 FROM nginx:1.29-alpine
@@ -34,6 +37,8 @@ USER nginx
 
 EXPOSE 4000
 
+# 127.0.0.1, not localhost: nginx listens on IPv4 only here and localhost
+# resolves to ::1 first, which would fail against a healthy container.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD wget --spider -q http://127.0.0.1:4000/ || exit 1
 

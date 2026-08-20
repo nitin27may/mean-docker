@@ -1,0 +1,59 @@
+# The first PR-triggered CI this repo has had. Kept deliberately cheap:
+# path-filtered, concurrency-cancelled, and with the pnpm store cached, because
+# Actions minutes are a real constraint here.
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: ${{ matrix.workspace }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace: [api, frontend]
+    defaults:
+      run:
+        working-directory: ${{ matrix.workspace }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: ${{ matrix.workspace }}/pnpm-lock.yaml
+
+      # --frozen-lockfile fails the build if the lockfile is out of date with
+      # package.json, rather than quietly resolving something else.
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run lint
+
+      - run: pnpm run build
+
+      - run: pnpm test
+
+  docker:
+    name: docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: docker/setup-buildx-action@v3
+
+      # Builds all three images the way a user would, without pushing anything.
+      # Catches Dockerfile breakage that the workspace jobs above cannot see.
+      - name: Build the compose stack
+        run: docker compose -f docker-compose.nginx.yml build

@@ -94,14 +94,14 @@ api/
 ### Prerequisites
 
 - Node.js 20+
-- npm or yarn
+- pnpm 11+ (`corepack enable` ships it with Node)
 - MongoDB instance (local or remote)
 
 ### Installation
 
 1. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. Create a `.env` file with the following variables:
@@ -120,19 +120,19 @@ api/
 
 Start the development server with hot reloading:
 ```bash
-npm run dev:watch
+pnpm run dev:watch
 ```
 
 ### Building for Production
 
 Build the TypeScript code:
 ```bash
-npm run build
+pnpm run build
 ```
 
 Start the production server:
 ```bash
-npm start
+pnpm start
 ```
 
 ## Docker Support

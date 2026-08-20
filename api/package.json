@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "clean": "rm -rf dist",
-    "build": "npm run clean && tsc",
+    "build": "pnpm run clean && tsc",
     "dev": "ts-node src/server.ts",
     "dev:watch": "nodemon --exec ts-node src/server.ts",
     "lint": "eslint .",
@@ -53,5 +53,6 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.11"
-  }
+  },
+  "packageManager": "pnpm@11.22.0"
 }
