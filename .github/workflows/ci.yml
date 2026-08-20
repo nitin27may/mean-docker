@@ -27,7 +27,7 @@ jobs:
       run:
         working-directory: ${{ matrix.workspace }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       # There is no package.json at the repository root, so point the action at
       # the workspace's own — that is where the pinned packageManager lives.
@@ -57,7 +57,7 @@ jobs:
     name: verify (stack)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: docker/setup-buildx-action@v3
 
