@@ -1,16 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
+// env loads .env as a side effect, so it must be imported before anything
+// that reads configuration.
+import env from './config/env';
+import { connectDB } from './config/database';
+
 // Import routes
 import apiRoutes from "./routes/api.routes";
-// import contactRoutes from './routes/contactRoutes';
-
-// Load environment variables
-dotenv.config();
 
 // Initialize express app
 const app = express();
@@ -19,23 +18,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Connect to MongoDB
-const username = process.env.MONGO_DB_USERNAME;
-const password = process.env.MONGO_DB_PASSWORD;
-const host = process.env.MONGO_DB_HOST;
-const port = process.env.MONGO_DB_PORT;
-const database = process.env.MONGO_DB_DATABASE;
-const parameters = process.env.MONGO_DB_PARAMETERS || '';
-
-const MONGODB_URI = process.env.MONGODB_URI || 
-`mongodb://${username}:${password}@${host}:${port}/${database}${parameters}`;
-
-console.log('Connecting to MongoDB...');
-console.log(MONGODB_URI);
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
 
 // Define Swagger options
 const swaggerOptions = {
@@ -48,7 +30,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: `http://localhost:${env.port}`,
         description: 'Development server',
       },
     ],
@@ -80,10 +62,16 @@ app.get('/', (req, res) => {
   res.send('Contact API is running');
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start server only once Mongo is reachable, so the container does not sit
+// there accepting traffic it cannot serve. connectDB exits on failure and
+// the restart policy brings us back around.
+const start = async (): Promise<void> => {
+  await connectDB();
+  app.listen(env.port, () => {
+    console.log(`Server is running on port ${env.port}`);
+  });
+};
+
+start();
 
 export default app;
