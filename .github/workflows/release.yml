@@ -1,0 +1,41 @@
+# Publishes all three images under a semver tag. Run this by pushing a tag:
+#
+#   git tag v2.0.0 && git push origin v2.0.0
+#
+# The per-image workflows keep :latest current on master; this is what produces
+# something a fork can actually pin to.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  angular:
+    if: github.repository == 'nitin27may/mean-docker'
+    uses: ./.github/workflows/docker-publish.yml
+    with:
+      image: mean-angular
+      context: frontend
+    secrets: inherit
+
+  express:
+    if: github.repository == 'nitin27may/mean-docker'
+    uses: ./.github/workflows/docker-publish.yml
+    with:
+      image: mean-expressjs
+      context: api
+    secrets: inherit
+
+  nginx:
+    if: github.repository == 'nitin27may/mean-docker'
+    uses: ./.github/workflows/docker-publish.yml
+    with:
+      image: mean-nginx
+      context: loadbalancer
+    secrets: inherit

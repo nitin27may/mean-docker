@@ -1,0 +1,45 @@
+# Weekly dependency updates. Minor and patch bumps are grouped into a single PR
+# per ecosystem so a semi-annually-maintained repo does not drown in them;
+# majors arrive separately because they need a human to read the changelog.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /api
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels: [dependencies, "area: api"]
+    groups:
+      api-minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels: [dependencies, "area: frontend"]
+    groups:
+      angular:
+        patterns: ["@angular/*", "@angular-devkit/*"]
+      frontend-minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: docker
+    directories: [/api, /frontend, /loadbalancer]
+    schedule:
+      interval: weekly
+      day: monday
+    labels: [dependencies, "area: docker"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels: [dependencies, "area: ci"]
+    groups:
+      actions:
+        update-types: [minor, patch]
