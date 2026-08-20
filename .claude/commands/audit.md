@@ -51,7 +51,10 @@ Verify each of these against the source, not memory:
 ## Security
 
 ```bash
-gitleaks detect --no-git
+# Scans full history, not just the working tree. The repo logged a
+# credential-bearing connection string to stdout for part of its life.
+# .gitleaks.toml allowlists the one deliberate test fixture.
+gitleaks detect --no-banner --redact
 docker compose -f docker-compose.nginx.yml logs express | grep -iE "mongodb://[^ ]*:[^ ]*@"
 ```
 

@@ -1,0 +1,25 @@
+# gitleaks configuration.
+#
+# Run before cutting a release:  gitleaks detect --no-banner --redact
+#
+# This repo logged a credential-bearing Mongo connection string to stdout for
+# part of its life, so history is worth scanning rather than assuming.
+title = "mean-docker"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic API key"
+regex = '''(?i)(?:key|api|token|secret|client|passwd|password|auth|access)(?:[0-9a-z\-_\t .]{0,20})(?:[\s|']|[\s|"]){0,3}(?:=|>|:{1,3}=|\|\|:|<=|=>|:|\?=|,)(?:'|\"|\s|=|\x60){0,5}([0-9a-z\-_.=]{10,150})(?:['|\"|\n|\r|\s|\x60|;|\\]|$)'''
+keywords = ["key", "api", "token", "secret", "client", "passwd", "password", "auth", "access"]
+
+[rules.allowlist]
+paths = ['''api/vitest\.setup\.ts''']
+regexes = ['''test-secret-that-is-at-least-32-characters-long''']
+description = """
+A fixed, non-secret value used by the API test suite. The API refuses to boot
+without a SECRET of at least 32 characters, which is itself under test, so the
+suite has to supply one. It is not used anywhere outside vitest.
+"""
