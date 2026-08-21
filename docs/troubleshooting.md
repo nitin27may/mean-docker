@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Troubleshooting
-nav_order: 8
+nav_order: 7
+description: "Fixes for the failures people actually hit running this MEAN stack Docker repo - port conflicts, MongoDB connection errors and failed first-run builds."
+last_modified_at: 2026-08-21
+priority: "0.8"
+changefreq: monthly
 ---
 
 # Troubleshooting
@@ -136,9 +140,11 @@ If you added a healthcheck, make sure it targets `127.0.0.1` and not
 resolves to `::1` first — so the check fails against a perfectly healthy
 container.
 
+{% raw %}
 ```bash
 docker inspect --format '{{json .State.Health}}' mean_angular | jq
 ```
+{% endraw %}
 
 ---
 

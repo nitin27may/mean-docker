@@ -2,6 +2,10 @@
 layout: default
 title: Roadmap
 nav_order: 9
+description: "What is planned next for the MEAN stack Docker starter, what shipped in the last maintenance pass, and what was deliberately left out."
+last_modified_at: 2026-08-21
+priority: "0.4"
+changefreq: yearly
 ---
 
 # Roadmap
@@ -12,8 +16,6 @@ nav_order: 9
 
 1. TOC
 {:toc}
-
-# Development Roadmap
 
 Undated on purpose. This repo gets a maintenance pass roughly twice a year, and
 the previous quarterly roadmap had lapsed by two quarters before anyone noticed

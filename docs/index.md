@@ -3,6 +3,10 @@ layout: home
 title: Home
 nav_order: 1
 permalink: /
+description: "A full-stack TypeScript contact manager on the MEAN stack - MongoDB, Express, Angular 22 and Node - containerised with Docker and fronted by Nginx."
+last_modified_at: 2026-08-21
+priority: "1.0"
+changefreq: weekly
 ---
 
 # MEAN Stack with Docker
@@ -11,7 +15,7 @@ permalink: /
 A full-stack TypeScript contact management application with comprehensive Docker integration.
 {: .fs-6 .fw-300 }
 
-[Get Started](#-getting-started-in-30-seconds){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Get Started](#getting-started-in-30-seconds){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/nitin27may/mean-docker){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
@@ -22,7 +26,7 @@ A full-stack TypeScript contact management application with comprehensive Docker
 
 A modern, full-stack TypeScript contact management system built with the MEAN stack (MongoDB, Express.js, Angular, Node.js) and containerized with Docker. Perfect for learning full-stack development or as a starting point for your own projects!
 
-## 🌟 What You'll Learn
+## What You'll Learn
 
 - **TypeScript** throughout the entire stack
 - **Angular 22** with standalone components, signals and zoneless change detection
@@ -33,7 +37,7 @@ A modern, full-stack TypeScript contact management system built with the MEAN st
 - **Nginx** as a load balancer and API gateway
 - **CI/CD** with GitHub Actions
 
-## 🚀 Getting Started in 30 Seconds
+## Getting Started in 30 Seconds
 
 ### Prerequisites
 
@@ -68,7 +72,7 @@ That's it! Visit [http://localhost](http://localhost) in your browser.
 - Username: `nitin27may@gmail.com`
 - Password: `P@ssword#321`
 
-## 🏗️ System Architecture
+## System Architecture
 
 <p align="center">
   <img src="screenshots/architecture.png" alt="Architecture Diagram" width="600">
@@ -86,7 +90,7 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 - **Simplified Deployment**: No need to manage multiple public endpoints
 - **Enhanced Security**: Internal services remain isolated from direct external access
 
-## 💻 Key Features
+## Key Features
 
 ### User Authentication
 
@@ -106,7 +110,7 @@ When using the `docker-compose.nginx.yml` configuration, all traffic flows throu
 - Form validation with custom error messages
 - Search, sort, and paginate contacts
 
-## 📚 Documentation
+## Documentation
 
 For more detailed information, explore these documentation pages:
 
@@ -125,7 +129,7 @@ They are linked to GitHub directly:
 - [Frontend (Angular)](https://github.com/nitin27may/mean-docker/blob/master/frontend/README.md)
 - [Load Balancer (Nginx)](https://github.com/nitin27may/mean-docker/blob/master/loadbalancer/README.md)
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions!
 
@@ -135,6 +139,6 @@ If you'd like to contribute to this project:
 - For feature requests, please use our [Feature Request Template](https://github.com/nitin27may/mean-docker/issues/new?template=feature_request.md)
 - For general issues or questions, please visit our [Issues page](https://github.com/nitin27may/mean-docker/issues)
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/nitin27may/mean-docker/blob/master/LICENSE){:target="_blank"} file for details.

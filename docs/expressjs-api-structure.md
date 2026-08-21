@@ -3,6 +3,10 @@ layout: default
 title: Backend Structure
 parent: Architecture
 nav_order: 1
+description: "Directory layout and request flow of the TypeScript Express.js API - routes, controllers, models, middleware and JWT authentication."
+last_modified_at: 2026-08-21
+priority: "0.7"
+changefreq: monthly
 ---
 
 # Express.js API Structure

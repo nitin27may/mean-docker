@@ -3,6 +3,10 @@ layout: default
 title: Frontend Structure
 parent: Architecture
 nav_order: 2
+description: "Directory layout of the Angular 22 frontend - standalone components, signals, services, route guards and HTTP interceptors in the MEAN stack app."
+last_modified_at: 2026-08-21
+priority: "0.7"
+changefreq: monthly
 ---
 
 # Angular Frontend Structure
@@ -85,11 +89,13 @@ Built-in control flow only — `@if`, `@for`, `@switch`. `*ngIf` and `*ngFor` ar
 lint errors. Note that `@if` does not narrow a signal call across the block, so
 bind it once:
 
+{% raw %}
 ```html
 @if (contact(); as contact) {
   {{ contact.firstName }}
 }
 ```
+{% endraw %}
 
 ## Forms
 

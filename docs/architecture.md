@@ -4,6 +4,10 @@ title: Architecture
 nav_order: 5
 has_children: true
 permalink: /architecture.html
+description: "How the MEAN stack containers fit together - Angular client, Express API, MongoDB and the Nginx load balancer - and what is allowed to talk to what."
+last_modified_at: 2026-08-21
+priority: "0.8"
+changefreq: monthly
 ---
 
 # Architecture
