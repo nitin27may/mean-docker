@@ -37,6 +37,12 @@ search_tokenizer_separator: /[\s/]+/
 aux_links:
   "View on GitHub":
     - "//github.com/nitin27may/mean-docker"
+  # This site had no link out of it anywhere -- not to the blog it is published
+  # under, not to its sibling doc sites. This one is the only project site Google
+  # has actually indexed, off an older crawl, so the equity it does carry was
+  # going nowhere. The three siblings below need it more than it does.
+  "nitinksingh.com":
+    - "/"
 
 # Footer content
 footer_content: "Copyright &copy; 2026 Nitin Singh. Distributed by an MIT license."
@@ -78,6 +84,17 @@ gh_edit_view_mode: "tree"
 nav_external_links:
   - title: MEAN Stack Contacts on GitHub
     url: https://github.com/nitin27may/mean-docker
+    hide_icon: false
+  # The sibling doc sites, all published under the same domain. Trailing slashes
+  # are required: GitHub Pages 301s the unslashed form of a directory index.
+  - title: AI Knowledge Hub
+    url: https://nitinksingh.com/ai-resources/
+    hide_icon: false
+  - title: E-Commerce Agents
+    url: https://nitinksingh.com/e-commerce-agents/
+    hide_icon: false
+  - title: Clean Architecture Starter
+    url: https://nitinksingh.com/clean-architecture-docker-dotnet-angular/
     hide_icon: false
 
 # Back to top link
