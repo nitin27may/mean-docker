@@ -4,6 +4,10 @@ title: Local Development
 nav_order: 3
 redirect_from:
   - /local-devlopment.html
+description: "Run the MEAN stack contact app locally without Docker - Node and MongoDB prerequisites, environment setup, and starting the Express API and Angular client."
+last_modified_at: 2026-08-21
+priority: "0.8"
+changefreq: monthly
 ---
 
 # Local Development
@@ -14,8 +18,6 @@ redirect_from:
 
 1. TOC
 {:toc}
-
-# Local Development Guide
 
 This guide explains how to set up and run the MEAN Stack Contacts application locally without Docker.
 

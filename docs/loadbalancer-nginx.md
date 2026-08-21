@@ -2,6 +2,10 @@
 layout: default
 title: Load Balancer (Nginx)
 nav_order: 8
+description: "How Nginx acts as load balancer and reverse proxy for the MEAN stack app - proxying /api to Express, serving the Angular build, one entry point on port 80."
+last_modified_at: 2026-08-21
+priority: "0.7"
+changefreq: monthly
 ---
 
 # Nginx Load Balancer

@@ -2,6 +2,10 @@
 layout: default
 title: Docker Guide
 nav_order: 2
+description: "How the MEAN stack Docker setup works: per-service Dockerfiles, the three docker-compose files, environment variables and multi-stage production builds."
+last_modified_at: 2026-08-21
+priority: "0.9"
+changefreq: monthly
 ---
 
 # Docker Guide

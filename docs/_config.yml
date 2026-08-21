@@ -1,12 +1,34 @@
-title: MEAN (Docker)
-description: A full-featured contact management application built with TypeScript-powered MEAN stack with Docker Support.
+title: MEAN Stack with Docker
+description: A full-stack TypeScript contact manager on the MEAN stack - MongoDB, Express, Angular 22 and Node - containerised with Docker and fronted by Nginx.
 remote_theme: just-the-docs/just-the-docs
+
+lang: en-US
 
 plugins:
   # Keeps the old /local-devlopment.html URL working after the spelling fix.
   - jekyll-redirect-from
+  - jekyll-seo-tag
 
-url: https://nitinksingh.com/mean-docker
+# `url` is the origin ONLY. The project path lives in `baseurl`.
+# Putting the path in `url` doubles it into every canonical/og:url that
+# jekyll-seo-tag emits (https://nitinksingh.com/mean-docker/mean-docker/...),
+# which is how every page on this site ended up canonicalised to a 404.
+url: https://nitinksingh.com
+baseurl: /mean-docker
+
+# Social / structured-data identity used by jekyll-seo-tag.
+author:
+  name: Nitin Singh
+twitter:
+  username: nitin27may
+  card: summary_large_image
+
+# Give every page an og:image unless it overrides `image` itself.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /screenshots/architecture.png
 
 # Enable support for hyphenated search keywords
 search_tokenizer_separator: /[\s/]+/
@@ -68,6 +90,6 @@ collapse_inactive_chapters: true
 # Enable copy code button
 enable_copy_code_button: true
 # Google Analytics Tracking (optional)
-ga_tracking: G-S7CCY33H9D
+ga_tracking: G-5Z8HS51RCP
 ga_tracking_anonymize_ip: true
 

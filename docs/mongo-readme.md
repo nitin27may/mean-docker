@@ -2,6 +2,10 @@
 layout: default
 title: MongoDB Setup
 nav_order: 4
+description: "MongoDB setup for the MEAN stack contact app: the initialisation script, seed data, users and collections, and how the container bootstraps the database."
+last_modified_at: 2026-08-21
+priority: "0.7"
+changefreq: monthly
 ---
 
 # MongoDB Database
@@ -12,8 +16,6 @@ nav_order: 4
 
 1. TOC
 {:toc}
-
-# MongoDB Configuration
 
 This directory contains the MongoDB configuration and seed data for the MEAN Stack Contacts application.
 
