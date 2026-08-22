@@ -45,7 +45,22 @@ aux_links:
     - "/"
 
 # Footer content
-footer_content: "Copyright &copy; 2026 Nitin Singh. Distributed by an MIT license."
+# Site-wide footer. The blog back-link lives here rather than only in
+# aux_links because footer_content renders on EVERY page, while aux_links reads
+# as chrome and is easy to miss. Raw HTML is safe: just-the-docs interpolates
+# footer_content without escaping (verified against live output -- `&copy;`
+# arrives as an entity, not `&amp;copy;`).
+#
+# Two links, both deliberate:
+#  - the parent site, so this doc site is not a dead end;
+#  - a TOPICAL deep link, which carries far more ranking signal than another
+#    homepage link. mean-docker has no dedicated blog post -- only a passing
+#    mention in the Codespaces article -- so the Docker category is the closest
+#    honest match. If a MEAN/Docker post is ever written, point this at it.
+footer_content: >-
+  Copyright &copy; 2026 Nitin Singh. Distributed by an MIT license.
+  &middot; Part of <a href="https://nitinksingh.com/">nitinksingh.com</a>
+  &middot; <a href="https://nitinksingh.com/categories/docker/">Docker articles on the blog</a>
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
