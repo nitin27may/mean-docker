@@ -45,22 +45,31 @@ aux_links:
     - "/"
 
 # Footer content
-# Site-wide footer. The blog back-link lives here rather than only in
-# aux_links because footer_content renders on EVERY page, while aux_links reads
-# as chrome and is easy to miss. Raw HTML is safe: just-the-docs interpolates
-# footer_content without escaping (verified against live output -- `&copy;`
-# arrives as an entity, not `&amp;copy;`).
+# Site-wide footer. Identical on all four doc sites by design, so the family
+# reads as one property rather than four unrelated microsites. It lives in the
+# footer rather than only in aux_links/nav because the footer renders on EVERY
+# page, while aux_links reads as chrome and is easy to miss.
 #
-# Two links, both deliberate:
-#  - the parent site, so this doc site is not a dead end;
-#  - a TOPICAL deep link, which carries far more ranking signal than another
-#    homepage link. mean-docker has no dedicated blog post -- only a passing
-#    mention in the Codespaces article -- so the Docker category is the closest
-#    honest match. If a MEAN/Docker post is ever written, point this at it.
+# Raw HTML is safe here: the theme interpolates this value without escaping
+# (verified against live output -- `&copy;` arrives as an entity, not
+# `&amp;copy;`).
+#
+# Each site links to itself as well as its siblings. That is deliberate: it is
+# what keeps the string byte-identical across all four repos, so the footer can
+# be copied between them without a per-site diff to reconcile.
+#
+# NOTE: an earlier revision carried a per-repo TOPICAL deep link here (e.g. the
+# Clean Architecture series for that repo), which carries more ranking signal
+# than a homepage link. That is incompatible with a uniform footer and was
+# dropped on purpose. If those are wanted back, nav_external_links is the place
+# -- it is already per-site, so it can differ without breaking this.
 footer_content: >-
   &copy; 2026 Nitin Singh &middot; MIT License
   &middot; <a href="https://nitinksingh.com/">nitinksingh.com</a>
-  &middot; <a href="https://nitinksingh.com/categories/docker/">Docker articles</a>
+  &middot; <a href="https://nitinksingh.com/ai-resources/">AI Knowledge Hub</a>
+  &middot; <a href="https://nitinksingh.com/e-commerce-agents/">E-Commerce Agents</a>
+  &middot; <a href="https://nitinksingh.com/clean-architecture-docker-dotnet-angular/">Clean Architecture</a>
+  &middot; <a href="https://nitinksingh.com/mean-docker/">MEAN Stack</a>
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
