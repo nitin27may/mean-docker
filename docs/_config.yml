@@ -45,7 +45,18 @@ aux_links:
     - "/"
 
 # Footer content
-footer_content: "Copyright &copy; 2026 Nitin Singh. Distributed by an MIT license."
+# Site-wide footer. Identical on all four doc sites by design, so the family
+# reads as one property rather than four unrelated microsites -- keep it
+# byte-identical when editing.
+#
+# It lives in the footer rather than only in aux_links because the footer
+# renders on EVERY page, while aux_links reads as chrome and is easy to miss.
+# Raw HTML is safe: the theme interpolates this without escaping (verified
+# against live output -- `&copy;` arrives as an entity, not `&amp;copy;`).
+#
+# Sibling doc-site links are deliberately NOT here; they live in
+# nav_external_links below, which is per-site and can differ freely.
+footer_content: '&copy; 2026 <a href="https://nitinksingh.com/">Nitin Singh</a> &middot; MIT License'
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
