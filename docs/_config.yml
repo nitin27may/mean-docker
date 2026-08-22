@@ -46,29 +46,17 @@ aux_links:
 
 # Footer content
 # Site-wide footer. Identical on all four doc sites by design, so the family
-# reads as one property rather than four unrelated microsites. It lives in the
-# footer rather than only in aux_links/nav because the footer renders on EVERY
-# page, while aux_links reads as chrome and is easy to miss.
+# reads as one property rather than four unrelated microsites -- keep it
+# byte-identical when editing.
 #
-# Raw HTML is safe here: the theme interpolates this value without escaping
-# (verified against live output -- `&copy;` arrives as an entity, not
-# `&amp;copy;`).
+# It lives in the footer rather than only in aux_links because the footer
+# renders on EVERY page, while aux_links reads as chrome and is easy to miss.
+# Raw HTML is safe: the theme interpolates this without escaping (verified
+# against live output -- `&copy;` arrives as an entity, not `&amp;copy;`).
 #
-# Each site links to itself as well as its siblings. That is deliberate: it is
-# what keeps the string byte-identical across all four repos, so the footer can
-# be copied between them without a per-site diff to reconcile.
-#
-# NOTE: an earlier revision carried a per-repo TOPICAL deep link here (e.g. the
-# Clean Architecture series for that repo), which carries more ranking signal
-# than a homepage link. That is incompatible with a uniform footer and was
-# dropped on purpose. If those are wanted back, nav_external_links is the place
-# -- it is already per-site, so it can differ without breaking this.
-footer_content: >-
-  &copy; 2026 <a href="https://nitinksingh.com/">Nitin Singh</a> &middot; MIT License
-  &middot; <a href="https://nitinksingh.com/ai-resources/">AI Knowledge Hub</a>
-  &middot; <a href="https://nitinksingh.com/e-commerce-agents/">E-Commerce Agents</a>
-  &middot; <a href="https://nitinksingh.com/clean-architecture-docker-dotnet-angular/">Clean Architecture</a>
-  &middot; <a href="https://nitinksingh.com/mean-docker/">MEAN Stack</a>
+# Sibling doc-site links are deliberately NOT here; they live in
+# nav_external_links below, which is per-site and can differ freely.
+footer_content: '&copy; 2026 <a href="https://nitinksingh.com/">Nitin Singh</a> &middot; MIT License'
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
