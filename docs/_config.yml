@@ -58,9 +58,9 @@ aux_links:
 #    mention in the Codespaces article -- so the Docker category is the closest
 #    honest match. If a MEAN/Docker post is ever written, point this at it.
 footer_content: >-
-  Copyright &copy; 2026 Nitin Singh. Distributed by an MIT license.
-  &middot; Part of <a href="https://nitinksingh.com/">nitinksingh.com</a>
-  &middot; <a href="https://nitinksingh.com/categories/docker/">Docker articles on the blog</a>
+  &copy; 2026 Nitin Singh &middot; MIT License
+  &middot; <a href="https://nitinksingh.com/">nitinksingh.com</a>
+  &middot; <a href="https://nitinksingh.com/categories/docker/">Docker articles</a>
 
 # Color scheme supports "light" (default) and "dark"
 color_scheme: light
