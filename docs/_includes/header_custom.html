@@ -1,0 +1,34 @@
+{%- comment -%}
+Live star count in the site header.
+
+just-the-docs renders this include inside `#main-header`, between the search box
+and `aux_nav` -- see the theme's `_includes/components/header.html`. It is an
+official extension point, so nothing from the remote theme has to be vendored
+here and a theme upgrade cannot silently drop this.
+
+Why it exists: the three MkDocs Material sibling sites display a star count
+natively (Material fetches it client-side from the GitHub API). just-the-docs has
+no equivalent, so this site showed nothing -- 118 stars sitting invisible on
+the project's own documentation. Social proof only: there is deliberately no
+"please star this repo" copy anywhere on the site.
+
+`.main-header` is `display: flex; justify-content: space-between` at the `md`
+breakpoint. With three children the middle one would strand in the centre, so
+`margin-left: auto` parks the badge against the aux links instead. Below `md` the
+whole header is `display: none`, so this is desktop-only by the theme's own design.
+
+The image carries `height` but NOT `width`: shields.io sizes the badge to its
+content, so a hardcoded width would squash the digits the day the count gains one.
+`min-width` on the wrapper reserves the horizontal space instead, which is what
+actually prevents layout shift. Lazy + async because a decorative badge should
+never block the header.
+{%- endcomment -%}
+<div class="header-star-count" style="display:flex;align-items:center;margin-left:auto;padding:0 1rem;min-width:121px;">
+  <a href="https://github.com/nitin27may/mean-docker/stargazers"
+     title="Star mean-docker on GitHub"
+     aria-label="Star mean-docker on GitHub">
+    <img src="https://img.shields.io/github/stars/nitin27may/mean-docker?style=flat&logo=github&label=Star&color=0f766e"
+         alt="GitHub stars for nitin27may/mean-docker"
+         height="20" loading="lazy" decoding="async">
+  </a>
+</div>
