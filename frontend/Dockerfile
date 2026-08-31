@@ -1,5 +1,5 @@
 # Stage 1: build the Angular application
-FROM node:24-alpine AS builder
+FROM node:26-alpine AS builder
 
 # corepack ships with Node and pins pnpm to the version in package.json, so the
 # image does not depend on whatever pnpm happens to be latest at build time.
