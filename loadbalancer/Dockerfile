@@ -1,4 +1,4 @@
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 
 # This config replaces the whole nginx.conf, not a server block in conf.d.
 COPY nginx.conf /etc/nginx/nginx.conf
