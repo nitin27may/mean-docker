@@ -5,7 +5,7 @@ nav_order: 5
 has_children: true
 permalink: /architecture.html
 description: "How the MEAN stack containers fit together - Angular client, Express API, MongoDB and the Nginx load balancer - and what is allowed to talk to what."
-last_modified_at: 2026-08-21
+last_modified_at: 2026-11-21
 priority: "0.8"
 changefreq: monthly
 ---
@@ -23,8 +23,8 @@ How the containers fit together, and what talks to what.
 |---|---|---|
 | `nginx` | built from `loadbalancer/` | The gateway. The only container published to the host in production mode |
 | `angular` | built from `frontend/` | Nginx serving the compiled Angular bundle. Not a Node server — there is no SSR |
-| `express` | built from `api/` | The REST API. Node 24, Express 5, TypeScript |
-| `database` | `mongo:8.2` | MongoDB, reachable only from `express` in production mode |
+| `express` | built from `api/` | The REST API. Node 26 LTS, Express 5, TypeScript |
+| `database` | `mongo:9.0` | MongoDB, reachable only from `express` in production mode |
 
 ## Deployment Modes
 

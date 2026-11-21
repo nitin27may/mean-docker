@@ -54,7 +54,7 @@ published. This one is maintained against a specific standard:
 | **Secure defaults that fail closed** | The API refuses to boot without a real JWT secret rather than falling back to a shared one. Containers run non-root. MongoDB is not published to the host in the Nginx mode |
 | **Lint, build and test all pass** | In both workspaces, on every PR. Not aspirational scripts that error on a fresh clone |
 | **The maintenance is documented** | [The audit](docs/audit-2026-08.md) that drove the last pass is published in full, including what was broken and why. So is the [changelog](CHANGELOG.md) |
-| **Current, deliberately** | Angular 22, Express 5, Node 24 LTS, MongoDB 8.2 — pinned, not floating, so what you read is what you run |
+| **Current, deliberately** | Angular 22, Express 5, Node 26 LTS, MongoDB 9.0 — pinned, not floating, so what you read is what you run |
 
 Maintenance is a pass roughly twice a year, and the roadmap is undated on
 purpose — a quarterly plan on a semi-annual repo just lapses.
@@ -75,7 +75,7 @@ This project demonstrates a production-ready MEAN stack application with modern 
 |---------|------------|
 | Frontend | Angular 22 with TypeScript and Bootstrap 5 |
 | Backend | Express.js 5 with TypeScript |
-| Database | MongoDB 8.2 with Mongoose 9 |
+| Database | MongoDB 9.0 with Mongoose 9 |
 | Authentication | JWT-based secure authentication |
 | Containerization | Docker and Docker Compose |
 | Load Balancer | Nginx reverse proxy |
@@ -157,8 +157,8 @@ flowchart TB
 | Layer | Stack |
 |:------|:------|
 | **Frontend** | Angular 22 (standalone components, signals, zoneless change detection), TypeScript 6, Bootstrap 5, ng-bootstrap, RxJS, router guards |
-| **Backend** | Node.js 24, Express 5, TypeScript 6 (strict), Mongoose 9, JWT auth, Helmet, rate limiting |
-| **Database** | MongoDB 8.2 with seeded demo data |
+| **Backend** | Node.js 26 LTS, Express 5, TypeScript 6 (strict), Mongoose 9, JWT auth, Helmet, rate limiting |
+| **Database** | MongoDB 9.0 with seeded demo data |
 | **Tooling** | pnpm 11, ESLint, Vitest (both workspaces) |
 | **DevOps** | Docker multi-stage builds, Docker Compose, Nginx, GitHub Actions |
 
@@ -213,6 +213,13 @@ docker compose -f docker-compose.nginx.yml up --build
 ```
 
 Pin a release with `IMAGE_TAG=2.0.0` in `.env` instead of tracking `latest`.
+
+> **Upgrading from 2.0.x?** MongoDB moved from 8.2 (end of life) to 9.0, and 9.0
+> cannot open a data volume created by 8.2 — the database container exits with
+> `UPGRADE PROBLEM: Found an invalid featureCompatibilityVersion document`. Run
+> `./scripts/setup.sh --reset` once to drop the demo volume and reseed. Also
+> delete any `NODE_ENV=` line from your `.env`; see the
+> [CHANGELOG](CHANGELOG.md) for why.
 
 ### Default Login
 

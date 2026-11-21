@@ -55,3 +55,19 @@ gone stale.
 
 Run `/verify` in full. A dependency bump that has not had the stack brought up
 is not finished.
+
+## Traps found in the 2026-11 pass
+
+- **Build every image after a base-image bump.** Dependabot moved Node 24 → 26 and the images
+  stopped building — Node 25+ does not bundle corepack. Lint and unit tests cannot see this.
+- **Check MongoDB's lifecycle, not just Docker Hub tags.** A Rapid Release can be end of life while
+  its tag still exists. Look at the tag's `last_updated`: a tag that has not been rebuilt in months
+  is not receiving security patches.
+- **A MongoDB major is a data migration.** Test the old volume under the new image before writing
+  the CHANGELOG, and say what users must do.
+- **Respect pnpm's `minimumReleaseAge`.** If `pnpm add` offers a `minimumReleaseAgeExclude` entry,
+  pin the previous release instead.
+- **Vitest 5 makes `vite` a peer.** Declare it explicitly, or pnpm keeps a stale auto-installed copy
+  that `pnpm update` will not move.
+- **Read the open Dependabot PRs, not just `pnpm outdated`.** Count them against each ecosystem's
+  `open-pull-requests-limit`; a full queue hides newer majors entirely.

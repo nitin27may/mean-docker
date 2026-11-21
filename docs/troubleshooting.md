@@ -3,7 +3,7 @@ layout: default
 title: Troubleshooting
 nav_order: 7
 description: "Fixes for the failures people actually hit running this MEAN stack Docker repo - port conflicts, MongoDB connection errors and failed first-run builds."
-last_modified_at: 2026-08-21
+last_modified_at: 2026-11-21
 priority: "0.8"
 changefreq: monthly
 ---
@@ -49,6 +49,30 @@ The key must be at least 32 characters.
 
 ## MongoDB will not start
 
+### "UPGRADE PROBLEM: Found an invalid featureCompatibilityVersion document"
+
+```
+"s":"F", "msg":"Wrong mongod version", "error":"UPGRADE PROBLEM: Found an invalid
+featureCompatibilityVersion document ... version: \"8.2\" }
+```
+
+The database container exits with code 62 and restarts in a loop. Your
+`mongo-data` volume was created by MongoDB 8.2 (releases before 3.0.0), and
+MongoDB 9.0 can only open data from 8.0 or 8.3. The seed data is demo data, so
+the fix is to drop the volume and let the init script reseed it:
+
+```bash
+docker compose -f docker-compose.nginx.yml down -v   # -v removes mongo-data
+docker compose -f docker-compose.nginx.yml up -d
+```
+
+Use the compose file you normally run. If you have data in that volume you
+want to keep, `mongodump` it with a `mongo:8.2` container first, or step the
+volume through `mongo:8.3` and `setFeatureCompatibilityVersion: "8.3"` before
+starting 9.0.
+
+### "Linux kernel versions 6.19 and newer has a known incompatibility"
+
 ```
 MongoDB cannot start: Linux kernel versions 6.19 and newer has a known
 incompatibility with this version of MongoDB.
@@ -56,11 +80,11 @@ incompatibility with this version of MongoDB.
 
 MongoDB 8.0 does not run on Linux kernel 6.19 or newer
 ([SERVER-121912](https://jira.mongodb.org/browse/SERVER-121912)). This repo
-pins `mongo:8.2` for exactly that reason. If you see this, something is pulling
+pins `mongo:9.0`, which is not affected. If you see this, something is pulling
 an older tag — check for a local override:
 
 ```bash
-grep -rn "image: mongo" docker-compose*.yml     # should all say 8.2
+grep -rn "image: mongo" docker-compose*.yml     # should all say 9.0
 docker compose -f docker-compose.nginx.yml pull database
 uname -r                                         # your kernel version
 ```

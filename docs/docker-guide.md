@@ -3,7 +3,7 @@ layout: default
 title: Docker Guide
 nav_order: 2
 description: "How the MEAN stack Docker setup works: per-service Dockerfiles, the three docker-compose files, environment variables and multi-stage production builds."
-last_modified_at: 2026-08-21
+last_modified_at: 2026-11-21
 priority: "0.9"
 changefreq: monthly
 ---
@@ -33,11 +33,13 @@ builds the Angular bundle and serves it with Nginx.
 
 ```dockerfile
 # Stage 1: build the Angular application
-FROM node:24-alpine AS builder
+FROM node:26-alpine AS builder
 
-# corepack ships with Node and pins pnpm to the version in package.json, so the
+# corepack pins pnpm to the `packageManager` version in package.json, so the
 # image does not depend on whatever pnpm happens to be latest at build time.
-RUN corepack enable
+# Node stopped bundling corepack in v25, so it is installed from npm first —
+# pinned, because an unpinned tool here would undo the point of pinning pnpm.
+RUN npm install -g corepack@0.36.0 && corepack enable
 
 WORKDIR /app
 
@@ -57,7 +59,7 @@ RUN sed -i "s|apiEndpoint: '[^']*'|apiEndpoint: '$API_URL'|g" src/environments/e
 RUN pnpm run build
 
 # Stage 2: serve the static bundle
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/contacts/browser /usr/share/nginx/html
@@ -94,11 +96,13 @@ dependencies.
 
 ```dockerfile
 # Stage 1: compile TypeScript
-FROM node:24-alpine AS builder
+FROM node:26-alpine AS builder
 
-# corepack ships with Node and pins pnpm to the version in package.json, so the
+# corepack pins pnpm to the `packageManager` version in package.json, so the
 # image does not depend on whatever pnpm happens to be latest at build time.
-RUN corepack enable
+# Node stopped bundling corepack in v25, so it is installed from npm first —
+# pinned, because an unpinned tool here would undo the point of pinning pnpm.
+RUN npm install -g corepack@0.36.0 && corepack enable
 
 WORKDIR /app
 
@@ -111,9 +115,9 @@ COPY . .
 RUN pnpm run build
 
 # Stage 2: runtime — production dependencies and compiled output only
-FROM node:24-alpine
+FROM node:26-alpine
 
-RUN corepack enable
+RUN npm install -g corepack@0.36.0 && corepack enable
 
 WORKDIR /app
 ENV NODE_ENV=production
@@ -147,7 +151,7 @@ CMD ["node", "dist/server.js"]
 is the single entry point in the Nginx deployment mode.
 
 ```dockerfile
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 
 # This config replaces the whole nginx.conf, not a server block in conf.d.
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -169,7 +173,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 **Notable points:**
-- **Pinned base image**: `nginx:1.29-alpine`, not a floating tag.
+- **Pinned base image**: `nginx:1.31-alpine`, not a floating tag.
 - **Unprivileged**: listens on 8080, since binding 80 as a non-root user would
   need an extra capability. Compose publishes `80:8080`.
 
@@ -228,9 +232,11 @@ services:
       - mean
 
   database:
-    # 8.2, not 8.0: MongoDB 8.0 refuses to start on Linux kernel 6.19+
-    # (SERVER-121912), which rules it out on current distributions.
-    image: mongo:8.2
+    # Pinned to the 9.0 major, not a Rapid Release: 8.2 went end of life in
+    # July 2026, between maintenance passes. 8.0 is out too: it refuses to start
+    # on Linux kernel 6.19+ (SERVER-121912). A data volume created by 8.2 will
+    # not open under 9.0 — see CHANGELOG 3.0.0 (`down -v` and reseed).
+    image: mongo:9.0
     container_name: ${ID_PROJECT:-mean}_mongo
     restart: always
     environment:
@@ -306,9 +312,11 @@ services:
       - mean
 
   database:
-    # 8.2, not 8.0: MongoDB 8.0 refuses to start on Linux kernel 6.19+
-    # (SERVER-121912), which rules it out on current distributions.
-    image: mongo:8.2
+    # Pinned to the 9.0 major, not a Rapid Release: 8.2 went end of life in
+    # July 2026, between maintenance passes. 8.0 is out too: it refuses to start
+    # on Linux kernel 6.19+ (SERVER-121912). A data volume created by 8.2 will
+    # not open under 9.0 — see CHANGELOG 3.0.0 (`down -v` and reseed).
+    image: mongo:9.0
     container_name: ${ID_PROJECT:-mean}_mongo
     restart: always
     environment:
@@ -411,9 +419,11 @@ services:
       - mean
 
   database:
-    # 8.2, not 8.0: MongoDB 8.0 refuses to start on Linux kernel 6.19+
-    # (SERVER-121912), which rules it out on current distributions.
-    image: mongo:8.2
+    # Pinned to the 9.0 major, not a Rapid Release: 8.2 went end of life in
+    # July 2026, between maintenance passes. 8.0 is out too: it refuses to start
+    # on Linux kernel 6.19+ (SERVER-121912). A data volume created by 8.2 will
+    # not open under 9.0 — see CHANGELOG 3.0.0 (`down -v` and reseed).
+    image: mongo:9.0
     container_name: ${ID_PROJECT:-mean}_mongo
     restart: always
     environment:
