@@ -34,6 +34,10 @@ updates:
       frontend-minor-and-patch:
         update-types: [minor, patch]
 
+  # A base-image major (node 24 -> 26) changes the toolchain, not just the
+  # runtime: Node 25+ dropped the bundled corepack, which broke every image
+  # build. Those PRs must pass `verify (stack)` before merging — never merge a
+  # Dockerfile bump on lint/test alone.
   - package-ecosystem: docker
     directories: [/api, /frontend, /loadbalancer]
     schedule:
@@ -41,12 +45,33 @@ updates:
       day: monday
     labels: [dependencies, "area: docker"]
 
+  # The compose files pin mongo, which the docker entry above never sees.
+  # (manifest/database-deployment.yaml is not covered by either — bump it by
+  # hand alongside the compose files.) MongoDB minors (9.1, 9.2, ...) are short-lived Rapid
+  # Releases — 8.2 went end of life between two maintenance passes — so only
+  # patch rebuilds and the next major are proposed.
+  - package-ecosystem: docker-compose
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels: [dependencies, "area: docker"]
+    ignore:
+      - dependency-name: mongo
+        update-types: ["version-update:semver-minor"]
+
+  # The default cap of 5 open PRs silently hid two action majors for months
+  # (upload-artifact, build-push-action). Majors are grouped as well: action
+  # majors are almost always runtime bumps and are cheaper reviewed together.
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
       day: monday
+    open-pull-requests-limit: 10
     labels: [dependencies, "area: ci"]
     groups:
       actions:
         update-types: [minor, patch]
+      actions-major:
+        update-types: [major]
