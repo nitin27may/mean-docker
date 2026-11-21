@@ -7,7 +7,8 @@ land on `master` and are published as a new release and set of Docker images.
 
 | Version | Supported |
 |---------|-----------|
-| 2.x     | Yes       |
+| 3.x     | Yes       |
+| 2.x     | No — runs MongoDB 8.2, which is end of life |
 | 1.x     | No        |
 
 Docker Hub images are tagged with the release version alongside `latest`. Pin a

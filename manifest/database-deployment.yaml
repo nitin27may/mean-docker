@@ -19,9 +19,11 @@ spec:
     spec:
       containers:
         - name: mean-mongo
-          # 8.2, not 8.0: MongoDB 8.0 refuses to start on Linux kernel 6.19+
-          # (SERVER-121912), which rules it out on current node images.
-          image: mongo:8.2
+          # Pinned to the 9.0 major, not a Rapid Release: 8.2 went end of life in
+          # July 2026, between maintenance passes. 8.0 is out too: it refuses to start
+          # on Linux kernel 6.19+ (SERVER-121912). A data volume created by 8.2 will
+          # not open under 9.0 — see CHANGELOG 3.0.0 (`down -v` and reseed).
+          image: mongo:9.0
           env:
             - name: MONGO_DB
               value: mean-contacts

@@ -23,7 +23,7 @@ For the architectural view, see the
 
 ## Getting Started
 
-Prerequisites: Node 24+ and pnpm 11 (`corepack enable` ships it with Node).
+Prerequisites: Node 24+ (the images run Node 26 LTS) and pnpm 11 via `corepack enable`. Node 25+ no longer bundles corepack — run `npm install -g corepack` first.
 
 ```bash
 pnpm install
@@ -92,7 +92,7 @@ export const environment = {
     angular: 'Angular 22',
     bootstrap: 'Bootstrap 5',
     expressjs: 'Express.js 5',
-    mongoDb: 'MongoDB 8.2',
+    mongoDb: 'MongoDB 9.0',
 };
 ```
 
@@ -113,7 +113,7 @@ and `docs/index.md`; see `.claude/rules/versioning.md`.
 ## Docker
 
 The image is a two-stage build: Node compiles the bundle, then
-`nginx:1.29-alpine` serves it as an unprivileged user on port 4000, with a
+`nginx:1.31-alpine` serves it as an unprivileged user on port 4000, with a
 healthcheck. The Dockerfile in this directory is the source of truth — see the
 [Docker guide](https://nitinksingh.com/mean-docker/docker-guide.html) for a
 walkthrough.

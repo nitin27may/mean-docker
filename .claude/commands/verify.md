@@ -45,7 +45,7 @@ The script exits non-zero if anything fails to reach healthy. Then confirm:
 
 - All four containers reach `healthy` (`docker compose -f docker-compose.nginx.yml ps`).
 - `http://localhost` serves the app, and logging in with
-  `nitin27may@gmail.com` / `P@ssword#321` lands on the contact list.
+  `nitin27may@gmail.com` / `P@ssword#321` lands on Home, and the Contacts link shows the seeded list.
 - Creating, editing and deleting a contact each work and raise a toast.
 - `docker compose -f docker-compose.nginx.yml logs express | grep -i "mongodb://.*:.*@"` returns nothing.
 - `curl -s -m 3 localhost:27017` fails — Mongo must not be reachable from the host in this mode.

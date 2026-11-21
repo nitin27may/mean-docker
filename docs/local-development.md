@@ -5,7 +5,7 @@ nav_order: 3
 redirect_from:
   - /local-devlopment.html
 description: "Run the MEAN stack contact app locally without Docker - Node and MongoDB prerequisites, environment setup, and starting the Express API and Angular client."
-last_modified_at: 2026-08-21
+last_modified_at: 2026-11-21
 priority: "0.8"
 changefreq: monthly
 ---
@@ -25,8 +25,8 @@ This guide explains how to set up and run the MEAN Stack Contacts application lo
 
 Before getting started, make sure you have the following installed:
 
-1. **Node.js 24+** (the current Active LTS, and what the images ship): [Download Node.js](https://nodejs.org/){:target="_blank"}
-2. **pnpm 11+** — run `corepack enable`, which ships with Node. Both workspaces use pnpm; npm will produce a lockfile the Docker build rejects.
+1. **Node.js 24+** — the images ship Node 26, the current Active LTS; 24 is still a supported LTS: [Download Node.js](https://nodejs.org/){:target="_blank"}
+2. **pnpm 11+** — run `corepack enable`. Node 24 bundles corepack; Node 25 and newer do not, so run `npm install -g corepack` first. Both workspaces use pnpm; npm will produce a lockfile the Docker build rejects.
 3. **MongoDB** (Community Edition): [Download MongoDB](https://www.mongodb.com/try/download/community){:target="_blank"}
 4. **Angular CLI** (optional but recommended): `pnpm add -g @angular/cli`
 
@@ -153,7 +153,7 @@ The API will be available at `http://localhost:3000/api`.
     angular: 'Angular 22',
     bootstrap: 'Bootstrap 5',
     expressjs: 'Express.js 5',
-    mongoDb: 'MongoDB 8.2',
+    mongoDb: 'MongoDB 9.0',
 };
 
    ```

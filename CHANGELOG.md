@@ -4,6 +4,66 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-11-21
+
+The 2026-11 maintenance pass. Audit and reasoning in
+[`.claude/plans/2026-11-maintenance.md`](.claude/plans/2026-11-maintenance.md).
+A major release only because of the MongoDB data-volume change below; the
+application API is unchanged.
+
+### Breaking
+
+- **MongoDB 8.2 → 9.0.** 8.2 was a Rapid Release and reached end of life on
+  2026-07-31; its image has had no rebuilds since. 9.0 cannot open a volume
+  created by 8.2 — the container exits with code 62 and
+  `UPGRADE PROBLEM: Found an invalid featureCompatibilityVersion document`.
+  The data is demo data: run `./scripts/setup.sh --reset` (or
+  `docker compose -f <file> down -v`) once. To keep data, step the volume
+  through `mongo:8.3` first. See `docs/troubleshooting.md`.
+
+### Fixed
+
+- **The API and frontend images did not build.** Dependabot moved both
+  Dockerfiles to `node:26-alpine`, and Node 25+ no longer bundles corepack, so
+  `corepack enable` failed with exit 127. The images now install a pinned
+  corepack from npm first; `packageManager` in `package.json` remains the one
+  place the pnpm version is set.
+- **The nginx and hub modes ran in development mode.** `.env.example` set
+  `NODE_ENV=development`, which overrode the compose files' `production`
+  default, so error responses carried stack traces and CORS reflected any
+  origin. The line is gone. **Delete `NODE_ENV=` from your existing `.env`.**
+- Docs that claimed Node 24 while the images ran Node 26; the Dockerfile
+  quotes in `docs/docker-guide.md`, which still showed `nginx:1.29-alpine`;
+  and the home page badge that said "MongoDB 8.2".
+
+### Changed
+
+- Node 26 LTS across images, CI and docs (became Active LTS on 2026-10-28).
+  Local development still works on Node 24.
+- Angular 22.1 → 22.3 (via `ng update`), angular-eslint 22.8, Vitest 4 → 5
+  in both workspaces, jsdom 31, typescript-eslint 8.73, ESLint 10.15.
+- Express 5.2 → 5.3, Mongoose 9.9 → 9.12, dotenv 17 → 18,
+  express-rate-limit 8.7; `@types/bcryptjs` removed (bcryptjs ships its own).
+- pnpm 11.22 → 11.28.
+- GitHub Actions: setup-node 7, login-action 4, build-push-action 7,
+  upload-artifact 7, configure-pages 6, deploy-pages 5,
+  upload-pages-artifact 5.
+- Dependabot now watches the compose files (MongoDB minors ignored — majors
+  only), and the Actions PR cap no longer hides majors.
+
+### Security
+
+- `pnpm audit`: api 39 → 2, frontend 76 → 0. Cleared every advisory reachable
+  at runtime: `proxy-addr` (critical), `body-parser`, `qs`, `ip-address`,
+  `mongoose`, `@angular/router`, `zod`. The two left are moderate, in
+  `glob`/`minimatch` under `swagger-jsdoc` (already its latest release), whose
+  only input is the hard-coded `apis` pattern read at boot.
+
+### Unchanged on purpose
+
+- TypeScript stays on 6.0: Angular 22 and typescript-eslint both cap it below
+  6.1. Angular 23 is not released yet. pnpm 12 is deferred to its own pass.
+
 ## [2.0.0] - 2026-08-20
 
 The 2026 modernization pass. See the audit in
@@ -99,6 +159,7 @@ Nothing yet.
 Initial release: MEAN stack contact manager with Docker Compose, JWT auth and
 an Nginx gateway.
 
-[Unreleased]: https://github.com/nitin27may/mean-docker/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/nitin27may/mean-docker/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/nitin27may/mean-docker/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/nitin27may/mean-docker/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/nitin27may/mean-docker/releases/tag/v1.0.0

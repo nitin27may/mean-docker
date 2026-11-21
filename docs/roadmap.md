@@ -3,7 +3,7 @@ layout: default
 title: Roadmap
 nav_order: 9
 description: "What is planned next for the MEAN stack Docker starter, what shipped in the last maintenance pass, and what was deliberately left out."
-last_modified_at: 2026-08-21
+last_modified_at: 2026-11-21
 priority: "0.4"
 changefreq: yearly
 ---
@@ -42,6 +42,14 @@ the previous quarterly roadmap had lapsed by two quarters before anyone noticed
 - Working CI with PR checks, multi-arch image publishing and semver tags
 - Security: required JWT secret, bearer-only auth, Helmet, rate limiting,
   non-root containers, no credentials in logs or committed manifests
+
+### 2026-11 maintenance pass
+- MongoDB 8.2 (end of life since July 2026) to 9.0; the pin now tracks majors, not Rapid Releases
+- Node 26 LTS everywhere — images, CI and docs agree again
+- Image builds fixed after Node 25+ stopped bundling corepack
+- Angular 22.3, Vitest 5, Mongoose 9.12, Express 5.3; every runtime-reachable advisory cleared
+- The nginx mode really runs in production mode (`NODE_ENV` removed from `.env.example`)
+- GitHub Actions on current majors; Dependabot also watches the compose files
 
 ## Planned
 

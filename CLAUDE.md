@@ -44,7 +44,8 @@ inside the Angular image (listens on 4000).
 
 ## Key Commands
 
-Both workspaces use **pnpm** (`corepack enable` ships it with Node).
+Both workspaces use **pnpm** via `corepack enable`. Node 25+ no longer bundles corepack, so on Node 26
+`npm install -g corepack` first — the Dockerfiles do exactly that, pinned.
 
 ```bash
 # One command: checks prerequisites, generates a JWT secret, waits for healthy.
@@ -96,8 +97,14 @@ Copy `.env.example` to `.env`, then **set a real `SECRET`** — the API refuses 
   ARM runners rather than QEMU, and every workflow cancels superseded runs.
 - **README badges resolve by workflow *file*** (`ci.yml`, `release.yml`), not by name. Renaming
   either file breaks a badge silently. A badge 404s until its workflow file exists on `master`.
-- **MongoDB is pinned to `8.2`, not `8.0`.** 8.0 refuses to start on Linux kernel 6.19+
-  (SERVER-121912), which rules it out on current distributions.
+- **MongoDB is pinned to the `9.0` major.** Not a Rapid Release (8.2 went EOL in July 2026, between
+  passes) and not 8.0 (refuses to start on Linux kernel 6.19+, SERVER-121912). An 8.2-created
+  volume will not open under 9.0 — `down -v` and reseed.
+- **`NODE_ENV` does not belong in `.env`.** Each compose file sets its own default; a value in
+  `.env` overrides it everywhere and silently runs the nginx mode with stack traces in responses
+  and CORS open to any origin.
+- **Docker Hub rate-limits anonymous pulls.** If a build fails with `429 Too Many Requests`,
+  `docker login` or pull the base image from `mirror.gcr.io/library/<image>` and retag it.
 - **The frontend is zoneless.** State that the view depends on must live in a signal. A `subscribe()`
   that assigns to a plain field will update the data and never repaint. Unit tests do not catch this
   — drive the browser.

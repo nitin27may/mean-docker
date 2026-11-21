@@ -6,9 +6,9 @@ This directory contains the TypeScript-based Express.js REST API for the MEAN St
 
 | | |
 |---|---|
-| Runtime | Node 24 (Active LTS) |
+| Runtime | Node 26 (Active LTS) |
 | Framework | Express 5 |
-| Database | MongoDB 8.2 via Mongoose 9 |
+| Database | MongoDB 9.0 via Mongoose 9 |
 | Language | TypeScript 6, `strict: true` |
 | Auth | JWT, `Authorization: Bearer` only |
 | Hardening | Helmet, rate limiting, CORS allowlist |
@@ -98,8 +98,8 @@ api/
 
 ### Prerequisites
 
-- Node.js 24+
-- pnpm 11+ (`corepack enable` ships it with Node)
+- Node.js 24+ (the image runs 26 LTS)
+- pnpm 11+ via `corepack enable` (on Node 25+, `npm install -g corepack` first — it is no longer bundled)
 - MongoDB instance (local or remote)
 
 ### Installation
