@@ -1,9 +1,11 @@
 # Stage 1: build the Angular application
 FROM node:26-alpine AS builder
 
-# corepack ships with Node and pins pnpm to the version in package.json, so the
+# corepack pins pnpm to the `packageManager` version in package.json, so the
 # image does not depend on whatever pnpm happens to be latest at build time.
-RUN corepack enable
+# Node stopped bundling corepack in v25, so it is installed from npm first —
+# pinned, because an unpinned tool here would undo the point of pinning pnpm.
+RUN npm install -g corepack@0.36.0 && corepack enable
 
 WORKDIR /app
 
