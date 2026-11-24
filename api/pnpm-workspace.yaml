@@ -5,3 +5,10 @@
 # install script is declined explicitly rather than left pending.
 allowBuilds:
   '@scarf/scarf': false
+
+# swagger-jsdoc 6.3.0 (latest) pins glob 11 / minimatch 10, which carry
+# advisories patched in glob 14.0.2 and minimatch 11.0.1. Drop these once
+# swagger-jsdoc ships a release that moves off them.
+overrides:
+  glob: ^14.0.6
+  minimatch: ^11.0.9
